@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HANAHANA STUDIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            border-bottom: 1px solid #000;
+        }
+
+        .header-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding: 40px;
+            border-right: 1px solid #000;
+        }
+
+        .logo {
+            display: block;
+            width: 48px;
+            height: 48px;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 40px;
+            border-bottom: 1px solid #000;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-item:hover {
+            background-color: #1D55A8;
+            color: #fff;
+        }
+
+        .nav-label {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .nav-arrow svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover .nav-arrow svg {
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin: 0 auto;
+            padding: 200px 150px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            padding: 100px 150px;
+        }
+
+        .intro-text {
+            font-size: 30px;
+            font-weight: 300;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Project List - full bleed */
+        .project-list-wrapper {
+            position: relative;
+            width: 100%;
+            border-top: 1px solid #000;
+        }
+
+        /* 全高连续竖线：absolute（无显式 z-index）即可绘制在静态格子之上，
+           避免持久合成层导致 hover 不重绘；展开的 dropdown 用 z-index 盖住它 */
+        .project-list-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background-image: linear-gradient(#000, #000), linear-gradient(#000, #000);
+            background-size: 1px 100%, 1px 100%;
+            background-position: 150px 0, calc(100% - 150px) 0;
+            background-repeat: no-repeat;
+        }
+
+        .section-title {
+            font-size: 96px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            line-height: 1.0;
+        }
+
+        .section-tagline {
+            font-size: 60px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.2;
+        }
+
+        /* Project List */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Project Item - 三列布局 */
+        .project-item {
+            display: grid;
+            grid-template-columns: 150px 1fr 150px;
+            cursor: pointer;
+        }
+
+        .project-left {
+            border-bottom: 1px solid #000;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 32px;
+        }
+
+        .project-name {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* 中间区域 */
+        .project-right {
+            border-bottom: 1px solid #000;
+            min-height: 160px;
+            padding: 24px 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
+        }
+
+        /* 右侧区域 */
+        .project-extra {
+            border-bottom: 1px solid #000;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 32px;
+        }
+
+        .project-extra svg {
+            width: 24px;
+            height: 24px;
+            color: #000;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .project-extra.active svg {
+            transform: rotate(90deg);
+        }
+
+        /* Dropdown Panel */
+        .dropdown-panel {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: #1D55A8;
+        }
+
+        /* 仅展开时抬高层级盖住穿过 dropdown 的全高竖线，只保留自己的三等分；
+           折叠时保持静态，避免创建持久合成层引发 hover 重绘 bug */
+        .project-item.is-open .dropdown-panel {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dropdown-col {
+            padding: 64px 40px;
+            border-right: 1px solid #000;
+            color: #fff;
+            border-bottom: 1px solid #000;
+        }
+
+        .dropdown-col:last-child {
+            border-right: none;
+        }
+
+        .dropdown-header {
+            grid-column: 1 / -1;
+            padding: 64px 40px;
+            border-bottom: 1px solid #000;
+            font-size: 30px;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .dropdown-single {
+            grid-template-columns: 1fr;
+        }
+
+        .dropdown-single .dropdown-col {
+            border-right: none;
+        }
+
+        .dropdown-col img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .dropdown-col table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dropdown-col th,
+        .dropdown-col td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+        }
+
+        .dropdown-col h3 {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .dropdown-col p {
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 100;
+            color: #fff;
+        }
+
+        .project-description {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.4;
+        }
+
+
+        .project-description p {
+            font-size: 24px;
+            font-weight: 400;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        .project-description ul,
+        .project-description ol {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .project-description li {
+            margin: 4px 0;
+        }
+
+        .project-description strong {
+            color: #000;
+        }
+
+        .project-description a {
+            color: #2446A8;
+            text-decoration: none;
+        }
+
+        .project-description a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* Table */
+        .project-description table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .project-description th,
+        .project-description td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-description th {
+            font-weight: 600;
+            color: #000;
+            background-color: transparent;
+        }
+
+        /* Hover 效果 — 背景统一染父级单一盒子（无格子接缝白缝）；
+           不加 z-index，让 ::after 竖线仍浮在橙色之上 */
+        .project-item:not(.is-open):hover,
+        .project-item.is-open {
+            background-color: #1D55A8;
+        }
+
+        .project-item:not(.is-open):hover .project-name,
+        .project-item:not(.is-open):hover .project-description,
+        .project-item.is-open .project-name,
+        .project-item.is-open .project-description {
+            color: #fff;
+        }
+
+        .project-item:not(.is-open):hover .project-extra svg,
+        .project-item.is-open .project-extra svg {
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .project-left {
+                padding: 20px 24px;
+            }
+
+            .project-right {
+                padding: 20px 24px;
+            }
+
+            .project-extra {
+                padding: 20px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-list-wrapper::after {
+                display: none;
+            }
+
+            .header-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-left {
+                border-right: none;
+                border-bottom: 1px solid #000;
+                padding: 24px 20px;
+            }
+
+
+            .nav-item {
+                padding: 12px 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .section-tagline {
+                font-size: 24px;
+            }
+
+            /* 移动端改为上下布局 */
+            .project-item {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .project-left {
+                border-right: none;
+                border-bottom: 1px solid #000;
+                justify-content: flex-start;
+                padding: 16px 20px;
+            }
+
+            .project-right {
+                padding: 16px 20px;
+            }
+
+            .project-extra {
+                border-left: none;
+                border-top: 1px solid #000;
+                justify-content: flex-start;
+                padding: 16px 20px;
+            }
+
+            .dropdown-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .dropdown-col {
+                padding: 20px;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+        }
+
+        @media (max-width: 480px) {
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-grid">
+            <div class="header-left">
+                <a href="#" class="logo">
+                  <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+            </div>
+            <nav class="header-right">
+                <a href="#" class="nav-item">
+                    <span class="nav-label">CONSULTING</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-label">ART HIGH SCHOOL</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-label">ARCHIVE</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-label">MEMBER</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-label">BLOG</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-label">ABOUT</span>
+                    <span class="nav-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1 class="section-title">HANAHANA STUDIO</h1>
+        <p class="section-tagline">BREATHE · CREATE · REPEAT</p>
+    </main>
+
+    <div class="intro-section">
+        <p class="intro-text">HANAHANA STUDIO 成立于北美艺术教育生态最严苛的语境之中。我们不是培训机构，不做批量生产，也不承诺捷径。我们做的事只有一件：帮助学生找到自己真正的学术人格，并用最严密的逻辑将它呈现出来。</p>
+    </div>
+
+    <div class="project-list-wrapper">
+        <div class="project-list">
+            <!-- Project 1 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">01</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">THE PHILOSOPHY</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-header">
+                        <p>BREATHE · CREATE · REPEAT</p>
+                        <p>这不是一句口号，而是一套工作方式:</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>[ BREATHE ] 屏蔽噪音</h3>
+                        <p>艺术升学最大的噪音，是焦虑。我们不谈 Offer，只谈作品。专注意味着沉浸——沉浸于大量严谨的调研、反复的推敲与诚实的自我审视。只有屏蔽了外部的喧嚣，作品才开始有灵魂。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>[ CREATE ] 无声的爆发</h3>
+                        <p>创造不是一次性的表演，而是专注之后的自然产出。我们拒绝套路，推崇扎实的构建。真正有力量的作品，内敛而克制——它藏在每一个经过推敲的像素里，藏在每一处逻辑自洽的叙事中。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>[ REPEAT ] 螺旋式迭代</h3>
+                        <p>重复不是原地踏步，而是进化的节奏。每一次循环都是对上一次的否定与升华。这是 HANAHANA STUDIO 构建学术厚度的方式——让作品从"平淡"中，长出惊人的密度。</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">02</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">CORE POSITIONING</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-header">
+                        <p>HANAHANA STUDIO 是一家专注北美顶尖艺术院校申请的战略咨询机构。我们以交互思维为方法论，深度融合 AI 工具与跨学科实践，帮助学生完成从"技能执行者"到"思维决策者"的身份跃迁:</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>学术画像 · ACADEMIC PROFILE</h3>
+                        <p>北美顶尖院校招收的不是"制图者"，而是有批判性思维的"决策者"。我们引入北美院校级别的 Critique（评判性讨论）体系，要求学生在每次创作中阐述决策背后的逻辑推演。作为 VIA（美国维吉尼亚国际学校）官方艺术部，我们同时为学生提供受北美认可的学术信誉背书。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>个性化叙事 · PERSONAL NARRATIVE</h3>
+                        <p>作品集不是项目的堆砌，而是个人世界观的物理投射。北美顶尖院校录取的核心命题只有一个：WHO YOU ARE，以及 WHY YOU。我们作为学生的"总设计师"，挖掘其独特的成长背景与跨学科兴趣，提炼出一条贯穿所有作品的逻辑主轴，确保文书与视觉材料互为印证。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>长期竞争力 · LONG-TERM CAREER LOGIC</h3>
+                        <p>升学只是起点。在 AI 重塑北美创意生态的当下，我们将"交互思维"作为底层能力植入学生的设计语言——学会解决"人与系统"之间的复杂关系，从执行者进化为决策者。</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">03</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">WHAT WE DO</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-header">
+                        <p>我们只盯北美学术金字塔尖的审美动向，做单点对标。不看平均值，只关注顶层设计生态的前沿波动:</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>跨学科实战 · INTERDISCIPLINARY PRACTICE</h3>
+                        <p>作品集不是视觉练习，而是针对真实社会命题的跨学科解决方案。我们打破单一学科壁垒，引导学生以交互思维与 AI 工具融合，在真实的问题语境中完成创作。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>北美评判体系 · NORTH AMERICAN CRITIQUE</h3>
+                        <p>每一次创作课，都以 Critique 收尾。学生必须用语言阐述每个设计决策的依据——不只是"我觉得好看"，而是"为什么这样做是对的"。这套严苛的学术对话机制，是与北美教授同频的核心训练。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>叙事策略 · NARRATIVE STRATEGY</h3>
+                        <p>从第一次沟通开始，我们就在为学生构建叙事。我们不做流水线模版，只做一对一的全案策略——从选题逻辑、视觉语言到文书框架，每个环节都服务于同一个学术人格的塑造。</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">04</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">MAJOR MATRIX</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-header">
+                        <p>我们拒绝将专业窄化为单一技能。在 HANAHANA STUDIO，所有学科都被视为连接"人类感知"与"外部世界"的实验场域，并重构为四个核心维度:</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>数字交互与数字媒体 · DIGITAL INTERACTION & MEDIA</h3>
+                        <p>以代码、算法与 AI 为创作介质，探索非线性叙事逻辑与数字世界的感官反馈。</p>
+                        <p>Interaction Design (IxD) — 交互设计<br>Creative Coding & Data Visualization — 创意编程与数据可视化<br>UX / UI Design — 用户体验与界面设计<br>Interactive Art — 交互艺术</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>空间与实体环境 · BUILT ENVIRONMENT & OBJECTS</h3>
+                        <p>将空间视为动态系统而非静止容器——研究建筑如何感知人的存在，产品如何重塑人的行为，而非仅仅制造形态。</p>
+                        <p>Architecture — 建筑设计<br>Interior & Spatial Design — 室内与空间设计<br>Industrial & Product Design — 工业与产品设计</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>科技驱动的纯艺术 · TECH-DRIVEN FINE ARTS</h3>
+                        <p>以 Digital Fabrication（数字制造）与 Physical Computing（物理计算）重塑传统媒介。我们探索技术与物质之间的哲学辩证，赋予古典材料以当代逻辑。</p>
+                        <p>Photography & Video — 摄影与影像<br>Sculpture & Installation — 雕塑与装置<br>Ceramics — 陶瓷<br>Studio Arts — 纯艺术</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 5 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">05</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">APPLICATION SYSTEM</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-header">
+                        <p>我们将申请视为一套系统工程。作品集、文书与简历，不是三份独立的材料，而是互为印证的三角闭环——每一环都在为同一个学术人格作证:</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>作品集 · WHAT YOU DO</h3>
+                        <p>思维的物理投射。作品集不是效果图的堆砌，而是"逻辑的容器"。每一个像素都是设计决策的证明，直观呈现你解决复杂问题的能力。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>文书与叙事 · WHY YOU DO IT</h3>
+                        <p>灵魂的深度解码。文书不是简历的扩写——它阐述作品背后的哲学思考与社会关怀，回答"WHY YOU"这个核心命题。</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <h3>系统闭环 · HOW YOU GOT HERE</h3>
+                        <p>顶尖申请材料的底层逻辑是"图文互通"：文书解释作品的动机，作品验证文书的观点，简历证明这条路径的必然性。三者严丝合缝，构建出一个无法被伪造的学术人格。</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 6 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">06</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">ADMISSIONS STATISTICS (2013–2025)</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel dropdown-single">
+                    <div class="dropdown-col">
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 7 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">07</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">STUDENT CASE STUDIES</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel dropdown-single">
+                    <div class="dropdown-col">
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 8 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">08</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description">MENTOR GROUP</div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel dropdown-single">
+                    <div class="dropdown-col">
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 9 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">09</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description"></div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-col">
+                        <p>Text content for Flux School project.</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <img src="https://placehold.co/400x300" alt="placeholder">
+                    </div>
+                    <div class="dropdown-col">
+                        <table><tr><th>Year</th><td>2014</td></tr><tr><th>Age Group</th><td>16-25</td></tr></table>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 10 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">10</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description"></div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-col">
+                        <p>Text content for Golden Age project.</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <img src="https://placehold.co/400x300" alt="placeholder">
+                    </div>
+                    <div class="dropdown-col">
+                        <table><tr><th>Artist</th><td>Rigos</td></tr><tr><th>Journey</th><td>35 years</td></tr></table>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 11 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">11</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description"></div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-col">
+                        <p>Text content for La Création du Monde project.</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <img src="https://placehold.co/400x300" alt="placeholder">
+                    </div>
+                    <div class="dropdown-col">
+                        <table><tr><th>Year</th><td>2000</td></tr><tr><th>Choreographer</th><td>Jean Börlin</td></tr></table>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 12 -->
+            <article class="project-item" onclick="toggleDropdown(this)">
+                <div class="project-left">
+                    <h2 class="project-name">12</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description"></div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel">
+                    <div class="dropdown-col">
+                        <p>Text content for Mirror project.</p>
+                    </div>
+                    <div class="dropdown-col">
+                        <img src="https://placehold.co/400x300" alt="placeholder">
+                    </div>
+                    <div class="dropdown-col">
+                        <table><tr><th>Artist</th><td>Euripides Laskaridis</td></tr><tr><th>Theme</th><td>Time & Space</td></tr></table>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(item) {
+            const panel = item.querySelector('.dropdown-panel');
+            const extra = item.querySelector('.project-extra');
+            const isOpen = item.classList.contains('is-open');
+
+            document.querySelectorAll('.project-item.is-open').forEach(openItem => {
+                openItem.classList.remove('is-open');
+                openItem.querySelector('.project-extra').classList.remove('active');
+                const openPanel = openItem.querySelector('.dropdown-panel');
+                openPanel.style.maxHeight = '0';
+            });
+
+            if (!isOpen) {
+                item.classList.add('is-open');
+                extra.classList.add('active');
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+        }
+    </script>
+</body>
+</html>
