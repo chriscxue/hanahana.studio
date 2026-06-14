@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HANAHANA Logo Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #fff;
+            color: #000;
+        }
+
+
+        .workspace {
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        /* 预览区 */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .matrix-sub-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #bbb;
+            margin: 24px 0 8px;
+        }
+
+        .preview-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 40px 20px;
+            border: 1px solid #ddd;
+        }
+
+        .preview-cell.dark {
+            background: #000;
+        }
+
+        .preview-cell.blue {
+            background: #1D55A8;
+        }
+
+        .preview-cell .size-label {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.1em;
+        }
+
+        .preview-cell.dark .size-label,
+        .preview-cell.blue .size-label {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .logo-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+        }
+
+        .preview-cell.dark .logo-preview {
+            color: #fff;
+        }
+
+        .preview-cell.blue .logo-preview {
+            color: #fff;
+        }
+
+        /* Header 上下文预览 — 与 header.html 一致 */
+        .mock-header {
+            border: 1px solid #000;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .mock-header-left {
+            padding: 40px;
+            border-right: 1px solid #000;
+            display: flex;
+            align-items: center;
+            background: #000;
+        }
+
+        .mock-header-left .logo-preview {
+            color: #000;
+        }
+
+        .mock-header-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mock-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 40px;
+            border-bottom: 1px solid #000;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .mock-nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .mock-nav-item:hover {
+            background: #F54E17;
+            color: #fff;
+        }
+
+        .mock-nav-arrow {
+            font-size: 10px;
+            opacity: 0.4;
+        }
+
+        /* 图片 logo 预览 */
+        .img-preview-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .img-preview-wrap label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        input[type="file"] {
+            font-family: inherit;
+            font-size: 13px;
+            padding: 8px 0;
+        }
+
+        .img-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            margin-top: 8px;
+        }
+
+        .img-preview-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 32px 16px;
+            border: 1px solid #ddd;
+        }
+
+        .img-preview-cell.dark { background: #000; }
+        .img-preview-cell.blue { background: #1D55A8; }
+
+        .img-preview-cell .size-label {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.1em;
+        }
+        .img-preview-cell.dark .size-label,
+        .img-preview-cell.blue .size-label { color: rgba(255,255,255,0.4); }
+
+        .img-preview-cell img {
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .img-preview-cell.dark img,
+        .img-preview-cell.blue img {
+            mix-blend-mode: screen;
+        }
+
+        hr.divider {
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="workspace">
+
+    <!-- 尺寸 × 背景矩阵 -->
+    <div>
+        <div class="section-label">SIZE × BACKGROUND MATRIX</div>
+
+        <!-- WHITE -->
+        <div class="matrix-sub-label">WHITE</div>
+        <div class="preview-grid">
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-white-100" style="width:100px;height:100px"></div>
+                <span class="size-label">A01 · 100px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-02-100" style="width:100px;height:100px"></div>
+                <span class="size-label">A02 · 100px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-06-100" style="width:100px;height:100px"></div>
+                <span class="size-label">A03 · 100px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-07-100" style="width:100px;height:100px"></div>
+                <span class="size-label">A04 · 100px</span>
+            </div>
+        </div>
+        <div class="preview-grid" style="margin-top:2px">
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-white-72" style="width:72px;height:72px"></div>
+                <span class="size-label">A01 · 72px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-02-72" style="width:72px;height:72px"></div>
+                <span class="size-label">A02 · 72px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-06-72" style="width:72px;height:72px"></div>
+                <span class="size-label">A03 · 72px</span>
+            </div>
+            <div class="preview-cell">
+                <div class="logo-preview" id="prev-07-72" style="width:72px;height:72px"></div>
+                <span class="size-label">A04 · 72px</span>
+            </div>
+        </div>
+
+        <!-- BLACK -->
+        <div class="matrix-sub-label">BLACK</div>
+        <div class="preview-grid">
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-dark-100" style="width:100px;height:100px"></div>
+                <span class="size-label">B01 · 100px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-white-glow-100" style="width:100px;height:100px"></div>
+                <span class="size-label">B02 · 100px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-inner-glow-100" style="width:100px;height:100px"></div>
+                <span class="size-label">B03 · 100px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-08-100" style="width:100px;height:100px"></div>
+                <span class="size-label">B04 · 100px</span>
+            </div>
+        </div>
+        <div class="preview-grid" style="margin-top:2px">
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-dark-72" style="width:72px;height:72px"></div>
+                <span class="size-label">B01 · 72px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-white-glow-72" style="width:72px;height:72px"></div>
+                <span class="size-label">B02 · 72px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-inner-glow-72" style="width:72px;height:72px"></div>
+                <span class="size-label">B03 · 72px</span>
+            </div>
+            <div class="preview-cell dark">
+                <div class="logo-preview" id="prev-08-72" style="width:72px;height:72px"></div>
+                <span class="size-label">B04 · 72px</span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Header 上下文预览 -->
+    <div>
+        <div class="section-label">IN CONTEXT — HEADER</div>
+        <div class="mock-header">
+            <div class="mock-header-left">
+                <div class="logo-preview" id="prev-header" style="width:200px;height:200px"></div>
+            </div>
+            <nav class="mock-header-right">
+                <span class="mock-nav-item">CONSULTING <span class="mock-nav-arrow">↗</span></span>
+                <span class="mock-nav-item">ART HIGH SCHOOL <span class="mock-nav-arrow">↗</span></span>
+                <span class="mock-nav-item">ARCHIVE <span class="mock-nav-arrow">↗</span></span>
+                <span class="mock-nav-item">MEMBER <span class="mock-nav-arrow">↗</span></span>
+                <span class="mock-nav-item">BLOG <span class="mock-nav-arrow">↗</span></span>
+                <span class="mock-nav-item">ABOUT <span class="mock-nav-arrow">↗</span></span>
+            </nav>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 图片 logo 上传测试 -->
+    <div>
+        <div class="section-label">IMAGE LOGO TEST</div>
+        <div class="img-preview-wrap">
+            <label>上传图片测试（PNG / SVG），对比各背景效果</label>
+            <input type="file" accept="image/*" onchange="previewImage(event)">
+            <div class="img-preview-grid">
+                <div class="img-preview-cell">
+                    <img id="img-white-100" src="" style="width:100px;height:100px;display:none">
+                    <span class="size-label">100px · WHITE</span>
+                </div>
+                <div class="img-preview-cell dark">
+                    <img id="img-dark-100" src="" style="width:100px;height:100px;display:none">
+                    <span class="size-label">100px · BLACK</span>
+                </div>
+                <div class="img-preview-cell blue">
+                    <img id="img-blue-100" src="" style="width:100px;height:100px;display:none">
+                    <span class="size-label">100px · BLUE</span>
+                </div>
+                <div class="img-preview-cell">
+                    <img id="img-white-48" src="" style="width:48px;height:48px;display:none">
+                    <span class="size-label">48px · WHITE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const defaultSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.7"/>
+      <stop offset="40%"  stop-color="#F54E17" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.7"/>
+      <stop offset="40%"  stop-color="#F54E17" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.7"/>
+      <stop offset="40%"  stop-color="#F54E17" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#g1)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#g2)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#g3)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#000"/>
+  <circle cx="48" cy="12" r="12" fill="#000"/>
+  <circle cx="84" cy="12" r="12" fill="#000"/>
+</svg>`;
+
+    const whiteGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#wg1)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#wg2)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#wg3)" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#000"/>
+  <circle cx="48" cy="12" r="12" fill="#000"/>
+  <circle cx="84" cy="12" r="12" fill="#000"/>
+</svg>`;
+
+    function previewImage(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        ['img-white-100','img-dark-100','img-blue-100','img-white-48'].forEach(id => {
+            const img = document.getElementById(id);
+            img.src = url;
+            img.style.display = 'block';
+        });
+    }
+
+    const innerGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="ig1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.05"/>
+      <stop offset="75%"  stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.65"/>
+    </radialGradient>
+    <radialGradient id="ig2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.05"/>
+      <stop offset="75%"  stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.65"/>
+    </radialGradient>
+    <radialGradient id="ig3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff" stop-opacity="0"/>
+      <stop offset="40%"  stop-color="#fff" stop-opacity="0.05"/>
+      <stop offset="75%"  stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.65"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="12" fill="#000"/>
+  <circle cx="48" cy="12" r="12" fill="#000"/>
+  <circle cx="84" cy="12" r="12" fill="#000"/>
+  <circle cx="12" cy="12" r="12" fill="url(#ig1)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.85;0.15" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="12" fill="url(#ig2)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.85;0.15" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="12" fill="url(#ig3)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.85;0.15" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+</svg>`;
+
+    const whiteRedGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="rg1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rg2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rg3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#rg1)" opacity="0.3">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#rg2)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#rg3)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#fff"/>
+  <circle cx="48" cy="12" r="12" fill="#fff"/>
+  <circle cx="84" cy="12" r="12" fill="#fff"/>
+</svg>`;
+
+    const blackDotRedGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="rg1b" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rg2b" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rg3b" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F54E17" stop-opacity="0.55"/>
+      <stop offset="35%"  stop-color="#F54E17" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#F54E17" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#F54E17" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#rg1b)" opacity="0.3">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#rg2b)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#rg3b)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#000"/>
+  <circle cx="48" cy="12" r="12" fill="#000"/>
+  <circle cx="84" cy="12" r="12" fill="#000"/>
+</svg>`;
+
+    // 初始化
+    ['prev-white-100','prev-white-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = whiteRedGlowSVG;
+    });
+    document.getElementById('prev-header').innerHTML = whiteGlowSVG;
+    const pastelGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="pg1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffd6ff" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#e7c6ff" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#c8b6ff" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#b8c0ff" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#bbd0ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#bbd0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pg2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffd6ff" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#e7c6ff" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#c8b6ff" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#b8c0ff" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#bbd0ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#bbd0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pg3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffd6ff" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#e7c6ff" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#c8b6ff" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#b8c0ff" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#bbd0ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#bbd0ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#pg1)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#pg2)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#pg3)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#000"/>
+  <circle cx="48" cy="12" r="12" fill="#000"/>
+  <circle cx="84" cy="12" r="12" fill="#000"/>
+</svg>`;
+
+    ['prev-dark-100','prev-dark-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = pastelGlowSVG;
+    });
+    ['prev-white-glow-100','prev-white-glow-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = whiteGlowSVG;
+    });
+    ['prev-02-100','prev-02-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = blackDotRedGlowSVG;
+    });
+    ['prev-inner-glow-100','prev-inner-glow-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = innerGlowSVG;
+    });
+    const rainbowGlowSVG = `<svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cg1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffbe0b" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#fb5607" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#ff006e" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#8338ec" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#3a86ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3a86ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cg2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffbe0b" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#fb5607" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#ff006e" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#8338ec" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#3a86ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3a86ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cg3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffbe0b" stop-opacity="0.9"/>
+      <stop offset="25%"  stop-color="#fb5607" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#ff006e" stop-opacity="0.5"/>
+      <stop offset="75%"  stop-color="#8338ec" stop-opacity="0.3"/>
+      <stop offset="90%"  stop-color="#3a86ff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3a86ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="12" cy="12" r="22" fill="url(#cg1)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="48" cy="12" r="22" fill="url(#cg2)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="84" cy="12" r="22" fill="url(#cg3)" opacity="0.15">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="12" cy="12" r="12" fill="#fff"/>
+  <circle cx="48" cy="12" r="12" fill="#fff"/>
+  <circle cx="84" cy="12" r="12" fill="#fff"/>
+</svg>`;
+
+    ['prev-06-100','prev-06-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = rainbowGlowSVG;
+    });
+    ['prev-07-100','prev-07-72'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = blackDotRedGlowSVG;
+    });
+
+</script>
+</body>
+</html>

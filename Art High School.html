@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ART HIGH SCHOOL — HANAHANA STUDIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scrollbar-gutter: stable; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+            scrollbar-gutter: stable;
+        }
+
+        /* Header */
+        .header { width: 100%; border-bottom: 1px solid #000; }
+        .header-grid { display: grid; grid-template-columns: 2fr 1fr; }
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 40px 150px;
+            border-right: 1px solid #000;
+            background: #000;
+        }
+        .logo { display: block; width: 200px; height: 200px; color: #000; text-decoration: none; }
+        .header-right { display: flex; flex-direction: column; }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+            border-bottom: 1px solid #000;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-item:last-child { border-bottom: none; }
+        .nav-item:hover { background-color: #F16527; color: #fff; }
+        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
+        .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
+
+        /* Layout */
+        .ahs-layout { width: 100%; }
+        .ahs-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid #000;
+        }
+
+        .ahs-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-top: 1px solid #000;
+        }
+
+        .ahs-row-hero {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+        .ahs-col {
+            padding: 48px 40px;
+        }
+        .ahs-col:not(:last-child) {
+            border-right: 1px solid #000;
+        }
+
+        .ahs-col-img {
+            border-right: 1px solid #000;
+            overflow: hidden;
+        }
+
+        .ahs-col-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ahs-col-img.grayscale img {
+            filter: grayscale(100%);
+            transition: filter 0.4s ease;
+        }
+
+        .ahs-col-img.grayscale:hover img {
+            filter: grayscale(0%);
+        }
+
+        .col-label {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 32px;
+        }
+
+        .col-body p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .col-body p:last-child { margin-bottom: 0; }
+
+        /* Tab Master-Detail — 左右结构 */
+        .ahs-tab-layout {
+            display: grid;
+            grid-template-columns: 25% 75%;
+            border-top: 1px solid #000;
+        }
+
+        .ahs-tab-nav {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #000;
+        }
+
+        .ahs-tab-item {
+            padding: 24px 40px;
+            font-size: 16px;
+            font-weight: 400;
+            cursor: pointer;
+            border-bottom: 1px solid #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .ahs-tab-item:last-child { border-bottom: none; }
+
+        .ahs-tab-item:hover,
+        .ahs-tab-item.active {
+            background-color: #F16527;
+            color: #fff;
+        }
+
+        .tab-panel { display: none; padding: 48px 40px; }
+        .tab-panel.active { display: block; }
+
+        .tab-panel table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 300;
+            border: 1px solid #000;
+        }
+
+        .tab-panel th,
+        .tab-panel td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .tab-panel th { font-weight: 500; white-space: nowrap; color: #000; }
+
+        .tab-panel tr:last-child td,
+        .tab-panel tr:last-child th { border-bottom: none; }
+
+        .tab-panel td { color: #333; }
+
+        .tab-section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; margin-top: 48px; }
+        .tab-section-title:first-child { margin-top: 0; }
+
+        .col-link {
+            display: inline-block;
+            margin-top: 24px;
+            font-size: 18px;
+            font-weight: 300;
+            color: #000;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .col-link:hover { color: #F16527; }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 40px 40px;
+            gap: 40px;
+        }
+        .footer-logo { display: block; width: 140px; height: 140px; }
+        .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+        @media (max-width: 768px) {
+            .header-grid { grid-template-columns: 1fr; }
+            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .nav-item { padding: 12px 20px; }
+            .main-content { padding: 80px 20px; }
+            .section-title { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-grid">
+            <div class="header-left">
+                <a href="Consulting.html" class="logo">
+                    <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="22" fill="url(#wg1)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="48" cy="12" r="22" fill="url(#wg2)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="84" cy="12" r="22" fill="url(#wg3)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="12" cy="12" r="12" fill="#000"/>
+                        <circle cx="48" cy="12" r="12" fill="#000"/>
+                        <circle cx="84" cy="12" r="12" fill="#000"/>
+                    </svg>
+                </a>
+            </div>
+            <nav class="header-right">
+                <a href="Consulting.html" class="nav-item">
+                    <span class="nav-label">CONSULTING</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Art High School.html" class="nav-item">
+                    <span class="nav-label">ART HIGH SCHOOL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Archive.html" class="nav-item">
+                    <span class="nav-label">ARCHIVE</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Member.html" class="nav-item">
+                    <span class="nav-label">MEMBER</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Channel.html" class="nav-item">
+                    <span class="nav-label">CHANNEL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="About.html" class="nav-item">
+                    <span class="nav-label">ABOUT</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="ahs-layout">
+        <div class="ahs-row-hero">
+            <div class="ahs-col-img grayscale">
+                <img src="../../../about via/官方网站内容/images/Certificate-1024x791.gif" alt="VIA Certificate of Accreditation">
+            </div>
+            <div class="ahs-col-img">
+                <img src="../Design Material/studio image/chris at studio.png" alt="placeholder">
+            </div>
+        </div>
+        <div class="ahs-row">
+            <div class="ahs-col">
+                <p class="col-label">About VIA</p>
+                <div class="col-body">
+                    <p>维吉尼亚国际学校创办于2012年，是一所独立的，无宗教背景的国际学校，旨在为国际学生进入美国高中和大学学习做好充分准备而提供教育和帮助。</p>
+                    <p>2013年我们在维吉尼亚州芙蓉镇的校园开始招收来自中国的留学生，首批学生15名，学校提供七至九年级的教育。2013至2022年之间，有超过250名学生就读过VIA，他们绝大多数都已经入读哈佛大学、宾夕法尼亚大学、哥伦比亚大学、纽约大学、维吉尼亚大学、南加利福尼亚大学、加州大学洛杉矶分校、加州大学伯克利分校、乔治亚理工大学、埃默里大学等等美国名校。</p>
+                    <p>2022年我们出售了芙蓉镇校园，同时把学校的教学范围扩展到高中。2025年，我们购入维吉尼亚州茂乐镇的新校园，可以容纳100名学生，我们在这里为初中和高中学生提供教育。</p>
+                    <p>VIA通过美国教育部指定的地区认证机构认证，是一所正规提供初中和高中学历教育的学校。图为VIA所获认证的证书。</p>
+                    <a href="https://usvia.org/" target="_blank" class="col-link">VIA官网</a>
+                </div>
+            </div>
+            <div class="ahs-col">
+                <p class="col-label">About Art Department</p>
+                <div class="col-body">
+                    <p>VIA 视觉艺术学部将艺术教育视为一个发展性过程——从材料能力到概念独立性的有序推进。课程体系的核心信念是：艺术语言无法被直接传授，它在学生与媒介、情境和批评的持续接触中逐渐显现。</p>
+                    <p>在 144 周的学习周期内，学生经历三个相互融合的阶段。工作室艺术阶段奠定基础实践：观察性素描、三维结构与材料探索。数字艺术阶段将这一基础延伸至新兴领域——AI 作为生成性工具、网页交互作为艺术媒介、电子元件作为表达材料。作品集与毕业创作阶段则将重心从"制作"转向"表达"：学生学习筛选、排列并阐释自己的作品，使之构成一份连贯的艺术陈述。</p>
+                    <p>VIA 与其他艺术预科项目的根本区别，在于它致力于为学生准备一个艺术与科技已不再截然分立的创作图景。当今正在重塑视觉文化的艺术家与设计师——无论是在互动媒体、生成性设计，还是体验式实践领域——都需要在这两个领域同时具备创作能力。VIA 的课程正是为培养这种双重流畅度而设计的：不是将技术作为艺术创作的辅助工具，而是将技术视为媒介、材料与观念领域本身。</p>
+                    <p>这一结构反映了 VIA 的核心教学信念：在艺术与设计院校申请中脱颖而出的学生，往往不是作品最多的人，而是最能清晰把握作品与意图之间关系的人——并且能够以清晰而有说服力的方式将这种关系表达出来。</p>
+                </div>
+            </div>
+        </div>
+        <div class="ahs-tab-layout">
+            <div class="ahs-tab-nav">
+                <div class="ahs-tab-item active" onclick="showTab('tab-1')">艺术课程体系</div>
+                <div class="ahs-tab-item" onclick="showTab('tab-2')">艺术课程周表</div>
+                <div class="ahs-tab-item" onclick="showTab('tab-3')">作息时间安排</div>
+            </div>
+            <div class="ahs-tab-content">
+                <div id="tab-1" class="tab-panel active"></div>
+                <div id="tab-2" class="tab-panel"></div>
+                <div id="tab-3" class="tab-panel">
+                    <p class="tab-section-title">周一至周五</p>
+                    <table>
+                        <thead><tr><th>时间</th><th>活动</th></tr></thead>
+                        <tbody>
+                            <tr><td>6:00</td><td>允许宿舍开灯</td></tr>
+                            <tr><td>7:15–8:00</td><td>食堂开始提供早餐</td></tr>
+                            <tr><td>7:45</td><td>食堂早点名</td></tr>
+                            <tr><td>8:15–8:25</td><td>晨会</td></tr>
+                            <tr><td>8:30–9:15</td><td>第一节课</td></tr>
+                            <tr><td>9:20–10:05</td><td>第二节课</td></tr>
+                            <tr><td>10:10–10:55</td><td>第三节课</td></tr>
+                            <tr><td>11:00–11:45</td><td>第四节课</td></tr>
+                            <tr><td>11:50–12:35</td><td>第五节课</td></tr>
+                            <tr><td>12:35–1:05</td><td>午餐</td></tr>
+                            <tr><td>1:05–1:50</td><td>第六节课</td></tr>
+                            <tr><td>1:55–2:40</td><td>第七节课</td></tr>
+                            <tr><td>2:45–3:30</td><td>第八节课</td></tr>
+                            <tr><td>3:30–5:30</td><td>课外活动或自由活动</td></tr>
+                            <tr><td>5:30–6:00</td><td>学校食堂提供晚餐</td></tr>
+                            <tr><td>6:30–9:20</td><td>晚自习（周五没有晚自习）</td></tr>
+                            <tr><td>10:20</td><td>完成洗漱，宿舍熄灯</td></tr>
+                            <tr><td>10:30</td><td>静音</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="tab-section-title">周六和周日</p>
+                    <table>
+                        <thead><tr><th>时间</th><th>周六</th><th>周日</th></tr></thead>
+                        <tbody>
+                            <tr><td>7:30–8:00</td><td>早餐</td><td>早餐</td></tr>
+                            <tr><td>8:00–12:00</td><td>手机时间</td><td>自由活动</td></tr>
+                            <tr><td>12:00–12:30</td><td>午餐</td><td>午餐</td></tr>
+                            <tr><td>12:30–17:30</td><td>沃尔玛、图书馆</td><td>校外活动</td></tr>
+                            <tr><td>17:30–18:00</td><td>晚餐</td><td>晚餐</td></tr>
+                            <tr><td>18:30–21:20</td><td>自由活动</td><td>三节晚自习</td></tr>
+                            <tr><td>22:20</td><td>完成洗漱，宿舍熄灯</td><td>完成洗漱，宿舍熄灯</td></tr>
+                            <tr><td>22:30</td><td>静音</td><td>静音</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="ahs-row-3">
+            <div class="ahs-col">
+                <p class="col-label">VIA办学宗旨</p>
+                <div class="col-body">
+                    <p>VIA立志成为美国初中和高中教育中的完美典范。我们强调学生在行为上、智力上、社交上、情感上和身体上的全面发展。我们相信学生的品质在他们的成功当中起很关键作用，因此我们鼓励学生们感恩、自尊、热情、参与、独立、成熟和负责任。</p>
+                </div>
+            </div>
+            <div class="ahs-col">
+                <p class="col-label">VIA座右铭</p>
+                <div class="col-body">
+                    <p>学习与成长。学习是应当贯穿人一生的持续性过程，学生将学会不断获取文化与知识，增强对世界的理解，改进行为规范，培养生活技能和获得幸福生活的能力。成长体现在学生在学术上、智力上、社交上、情感上和身体上的系统性变化和提升，摆脱稚嫩，走向成熟。</p>
+                </div>
+            </div>
+            <div class="ahs-col">
+                <p class="col-label">联系我们</p>
+                <div class="col-body">
+                    <p>学校地址：257 Toll House Rd, Maurertown VA 22644<br>学校电话：(703) 818-9178<br>校长邮箱：helen.wu@usvia.org<br>校长微信：helenwuva</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="Consulting.html" class="footer-logo">
+            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="fwg1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg3" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="12" cy="12" r="22" fill="url(#fwg1)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="48" cy="12" r="22" fill="url(#fwg2)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="84" cy="12" r="22" fill="url(#fwg3)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="12" cy="12" r="12" fill="#000"/>
+                <circle cx="48" cy="12" r="12" fill="#000"/>
+                <circle cx="84" cy="12" r="12" fill="#000"/>
+            </svg>
+        </a>
+        <div class="footer-info">
+            <p class="footer-name">HANAHANA STUDIO</p>
+            <p>USA</p>
+            <p>257 Toll House Road, Maurertown VA 22644 USA</p>
+            <p>chris.c.xue@gmail.com</p>
+            <p>微信: keokkeokchris</p>
+            <p class="footer-copyright">@2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.ahs-tab-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ABOUT — HANAHANA STUDIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scrollbar-gutter: stable; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+
+        /* Header */
+        .header { width: 100%; border-bottom: 1px solid #000; }
+        .header-grid { display: grid; grid-template-columns: 2fr 1fr; }
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 40px 150px;
+            border-right: 1px solid #000;
+            background: #000;
+        }
+        .logo { display: block; width: 200px; height: 200px; color: #000; text-decoration: none; }
+        .header-right { display: flex; flex-direction: column; }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+            border-bottom: 1px solid #000;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-item:last-child { border-bottom: none; }
+        .nav-item:hover { background-color: #F16527; color: #fff; }
+        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
+        .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
+
+        /* About Layout */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            min-height: calc(100vh - 284px);
+        }
+
+        .about-left {
+            border-right: 1px solid #000;
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        .about-left-row {
+            border-bottom: 1px solid #000;
+        }
+
+        .about-left-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Left column blocks */
+        .left-block {
+            padding: 48px 40px;
+        }
+
+        .left-block-label {
+            font-size: 28px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 32px;
+        }
+
+        .left-block-body {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #000;
+        }
+
+        .about-right {
+            display: grid;
+            grid-template-rows: auto auto auto;
+        }
+
+        .about-right-row {
+            border-bottom: 1px solid #000;
+        }
+
+        .about-right-row:first-child {
+            overflow: hidden;
+        }
+
+        .about-right-row:last-child {
+            border-bottom: none;
+        }
+
+        .about-right-row:first-child img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Letter block */
+        .letter-block {
+            padding: 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 64px;
+        }
+
+        .letter-title {
+            grid-column: 1 / -1;
+            font-size: 28px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 40px;
+        }
+
+        .letter-block p:not(.letter-title) {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #000;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .letter-signature {
+            font-size: 18px;
+            font-weight: 300;
+            color: #000;
+            margin-top: 8px;
+        }
+
+        /* Founder block */
+        .founder-block {
+            padding: 64px;
+        }
+
+        .founder-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin-bottom: 40px;
+        }
+
+        .founder-top-left {
+            flex: 1;
+        }
+
+        .founder-label {
+            font-size: 28px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .founder-name {
+            font-size: 24px;
+            font-weight: 400;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .founder-title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 0;
+        }
+
+        .founder-qr {
+            width: 104px;
+            height: 104px;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .founder-education {
+            list-style: none;
+            margin-bottom: 48px;
+            border-top: 1px solid #000;
+        }
+
+        .founder-education li {
+            display: flex;
+            gap: 24px;
+            padding: 14px 0;
+            border-bottom: 1px solid #e0e0e0;
+            line-height: 1.5;
+        }
+
+        .edu-year {
+            font-size: 15px;
+            font-weight: 300;
+            color: #000;
+            white-space: nowrap;
+            padding-top: 1px;
+        }
+
+        .edu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .edu-en {
+            font-size: 15px;
+            font-weight: 300;
+            color: #000;
+        }
+
+        .edu-zh {
+            font-size: 14px;
+            font-weight: 300;
+            color: #000;
+        }
+
+        .founder-bio p {
+            font-size: 18px;
+            font-weight: 300;
+            color: #000;
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .founder-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 40px 40px;
+            gap: 40px;
+        }
+        .footer-logo { display: block; width: 140px; height: 140px; }
+        .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+        @media (max-width: 768px) {
+            /* Header */
+            .header-grid { grid-template-columns: 1fr; }
+            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .nav-item { padding: 12px 20px; }
+
+            /* Layout: 右列先显示 */
+            .about-layout { grid-template-columns: 1fr; }
+            .about-right { order: 1; }
+            .about-left { order: 2; border-right: none; border-top: 1px solid #000; }
+            .about-left-row { grid-template-rows: unset; }
+
+            /* Padding 缩减 */
+            .left-block { padding: 32px 24px; }
+            .founder-block { padding: 32px 24px; }
+            .letter-block { padding: 32px 24px; gap: 0; }
+
+            /* 右3 信件改单列 */
+            .letter-block { grid-template-columns: 1fr; }
+            .letter-title { margin-bottom: 24px; }
+
+            /* 标题字号缩小 */
+            .left-block-label,
+            .founder-label,
+            .letter-title { font-size: 20px; }
+
+            .founder-name { font-size: 18px; }
+            .founder-title { font-size: 16px; }
+
+            /* QR 码随文字缩小 */
+            .founder-qr { width: 72px; height: 72px; }
+
+            /* 学历年份在窄屏换行 */
+            .founder-education li { gap: 12px; }
+            .edu-year { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-grid">
+            <div class="header-left">
+                <a href="Consulting.html" class="logo">
+                    <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="22" fill="url(#wg1)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="48" cy="12" r="22" fill="url(#wg2)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="84" cy="12" r="22" fill="url(#wg3)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="12" cy="12" r="12" fill="#000"/>
+                        <circle cx="48" cy="12" r="12" fill="#000"/>
+                        <circle cx="84" cy="12" r="12" fill="#000"/>
+                    </svg>
+                </a>
+            </div>
+            <nav class="header-right">
+                <a href="Consulting.html" class="nav-item">
+                    <span class="nav-label">CONSULTING</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Art High School.html" class="nav-item">
+                    <span class="nav-label">ART HIGH SCHOOL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Archive.html" class="nav-item">
+                    <span class="nav-label">ARCHIVE</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Member.html" class="nav-item">
+                    <span class="nav-label">MEMBER</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Channel.html" class="nav-item">
+                    <span class="nav-label">CHANNEL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="About.html" class="nav-item">
+                    <span class="nav-label">ABOUT</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="about-layout">
+        <div class="about-left">
+            <div class="about-left-row">
+                <div class="left-block">
+                    <p class="left-block-label">WHY HANAHANA</p>
+                    <p class="left-block-body">夏威夷语里，HANAHANA 是「劳作」。没有捷径，没有奇迹，只有一次又一次回到桌前，推翻昨天的自己，重新开始。这不是励志口号，这是我们唯一信任的工作方式。</p>
+                </div>
+            </div>
+            <div class="about-left-row">
+                <div class="left-block">
+                    <p class="left-block-label">ABOUT HANAHANA STUDIO</p>
+                    <p class="left-block-body">HANAHANA STUDIO 成立于2013年，我们不是培训机构，不做批量生产，也不承诺捷径。我们做的事只有一件：帮助学生找到自己真正的学术人格，并用最严密的逻辑将它呈现出来。</p>
+                </div>
+            </div>
+        </div>
+        <div class="about-right">
+            <div class="about-right-row">
+                <img src="../Design Material/studio image/chris at studio.png" alt="Chris at HANAHANA Studio">
+            </div>
+            <div class="about-right-row">
+                <div class="founder-block">
+                    <div class="founder-top">
+                        <div class="founder-top-left">
+                            <p class="founder-label">THE FOUNDER</p>
+                            <h2 class="founder-name">XUE CHENGLIN · 薛承林</h2>
+                            <p class="founder-title">Founder / Director of Art Education</p>
+                        </div>
+                        <img src="../Design Material/Content Files/WeChat.svg" alt="WeChat QR" class="founder-qr">
+                    </div>
+                    <ul class="founder-education">
+                        <li>
+                            <span class="edu-year">2010–2012</span>
+                            <span class="edu-content">
+                                <span class="edu-en">M.F.A., Electronic Integrated Art — Alfred University, USA</span>
+                                <span class="edu-zh">电子综合艺术 硕士 · 埃尔弗雷德大学艺术与设计学院</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="edu-year">2005–2008</span>
+                            <span class="edu-content">
+                                <span class="edu-en">B.F.A., Photography — Central Academy of Fine Arts, China</span>
+                                <span class="edu-zh">摄影 学士 · 中央美术学院，北京</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="edu-year">2004–2005</span>
+                            <span class="edu-content">
+                                <span class="edu-en">B.F.A., Foundation — Central Academy of Fine Arts, China</span>
+                                <span class="edu-zh">基础部 · 中央美术学院设计学院，北京</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="founder-bio">
+                        <p>薛承林是一位新媒体艺术家与教育者，长期实践于感知的边界——捕捉那些真实存在、却无法被肉眼直接感知的能量形态。</p>
+                        <p>他本科就读于中央美术学院摄影系，研究生毕业于美国 Alfred University 电子综合艺术系，深度介入 Physical Computing 与算法艺术，以 Arduino、Processing、Max/MSP 为创作介质。这段训练塑造了他理解世界的方式：技术不是工具，而是一套思维语法。研究生期间，他同时在学校招生办担任助教，深度参与北美艺术院校的评审流程。</p>
+                        <p>HANAHANA STUDIO 的教学逻辑，正是从这里生长出来的。他不教学生如何「画得像」，而是教他们如何用逻辑去解构一个问题——在每一个创作决策背后，建立站得住脚的思想依据。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-right-row">
+                <div class="letter-block">
+                    <p class="letter-title">WRITE TO STUDENTS</p>
+                    <p>每一个创意、每一次实验、每一次不完美的尝试，都是通往伟大作品的必经之路。当你在桌前或工作室里，面对一个看似无解的设计问题，或努力让创意概念更清晰时，你可能会开始质疑自己："这些努力有什么意义？我真的能脱颖而出吗？"但请记住，这些挣扎与探索正是视觉艺术的核心——因为你不只是在完成任务，而是在塑造一个真正独特的自我。</p>
+                    <p>艺术和设计的伟大之处在于它们让你重新定义世界的规则。通过一幅画作、一件装置、一款产品，或一个空间，你能让人们看到新的可能性。你不是在创作单纯的"作品"，而是在表达你的身份，以及你想对这个世界诉说的话语。招生官期待看到的，不是"完美"的作品，而是能展现你的思维、好奇心和对未知的探索精神的作品。</p>
+                    <p>有时，你会困惑于一个想法是否"足够好"。但艺术和设计从不是关于"对"与"错"。每次失败都是成长的契机，每次冒险都可能带来惊人的发现。不要畏惧超越边界，不要害怕挑战规则。招生官想看到你如何通过作品提出问题、解决问题，甚至重新定义问题本身。他们渴望看到你独特的视角、思想和勇气。</p>
+                    <p>无论是通过艺术创作发声，还是用设计改变世界，你当下的每件作品都是未来成就的基石。每个失败的模型、每张反复修改的图纸、每件让你熬夜的实验，都不会白费。这些努力将塑造你，使你成为更强大、更独特的艺术家或设计师。</p>
+                    <p>所以，继续前进吧。去画画、去建造、去设计、去实验，把你所有的热爱都融入作品中。无论结果如何，这些作品都将展现你是谁、为何热爱视觉艺术。相信你的旅程，创造那些独一无二的作品。未来的你必将感激今天敢于冒险的自己。</p>
+                    <p class="letter-signature">Chris Chenglin Xue<br>2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="Consulting.html" class="footer-logo">
+            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="fwg1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg3" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="12" cy="12" r="22" fill="url(#fwg1)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="48" cy="12" r="22" fill="url(#fwg2)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="84" cy="12" r="22" fill="url(#fwg3)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="12" cy="12" r="12" fill="#000"/>
+                <circle cx="48" cy="12" r="12" fill="#000"/>
+                <circle cx="84" cy="12" r="12" fill="#000"/>
+            </svg>
+        </a>
+        <div class="footer-info">
+            <p class="footer-name">HANAHANA STUDIO</p>
+            <p>USA</p>
+            <p>257 Toll House Road, Maurertown VA 22644 USA</p>
+            <p>chris.c.xue@gmail.com</p>
+            <p>微信: keokkeokchris</p>
+            <p class="footer-copyright">@2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+</body>
+</html>

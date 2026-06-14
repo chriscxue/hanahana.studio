@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ARCHIVE — HANAHANA STUDIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scrollbar-gutter: stable; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            scrollbar-gutter: stable;
+        }
+
+        /* Header */
+        .header { width: 100%; border-bottom: 1px solid #000; }
+        .header-grid { display: grid; grid-template-columns: 2fr 1fr; }
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 40px 150px;
+            border-right: 1px solid #000;
+            background: #000;
+        }
+        .logo { display: block; width: 200px; height: 200px; color: #000; text-decoration: none; }
+        .header-right { display: flex; flex-direction: column; }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+            border-bottom: 1px solid #000;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-item:last-child { border-bottom: none; }
+        .nav-item:hover { background-color: #F16527; color: #fff; }
+        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
+        .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
+
+        /* Archive Layout */
+        .archive-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+        }
+
+        /* Sidebar */
+        .archive-sidebar {
+            border-right: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-search {
+            padding: 16px 40px;
+            border-bottom: 1px solid #000;
+            font-size: 16px;
+            font-weight: 300;
+            color: #999;
+        }
+
+        .sidebar-item {
+            padding: 12px 40px;
+            border-bottom: 1px solid #000;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 300;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            user-select: none;
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-item:hover {
+            background-color: #F16527;
+            color: #fff;
+        }
+
+        /* Content Area */
+        .archive-content {
+            padding: 64px;
+        }
+
+        .content-panel {
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        /* Content Typography */
+        .content-panel h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        .content-panel h2:first-child {
+            margin-top: 0;
+        }
+
+        .content-panel table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 300;
+            border: 1px solid #000;
+        }
+
+        .table-block {
+            margin-top: 80px;
+        }
+
+        .school-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: -64px -64px 80px -64px;
+            padding: 64px;
+            background-color: #f5f5f5;
+        }
+
+        .school-intro p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content-panel th,
+        .content-panel td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .content-panel th {
+            font-weight: 500;
+            white-space: nowrap;
+            color: #000;
+        }
+
+        .content-panel tr:last-child td,
+        .content-panel tr:last-child th {
+            border-bottom: none;
+        }
+
+        .content-panel td {
+            color: #333;
+        }
+
+        .content-panel a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .content-panel a:hover {
+            color: #F16527;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 40px 40px;
+            gap: 40px;
+        }
+        .footer-logo { display: block; width: 140px; height: 140px; }
+        .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+        @media (max-width: 768px) {
+            .header-grid { grid-template-columns: 1fr; }
+            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .nav-item { padding: 12px 20px; }
+            .archive-layout { grid-template-columns: 1fr; }
+            .archive-sidebar { border-right: none; border-bottom: 1px solid #000; }
+            .archive-content { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-grid">
+            <div class="header-left">
+                <a href="Consulting.html" class="logo">
+                    <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="22" fill="url(#wg1)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="48" cy="12" r="22" fill="url(#wg2)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="84" cy="12" r="22" fill="url(#wg3)" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                        </circle>
+                        <circle cx="12" cy="12" r="12" fill="#000"/>
+                        <circle cx="48" cy="12" r="12" fill="#000"/>
+                        <circle cx="84" cy="12" r="12" fill="#000"/>
+                    </svg>
+                </a>
+            </div>
+            <nav class="header-right">
+                <a href="Consulting.html" class="nav-item">
+                    <span class="nav-label">CONSULTING</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Art High School.html" class="nav-item">
+                    <span class="nav-label">ART HIGH SCHOOL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Archive.html" class="nav-item">
+                    <span class="nav-label">ARCHIVE</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Member.html" class="nav-item">
+                    <span class="nav-label">MEMBER</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="Channel.html" class="nav-item">
+                    <span class="nav-label">CHANNEL</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+                <a href="About.html" class="nav-item">
+                    <span class="nav-label">ABOUT</span>
+                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M18 6L6 18M20 12H4M18 18L6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="archive-layout">
+        <aside class="archive-sidebar">
+            <div class="sidebar-search">搜索知识库...</div>
+            <div class="sidebar-item active" onclick="showContent('topic-1')">University of California--Los Angeles</div>
+            <div class="sidebar-item" onclick="showContent('topic-2')">School of the Art Institute of Chicago</div>
+            <div class="sidebar-item" onclick="showContent('topic-3')">Yale University</div>
+            <div class="sidebar-item" onclick="showContent('topic-4')">Virginia Commonwealth University</div>
+            <div class="sidebar-item" onclick="showContent('topic-5')">California Institute of the Arts</div>
+            <div class="sidebar-item" onclick="showContent('topic-6')">Rhode Island School of Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-7')">Maryland Institute College of Art</div>
+            <div class="sidebar-item" onclick="showContent('topic-8')">Columbia University</div>
+            <div class="sidebar-item" onclick="showContent('topic-9')">Alfred University--New York State College of Ceramics</div>
+            <div class="sidebar-item" onclick="showContent('topic-10')">California College of the Arts</div>
+            <div class="sidebar-item" onclick="showContent('topic-11')">Pratt Institute</div>
+            <div class="sidebar-item" onclick="showContent('topic-12')">Art Center College of Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-13')">Cranbrook Academy of Art</div>
+            <div class="sidebar-item" onclick="showContent('topic-14')">Carnegie Mellon University</div>
+            <div class="sidebar-item" onclick="showContent('topic-15')">Hunter College</div>
+            <div class="sidebar-item" onclick="showContent('topic-16')">Temple University, Tyler School of Art</div>
+            <div class="sidebar-item" onclick="showContent('topic-17')">University of California--San Diego</div>
+            <div class="sidebar-item" onclick="showContent('topic-18')">Ohio State University</div>
+            <div class="sidebar-item" onclick="showContent('topic-19')">School of Visual Arts</div>
+            <div class="sidebar-item" onclick="showContent('topic-20')">Rutgers, The State University of New Jersey</div>
+            <div class="sidebar-item" onclick="showContent('topic-21')">University of Iowa</div>
+            <div class="sidebar-item" onclick="showContent('topic-22')">University of Texas--Austin</div>
+            <div class="sidebar-item" onclick="showContent('topic-23')">Bard College</div>
+            <div class="sidebar-item" onclick="showContent('topic-24')">University of California--Davis</div>
+            <div class="sidebar-item" onclick="showContent('topic-25')">University of Washington</div>
+            <div class="sidebar-item" onclick="showContent('topic-26')">Washington University in St. Louis</div>
+            <div class="sidebar-item" onclick="showContent('topic-27')">Arizona State University</div>
+            <div class="sidebar-item" onclick="showContent('topic-28')">Rochester Institute of Technology</div>
+            <div class="sidebar-item" onclick="showContent('topic-29')">University of California--Irvine</div>
+            <div class="sidebar-item" onclick="showContent('topic-30')">University of Wisconsin--Madison</div>
+            <div class="sidebar-item" onclick="showContent('topic-31')">Cornell University</div>
+            <div class="sidebar-item" onclick="showContent('topic-32')">Massachusetts College of Art and Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-33')">New York University</div>
+            <div class="sidebar-item" onclick="showContent('topic-34')">University of Michigan</div>
+            <div class="sidebar-item" onclick="showContent('topic-35')">University of Pennsylvania</div>
+            <div class="sidebar-item" onclick="showContent('topic-36')">University of Southern California</div>
+            <div class="sidebar-item" onclick="showContent('topic-37')">Kansas City Art Institute</div>
+            <div class="sidebar-item" onclick="showContent('topic-38')">Minneapolis College of Art and Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-39')">Parsons School of Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-40')">University of Florida</div>
+            <div class="sidebar-item" onclick="showContent('topic-41')">University of Illinois--Chicago</div>
+            <div class="sidebar-item" onclick="showContent('topic-42')">Boston University</div>
+            <div class="sidebar-item" onclick="showContent('topic-43')">Georgia State University</div>
+            <div class="sidebar-item" onclick="showContent('topic-44')">Pennsylvania Academy of the Fine Arts</div>
+            <div class="sidebar-item" onclick="showContent('topic-45')">Savannah College of Art and Design</div>
+            <div class="sidebar-item" onclick="showContent('topic-46')">Tufts University</div>
+            <div class="sidebar-item" onclick="showContent('topic-47')">University of California--Berkeley</div>
+            <div class="sidebar-item" onclick="showContent('topic-48')">University of California--Santa Barbara</div>
+            <div class="sidebar-item" onclick="showContent('topic-49')">University of Georgia</div>
+            <div class="sidebar-item" onclick="showContent('topic-50')">San Francisco Art Institute</div>
+        </aside>
+        <div class="archive-content">
+            <div id="topic-1" class="content-panel active"></div>
+            <div id="topic-2" class="content-panel">
+                <div class="school-intro">
+                    <div>
+                        <p>芝加哥艺术学院（School of the Art Institute of Chicago，SAIC）成立于1866年，前身是由本地艺术家共同创办的芝加哥设计学院（Chicago Academy of Design），是美国历史最悠久的艺术院校之一。1882年，学校与芝加哥艺术博物馆（AIC）正式合并，沿用至今的双重身份——既是顶尖私立艺术院校，也是博物馆的教育部门——构成了SAIC独一无二的机构性格：学生可以在全球馆藏最丰富的艺术博物馆之一中学习、创作与研究。</p>
+                        <p style="margin-top: 24px;">学校坐落于芝加哥 Loop 区，校园由毗邻格兰特公园的七栋建筑组成，主楼280 Columbus Drive紧邻密歇根湖。当前在校生3,640人（2024秋季），其中本科2,806人、研究生589人。捐款基金规模16亿美元（2025年），是全球捐款体量最大的艺术院校之一，为学生提供了丰厚的奖学金与资助资源。</p>
+                    </div>
+                    <div>
+                        <p>SAIC长期以鼓励自我表达、跨学科实验与批判性思维著称，2002年《美国新闻与世界报道》将其评选为"全美最具影响力艺术院校"。学校的艺术与技术系（Art & Technology，约1969年创立）是全球最早将电子艺术、动力装置、全息、生物艺术、计算机图形与虚拟现实纳入正式课程的院系之一，奠定了其在新媒体与跨学科领域的领先地位。在2026年《美国新闻》研究生艺术项目排名中，SAIC位列全美第二，与RISD、卡内基梅隆、UCLA并列。</p>
+                        <p style="margin-top: 24px;">知名校友横跨视觉艺术、设计与流行文化各领域：Georgia O'Keeffe（现代主义绘画）、Grant Wood（《美国哥特式》作者）、Jeff Koons（当代艺术）、Joan Mitchell（抽象表现主义）、Claes Oldenburg（波普艺术）、Halston（时尚设计）、Rashid Johnson（概念艺术）、Sterling Ruby（装置艺术）。现任知名教师包括装置艺术家 Nick Cave 与艺术史学家 James Elkins。</p>
+                    </div>
+                </div>
+                <div class="table-block">
+                <table>
+                    <tr><th>中文名</th><td>芝加哥艺术学院</td></tr>
+                    <tr><th>英文名</th><td>School of the Art Institute of Chicago (SAIC)</td></tr>
+                    <tr><th>地理位置</th><td>Chicago, Illinois, United States</td></tr>
+                    <tr><th>本科申请入口</th><td><a href="https://www.saic.edu/admissions/undergraduate" target="_blank">Apply Undergraduate</a></td></tr>
+                    <tr><th>研究生申请入口</th><td><a href="https://www.saic.edu/admissions/graduate" target="_blank">Apply Graduate</a></td></tr>
+                </table>
+                </div>
+
+                <div class="table-block">
+                <table style="table-layout: fixed;">
+                    <colgroup>
+                        <col style="width: 25%">
+                        <col style="width: 6%">
+                        <col style="width: 6%">
+                        <col style="width: 6%">
+                        <col style="width: 25%">
+                        <col style="width: 6%">
+                        <col style="width: 8%">
+                    </colgroup>
+                    <thead>
+                        <tr><th>本科专业</th><th>学位</th><th>ED</th><th>RD</th><th>研究生专业</th><th>学位</th><th>截止日期</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="https://www.saic.edu/fvnma" target="_blank">Animation</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/aiado" target="_blank">Architecture</a></td><td>MArch</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/aiado" target="_blank">Architecture</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/aiado" target="_blank">Architecture (Interior Architecture track)</a></td><td>MArch</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/art-science" target="_blank">Art & Science</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/atsp" target="_blank">Art & Technology / Sound Practices</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/atsp" target="_blank">Art & Technology / Sound Practices</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/art-education" target="_blank">Art Education</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/art-education" target="_blank">Art Education</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/art-history-theory-criticism" target="_blank">Art History, Theory & Criticism</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/art-history-theory-criticism" target="_blank">Modern and Contemporary Art History</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/arts-administration-policy" target="_blank">Arts Administration & Policy</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/arts-administration-policy" target="_blank">Arts Administration and Policy</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/art-therapy-counseling" target="_blank">Art Therapy & Counseling</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/art-therapy-counseling" target="_blank">Art Therapy and Counseling</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/books-publishing" target="_blank">Books & Publishing</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/ceramics" target="_blank">Ceramics</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/ceramics" target="_blank">Ceramics</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/comics" target="_blank">Comics & Graphic Novels</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/comics" target="_blank">Comics</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/community-social-engagement" target="_blank">Community & Social Engagement</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/costume-design" target="_blank">Costume Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/aiado" target="_blank">Designed Objects</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/aiado" target="_blank">Designed Objects</a></td><td>MDes</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/digital-communication" target="_blank">Digital Communication</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/digital-imaging" target="_blank">Digital Imaging</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/economic-inequality-class" target="_blank">Economic Inequality & Class</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/exhibition-curatorial-studies" target="_blank">Exhibition & Curatorial Studies</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/fashion-design" target="_blank">Fashion Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/fashion-design" target="_blank">Fashion, Body and Garment</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/fiber-material-studies" target="_blank">Fiber & Material Studies</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/fiber-material-studies" target="_blank">Fiber & Material Studies</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/fvnma" target="_blank">Film, Video, New Media & Animation</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/fvnma" target="_blank">Film, Video, New Media & Animation</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/furniture-design" target="_blank">Furniture Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/game-design" target="_blank">Game Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/graphic-design" target="_blank">Graphic Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/painting-drawing" target="_blank">Painting & Drawing</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/painting-drawing" target="_blank">Painting & Drawing</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/performance" target="_blank">Performance</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/performance" target="_blank">Performance</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/photography" target="_blank">Photography</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/photography" target="_blank">Photography</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/printmedia" target="_blank">Printmedia</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/printmedia" target="_blank">Printmedia</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/product-design" target="_blank">Product Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/sculpture" target="_blank">Sculpture</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/sculpture" target="_blank">Sculpture</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/sustainable-design" target="_blank">Sustainable Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td></td><td></td><td></td></tr>
+                        <tr><td><a href="https://www.saic.edu/visual-communication-design" target="_blank">Visual Communication Design</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/visual-communication-design" target="_blank">Design for Emerging Technologies</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/writing" target="_blank">Writing</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/writing" target="_blank">Writing</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td><a href="https://www.saic.edu/visual-critical-studies" target="_blank">Visual & Critical Studies</a></td><td>BFA</td><td>11/15</td><td>Rolling</td><td><a href="https://www.saic.edu/visual-critical-studies" target="_blank">Visual & Critical Studies</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td><a href="https://www.saic.edu/aiado" target="_blank">Architecture (MFA Studio)</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td><a href="https://www.saic.edu/visual-communication-design" target="_blank">Visual Communication Design</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td><a href="https://www.saic.edu/low-residency-mfa" target="_blank">Low-Residency MFA</a></td><td>MFA</td><td>None</td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td><a href="https://www.saic.edu/art-education" target="_blank">Teaching</a></td><td>MA</td><td>None</td></tr>
+                        <tr><td></td><td></td><td></td><td></td><td><a href="https://www.saic.edu/arts-administration-policy/graduate/dual-degree" target="_blank">Dual Degree: MA Arts Administration & Policy + MA Modern and Contemporary Art History</a></td><td>MA/MA</td><td>None</td></tr>
+                    </tbody>
+                </table>
+                </div>
+
+                <div class="table-block">
+                <table>
+                    <thead>
+                        <tr><th>项目</th><th>本科要求</th><th>研究生要求</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>作品集</td><td>☒</td><td>☒</td></tr>
+                        <tr><td>语言成绩</td><td>☒ TOEFL 82 / IELTS 6.5 / Duolingo 110 / PTE 55</td><td>☒ TOEFL 85 / IELTS 6.5 / Duolingo 110</td></tr>
+                        <tr><td>成绩单</td><td>☒</td><td>☒</td></tr>
+                        <tr><td>推荐信</td><td>1</td><td>2</td></tr>
+                        <tr><td>文书</td><td>☒ Artist Statement</td><td>☒ Statement of Purpose</td></tr>
+                        <tr><td>简历</td><td>☐</td><td>☒</td></tr>
+                        <tr><td>面试</td><td>☐</td><td>☐</td></tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div id="topic-3" class="content-panel"></div>
+            <div id="topic-4" class="content-panel"></div>
+            <div id="topic-5" class="content-panel"></div>
+            <div id="topic-6" class="content-panel"></div>
+            <div id="topic-7" class="content-panel"></div>
+            <div id="topic-8" class="content-panel"></div>
+            <div id="topic-9" class="content-panel"></div>
+            <div id="topic-10" class="content-panel"></div>
+            <div id="topic-11" class="content-panel"></div>
+            <div id="topic-12" class="content-panel"></div>
+            <div id="topic-13" class="content-panel"></div>
+            <div id="topic-14" class="content-panel"></div>
+            <div id="topic-15" class="content-panel"></div>
+            <div id="topic-16" class="content-panel"></div>
+            <div id="topic-17" class="content-panel"></div>
+            <div id="topic-18" class="content-panel"></div>
+            <div id="topic-19" class="content-panel"></div>
+            <div id="topic-20" class="content-panel"></div>
+            <div id="topic-21" class="content-panel"></div>
+            <div id="topic-22" class="content-panel"></div>
+            <div id="topic-23" class="content-panel"></div>
+            <div id="topic-24" class="content-panel"></div>
+            <div id="topic-25" class="content-panel"></div>
+            <div id="topic-26" class="content-panel"></div>
+            <div id="topic-27" class="content-panel"></div>
+            <div id="topic-28" class="content-panel"></div>
+            <div id="topic-29" class="content-panel"></div>
+            <div id="topic-30" class="content-panel"></div>
+            <div id="topic-31" class="content-panel"></div>
+            <div id="topic-32" class="content-panel"></div>
+            <div id="topic-33" class="content-panel"></div>
+            <div id="topic-34" class="content-panel"></div>
+            <div id="topic-35" class="content-panel"></div>
+            <div id="topic-36" class="content-panel"></div>
+            <div id="topic-37" class="content-panel"></div>
+            <div id="topic-38" class="content-panel"></div>
+            <div id="topic-39" class="content-panel"></div>
+            <div id="topic-40" class="content-panel"></div>
+            <div id="topic-41" class="content-panel"></div>
+            <div id="topic-42" class="content-panel"></div>
+            <div id="topic-43" class="content-panel"></div>
+            <div id="topic-44" class="content-panel"></div>
+            <div id="topic-45" class="content-panel"></div>
+            <div id="topic-46" class="content-panel"></div>
+            <div id="topic-47" class="content-panel"></div>
+            <div id="topic-48" class="content-panel"></div>
+            <div id="topic-49" class="content-panel"></div>
+            <div id="topic-50" class="content-panel"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="Consulting.html" class="footer-logo">
+            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="fwg1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="fwg3" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="12" cy="12" r="22" fill="url(#fwg1)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="48" cy="12" r="22" fill="url(#fwg2)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="84" cy="12" r="22" fill="url(#fwg3)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="12" cy="12" r="12" fill="#000"/>
+                <circle cx="48" cy="12" r="12" fill="#000"/>
+                <circle cx="84" cy="12" r="12" fill="#000"/>
+            </svg>
+        </a>
+        <div class="footer-info">
+            <p class="footer-name">HANAHANA STUDIO</p>
+            <p>USA</p>
+            <p>257 Toll House Road, Maurertown VA 22644 USA</p>
+            <p>chris.c.xue@gmail.com</p>
+            <p>微信: keokkeokchris</p>
+            <p class="footer-copyright">@2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script>
+        function showContent(id) {
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>

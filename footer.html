@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Footer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        .footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 40px 40px;
+            gap: 40px;
+        }
+
+        .logo {
+            display: block;
+            width: 140px;
+            height: 140px;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .footer-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .footer-info p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-copyright {
+            font-size: 11px;
+            font-weight: 100;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <a href="#" class="logo">
+            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="12" cy="12" r="22" fill="url(#wg1)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="48" cy="12" r="22" fill="url(#wg2)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="84" cy="12" r="22" fill="url(#wg3)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                </circle>
+                <circle cx="12" cy="12" r="12" fill="#000"/>
+                <circle cx="48" cy="12" r="12" fill="#000"/>
+                <circle cx="84" cy="12" r="12" fill="#000"/>
+            </svg>
+        </a>
+
+        <div class="footer-info">
+            <p class="footer-name">HANAHANA STUDIO</p>
+            <p>USA</p>
+            <p>257 Toll House Road, Maurertown VA 22644 USA</p>
+            <p>chris.c.xue@gmail.com</p>
+            <p>微信: keokkeokchris</p>
+            <p class="footer-copyright">@2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+</body>
+</html>
