@@ -226,6 +226,13 @@
         .tab-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; margin-top: 48px; }
         .tab-section-title:first-child { margin-top: 0; }
 
+        .tab-3-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 48px 40px;
+        }
+
         /* Curriculum Overview grid */
         .grid-table {
             width: 100%;
@@ -607,44 +614,50 @@
                     </table>
                 </div>
                 <div id="tab-3" class="tab-panel">
-                    <p class="tab-section-title">周一至周五</p>
-                    <table>
-                        <thead><tr><th>时间</th><th>活动</th></tr></thead>
-                        <tbody>
-                            <tr><td>6:00</td><td>允许宿舍开灯</td></tr>
-                            <tr><td>7:15–8:00</td><td>食堂开始提供早餐</td></tr>
-                            <tr><td>7:45</td><td>食堂早点名</td></tr>
-                            <tr><td>8:15–8:25</td><td>晨会</td></tr>
-                            <tr><td>8:30–9:15</td><td>第一节课</td></tr>
-                            <tr><td>9:20–10:05</td><td>第二节课</td></tr>
-                            <tr><td>10:10–10:55</td><td>第三节课</td></tr>
-                            <tr><td>11:00–11:45</td><td>第四节课</td></tr>
-                            <tr><td>11:50–12:35</td><td>第五节课</td></tr>
-                            <tr><td>12:35–1:05</td><td>午餐</td></tr>
-                            <tr><td>1:05–1:50</td><td>第六节课</td></tr>
-                            <tr><td>1:55–2:40</td><td>第七节课</td></tr>
-                            <tr><td>2:45–3:30</td><td>第八节课</td></tr>
-                            <tr><td>3:30–5:30</td><td>课外活动或自由活动</td></tr>
-                            <tr><td>5:30–6:00</td><td>学校食堂提供晚餐</td></tr>
-                            <tr><td>6:30–9:20</td><td>晚自习（周五没有晚自习）</td></tr>
-                            <tr><td>10:20</td><td>完成洗漱，宿舍熄灯</td></tr>
-                            <tr><td>10:30</td><td>静音</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="tab-section-title">周六和周日</p>
-                    <table>
-                        <thead><tr><th>时间</th><th>周六</th><th>周日</th></tr></thead>
-                        <tbody>
-                            <tr><td>7:30–8:00</td><td>早餐</td><td>早餐</td></tr>
-                            <tr><td>8:00–12:00</td><td>手机时间</td><td>自由活动</td></tr>
-                            <tr><td>12:00–12:30</td><td>午餐</td><td>午餐</td></tr>
-                            <tr><td>12:30–17:30</td><td>沃尔玛、图书馆</td><td>校外活动</td></tr>
-                            <tr><td>17:30–18:00</td><td>晚餐</td><td>晚餐</td></tr>
-                            <tr><td>18:30–21:20</td><td>自由活动</td><td>三节晚自习</td></tr>
-                            <tr><td>22:20</td><td>完成洗漱，宿舍熄灯</td><td>完成洗漱，宿舍熄灯</td></tr>
-                            <tr><td>22:30</td><td>静音</td><td>静音</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="tab-3-grid">
+                        <div>
+                            <p class="tab-section-title">周一至周五</p>
+                            <table>
+                                <thead><tr><th>时间</th><th>活动</th></tr></thead>
+                                <tbody>
+                                    <tr><td>6:00</td><td>允许宿舍开灯</td></tr>
+                                    <tr><td>7:15–8:00</td><td>食堂开始提供早餐</td></tr>
+                                    <tr><td>7:45</td><td>食堂早点名</td></tr>
+                                    <tr><td>8:15–8:25</td><td>晨会</td></tr>
+                                    <tr><td>8:30–9:15</td><td>第一节课</td></tr>
+                                    <tr><td>9:20–10:05</td><td>第二节课</td></tr>
+                                    <tr><td>10:10–10:55</td><td>第三节课</td></tr>
+                                    <tr><td>11:00–11:45</td><td>第四节课</td></tr>
+                                    <tr><td>11:50–12:35</td><td>第五节课</td></tr>
+                                    <tr><td>12:35–1:05</td><td>午餐</td></tr>
+                                    <tr><td>1:05–1:50</td><td>第六节课</td></tr>
+                                    <tr><td>1:55–2:40</td><td>第七节课</td></tr>
+                                    <tr><td>2:45–3:30</td><td>第八节课</td></tr>
+                                    <tr><td>3:30–5:30</td><td>课外活动或自由活动</td></tr>
+                                    <tr><td>5:30–6:00</td><td>学校食堂提供晚餐</td></tr>
+                                    <tr><td>6:30–9:20</td><td>晚自习（周五没有晚自习）</td></tr>
+                                    <tr><td>10:20</td><td>完成洗漱，宿舍熄灯</td></tr>
+                                    <tr><td>10:30</td><td>静音</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <p class="tab-section-title">周六和周日</p>
+                            <table>
+                                <thead><tr><th>时间</th><th>周六</th><th>周日</th></tr></thead>
+                                <tbody>
+                                    <tr><td>7:30–8:00</td><td>早餐</td><td>早餐</td></tr>
+                                    <tr><td>8:00–12:00</td><td>手机时间</td><td>自由活动</td></tr>
+                                    <tr><td>12:00–12:30</td><td>午餐</td><td>午餐</td></tr>
+                                    <tr><td>12:30–17:30</td><td>沃尔玛、图书馆</td><td>校外活动</td></tr>
+                                    <tr><td>17:30–18:00</td><td>晚餐</td><td>晚餐</td></tr>
+                                    <tr><td>18:30–21:20</td><td>自由活动</td><td>三节晚自习</td></tr>
+                                    <tr><td>22:20</td><td>完成洗漱，宿舍熄灯</td><td>完成洗漱，宿舍熄灯</td></tr>
+                                    <tr><td>22:30</td><td>静音</td><td>静音</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
