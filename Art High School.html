@@ -6,7 +6,7 @@
     <title>ART HIGH SCHOOL — HANAHANA STUDIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scrollbar-gutter: stable; }
@@ -43,7 +43,7 @@
         }
         .nav-item:last-child { border-bottom: none; }
         .nav-item:hover { background-color: #F16527; color: #fff; }
-        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; }
         .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
         .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
 
@@ -95,15 +95,15 @@
 
         .col-label {
             font-size: 28px;
-            font-weight: 900;
-            line-height: 1.1;
+            font-weight: 600;
+            line-height: 1.2;
             margin-bottom: 32px;
         }
 
         .col-body p {
-            font-size: 18px;
-            font-weight: 300;
-            line-height: 1.9;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.8;
             margin-bottom: 24px;
         }
 
@@ -112,7 +112,7 @@
         /* Tab Master-Detail — 左右结构 */
         .ahs-tab-layout {
             display: grid;
-            grid-template-columns: 25% 75%;
+            grid-template-columns: 20% 80%;
             border-top: 1px solid #000;
         }
 
@@ -125,7 +125,8 @@
         .ahs-tab-item {
             padding: 24px 40px;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 200;
+            line-height: 1.8;
             cursor: pointer;
             border-bottom: 1px solid #000;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -141,13 +142,61 @@
 
         .tab-panel { display: none; padding: 48px 40px; }
         .tab-panel.active { display: block; }
+        #tab-1 { padding: 0; }
+        #tab-2 { padding: 0; }
+
+        /* Academic Calendar */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-weight: 400;
+            table-layout: fixed;
+        }
+
+        #tab-2 .schedule-table { font-size: 12px; }
+
+        #tab-2 .schedule-table td,
+        #tab-2 .schedule-table th {
+            border: 1px solid #000;
+            padding: 4px 8px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #tab-2 .schedule-table th {
+            font-weight: 400;
+            background-color: #F7F5F2;
+        }
+
+        #tab-2 .schedule-table td:not(.course-cell):not(.sem-cell) {
+            background-color: #F7F5F2;
+            white-space: nowrap;
+            padding: 4px;
+        }
+
+        #tab-2 .schedule-table td.sem-cell {
+            background-color: #F7F5F2;
+            white-space: nowrap;
+            padding: 4px 6px;
+        }
+
+        #tab-2 .schedule-table th:nth-child(1) { width: 70px; padding: 6px 8px; }
+        #tab-2 .schedule-table th:nth-child(2) { width: 72px; padding: 6px 6px; }
+        #tab-2 .schedule-table th:nth-child(3) { width: 56px; padding: 6px 8px; }
+        #tab-2 .schedule-table th:nth-child(n+4) { width: calc((100% - 198px) / 4); }
+
+        #tab-2 .schedule-table .course-cell { font-weight: 400; word-break: break-word; }
+        #tab-2 .schedule-table td.studio    { background-color: #FBE0D2; }
+        #tab-2 .schedule-table td.digital   { background-color: #F0B8A6; }
+        #tab-2 .schedule-table td.portfolio { background-color: #FDBD89; }
+        #tab-2 .schedule-table td.thesis    { background-color: #FC8B6D; }
 
         .tab-panel table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 8px;
-            font-size: 18px;
-            font-weight: 300;
+            font-size: 12px;
+            font-weight: 400;
             border: 1px solid #000;
         }
 
@@ -157,24 +206,63 @@
             border-bottom: 1px solid #e0e0e0;
             text-align: left;
             vertical-align: top;
-            line-height: 1.5;
+            line-height: 1.8;
         }
 
-        .tab-panel th { font-weight: 500; white-space: nowrap; color: #000; }
+        .tab-panel th { font-weight: 400; white-space: nowrap; color: #000; }
 
         .tab-panel tr:last-child td,
         .tab-panel tr:last-child th { border-bottom: none; }
 
         .tab-panel td { color: #333; }
 
-        .tab-section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; margin-top: 48px; }
+        .tab-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; margin-top: 48px; }
         .tab-section-title:first-child { margin-top: 0; }
+
+        /* Curriculum Overview grid */
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        #tab-1 .grid-table { font-size: 12px; }
+
+        #tab-1 .grid-table td {
+            border: 1px solid #000;
+            padding: 20px 10px;
+            vertical-align: middle;
+            text-align: center;
+            font-weight: 400;
+            color: #000;
+        }
+
+        #tab-1 .grid-table td.studio   { background-color: #FBE0D2; }
+        #tab-1 .grid-table td.digital  { background-color: #F0B8A6; }
+        #tab-1 .grid-table td.portfolio{ background-color: #FDBD89; }
+        #tab-1 .grid-table td.thesis   { background-color: #FC8B6D; }
+        #tab-1 .grid-table td.intro    { background-color: #363E4F; color: #F7F5F2; }
+
+        .grid-course {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .course-title    { font-size: 12px; font-weight: 400; }
+        .course-subtitle { font-size: 12px; font-weight: 400; }
+        .course-weeks    { font-size: 12px; font-weight: 400; }
+        .row-title       { font-size: 12px; font-weight: 400; display: block; }
+        .row-weeks       { font-size: 12px; font-weight: 400; display: block; }
 
         .col-link {
             display: inline-block;
             margin-top: 24px;
             font-size: 18px;
-            font-weight: 300;
+            font-weight: 400;
             color: #000;
             text-decoration: underline;
             transition: color 0.3s ease;
@@ -194,9 +282,9 @@
         }
         .footer-logo { display: block; width: 140px; height: 140px; }
         .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
-        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
-        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
-        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+        .footer-info p { font-size: 16px; font-weight: 200; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 20px; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
         @media (max-width: 768px) {
             .header-grid { grid-template-columns: 1fr; }
@@ -277,15 +365,15 @@
     <div class="ahs-layout">
         <div class="ahs-row-hero">
             <div class="ahs-col-img grayscale">
-                <img src="../../../about via/官方网站内容/images/Certificate-1024x791.gif" alt="VIA Certificate of Accreditation">
+                <img src="images/art-high-school/via-certificate.gif" alt="VIA Certificate of Accreditation">
             </div>
             <div class="ahs-col-img">
-                <img src="../Design Material/studio image/chris at studio.png" alt="placeholder">
+                <img src="images/art-high-school/student-studio.png" alt="VIA student studio">
             </div>
         </div>
         <div class="ahs-row">
             <div class="ahs-col">
-                <p class="col-label">About VIA</p>
+                <p class="col-label">ABOUT VIA</p>
                 <div class="col-body">
                     <p>维吉尼亚国际学校创办于2012年，是一所独立的，无宗教背景的国际学校，旨在为国际学生进入美国高中和大学学习做好充分准备而提供教育和帮助。</p>
                     <p>2013年我们在维吉尼亚州芙蓉镇的校园开始招收来自中国的留学生，首批学生15名，学校提供七至九年级的教育。2013至2022年之间，有超过250名学生就读过VIA，他们绝大多数都已经入读哈佛大学、宾夕法尼亚大学、哥伦比亚大学、纽约大学、维吉尼亚大学、南加利福尼亚大学、加州大学洛杉矶分校、加州大学伯克利分校、乔治亚理工大学、埃默里大学等等美国名校。</p>
@@ -295,7 +383,7 @@
                 </div>
             </div>
             <div class="ahs-col">
-                <p class="col-label">About Art Department</p>
+                <p class="col-label">ABOUT ART DEPARTMENT</p>
                 <div class="col-body">
                     <p>VIA 视觉艺术学部将艺术教育视为一个发展性过程——从材料能力到概念独立性的有序推进。课程体系的核心信念是：艺术语言无法被直接传授，它在学生与媒介、情境和批评的持续接触中逐渐显现。</p>
                     <p>在 144 周的学习周期内，学生经历三个相互融合的阶段。工作室艺术阶段奠定基础实践：观察性素描、三维结构与材料探索。数字艺术阶段将这一基础延伸至新兴领域——AI 作为生成性工具、网页交互作为艺术媒介、电子元件作为表达材料。作品集与毕业创作阶段则将重心从"制作"转向"表达"：学生学习筛选、排列并阐释自己的作品，使之构成一份连贯的艺术陈述。</p>
@@ -311,8 +399,205 @@
                 <div class="ahs-tab-item" onclick="showTab('tab-3')">作息时间安排</div>
             </div>
             <div class="ahs-tab-content">
-                <div id="tab-1" class="tab-panel active"></div>
-                <div id="tab-2" class="tab-panel"></div>
+                <div id="tab-1" class="tab-panel active">
+                    <table class="grid-table">
+                        <tr>
+                            <td colspan="7" class="intro"><span style="font-weight:500;">VIA Visual Arts Program</span><br><span style="opacity:0.6;">144 weeks</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="studio"><span class="row-title">Studio Art</span><span class="row-weeks">36 weeks</span></td>
+                            <td colspan="3" class="digital"><span class="row-title">Digital Art</span><span class="row-weeks">54 weeks</span></td>
+                            <td class="portfolio"><span class="row-title">Independent Studio</span><span class="row-weeks">36 weeks</span></td>
+                            <td class="thesis"><span class="row-title">Thesis</span><span class="row-weeks">18 weeks</span></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Artworks on Paper I</div><div class="course-subtitle">Foundations of Drawing</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Form-Based Arts I</div><div class="course-subtitle">Casting & Mold Making</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Idea Generation I</div><div class="course-subtitle">The Dot</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Introduction & Poster Design</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Interactive Arts I</div><div class="course-subtitle">Electronics as an Art Material</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="portfolio"><div class="grid-course"><div class="course-title">Independent Studio I</div><div class="course-subtitle">Project Development</div><div class="course-weeks">22 weeks</div></div></td>
+                            <td class="thesis"><div class="grid-course"><div class="course-title">Thesis I</div><div class="course-subtitle">Concept & Research</div><div class="course-weeks">2 weeks</div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Artworks on Paper II</div><div class="course-subtitle">Laser Engraving & Printmaking</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Form-Based Arts II</div><div class="course-subtitle">Materials & Building</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Idea Generation II</div><div class="course-subtitle">The Hole</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Character & Art Toy Design</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Interactive Arts II</div><div class="course-subtitle">The Browser as Canvas</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="portfolio"><div class="grid-course"><div class="course-title">Independent Studio II</div><div class="course-subtitle">Work Editing & EA/ED</div><div class="course-weeks">6 weeks</div></div></td>
+                            <td class="thesis"><div class="grid-course"><div class="course-title">Thesis II</div><div class="course-subtitle">Studio Production</div><div class="course-weeks">8 weeks</div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Artworks on Paper III</div><div class="course-subtitle">Independent Projects</div><div class="course-weeks">6 weeks</div></div></td>
+                            <td class="studio"><div class="grid-course"><div class="course-title">Form-Based Arts III</div><div class="course-subtitle">3D Modeling & Printing</div><div class="course-weeks">6 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Idea Generation III</div><div class="course-subtitle">The Paper Cup</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Designing Collectible Cards</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">Interactive Arts III</div><div class="course-subtitle">Self-Directed Interactive Project</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="portfolio"><div class="grid-course"><div class="course-title">Independent Studio III</div><div class="course-subtitle">RD Preparation</div><div class="course-weeks">8 weeks</div></div></td>
+                            <td class="thesis"><div class="grid-course"><div class="course-title">Thesis III</div><div class="course-subtitle">Graduation Exhibition</div><div class="course-weeks">8 weeks</div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"></td>
+                            <td class="studio"></td>
+                            <td class="digital"></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Themed Collage Creations</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"></td>
+                            <td class="portfolio"></td>
+                            <td class="thesis"></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"></td>
+                            <td class="studio"></td>
+                            <td class="digital"></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Visual World-Building from Text</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"></td>
+                            <td class="portfolio"></td>
+                            <td class="thesis"></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"></td>
+                            <td class="studio"></td>
+                            <td class="digital"></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Sound & Designing Album Covers</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"></td>
+                            <td class="portfolio"></td>
+                            <td class="thesis"></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"></td>
+                            <td class="studio"></td>
+                            <td class="digital"></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">Illustrated Narratives</div><div class="course-weeks">2 weeks</div></div></td>
+                            <td class="digital"></td>
+                            <td class="portfolio"></td>
+                            <td class="thesis"></td>
+                        </tr>
+                        <tr>
+                            <td class="studio"></td>
+                            <td class="studio"></td>
+                            <td class="digital"></td>
+                            <td class="digital"><div class="grid-course"><div class="course-title">A.I. in Visual Arts</div><div class="course-subtitle">AI-Assisted Fine Art Practice</div><div class="course-weeks">4 weeks</div></div></td>
+                            <td class="digital"></td>
+                            <td class="portfolio"></td>
+                            <td class="thesis"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="tab-2" class="tab-panel">
+                    <table class="schedule-table">
+                        <tr>
+                            <th>Month</th>
+                            <th>Sem</th>
+                            <th>Week</th>
+                            <th>Grade 9</th>
+                            <th>Grade 10</th>
+                            <th>Grade 11</th>
+                            <th>Grade 12</th>
+                        </tr>
+                        <!-- Semester 1 -->
+                        <tr>
+                            <td rowspan="4">Sep</td>
+                            <td rowspan="18" class="sem-cell">Sem 01</td>
+                            <td>01</td>
+                            <td rowspan="8" class="studio course-cell">Artworks on Paper I</td>
+                            <td rowspan="4" class="digital course-cell">Idea Generation I</td>
+                            <td rowspan="4" class="digital course-cell">Idea Generation III</td>
+                            <td rowspan="4" class="portfolio course-cell">Portfolio I</td>
+                        </tr>
+                        <tr><td>02</td></tr>
+                        <tr><td>03</td></tr>
+                        <tr><td>04</td></tr>
+                        <tr>
+                            <td rowspan="4">Oct</td>
+                            <td>05</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Introduction &amp; Poster Design</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Illustrated Narratives</td>
+                            <td rowspan="6" class="portfolio course-cell">Portfolio II</td>
+                        </tr>
+                        <tr><td>06</td></tr>
+                        <tr>
+                            <td>07</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Character &amp; Art Toy Design</td>
+                            <td rowspan="4" class="digital course-cell">A.I.: AI-Assisted Fine Art Practice</td>
+                        </tr>
+                        <tr><td>08</td></tr>
+                        <tr>
+                            <td rowspan="4">Nov</td>
+                            <td>09</td>
+                            <td rowspan="4" class="studio course-cell">Artworks on Paper II</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Collectible Cards</td>
+                        </tr>
+                        <tr><td>10</td></tr>
+                        <tr>
+                            <td>11</td>
+                            <td rowspan="8" class="digital course-cell">Interactive Arts I</td>
+                            <td rowspan="8" class="digital course-cell">Interactive Arts III</td>
+                            <td rowspan="8" class="portfolio course-cell">Portfolio III</td>
+                        </tr>
+                        <tr><td>12</td></tr>
+                        <tr>
+                            <td rowspan="4">Dec</td>
+                            <td>13</td>
+                            <td rowspan="6" class="studio course-cell">Artworks on Paper III</td>
+                        </tr>
+                        <tr><td>14</td></tr>
+                        <tr><td>15</td></tr>
+                        <tr><td>16</td></tr>
+                        <tr><td rowspan="2">Jan</td><td>17</td></tr>
+                        <tr><td>18</td></tr>
+                        <!-- Semester 2 -->
+                        <tr>
+                            <td rowspan="4">Feb</td>
+                            <td rowspan="18" class="sem-cell">Sem 02</td>
+                            <td>01</td>
+                            <td rowspan="8" class="studio course-cell">Form-Based Arts I</td>
+                            <td rowspan="4" class="digital course-cell">Idea Generation II</td>
+                            <td rowspan="18" class="portfolio course-cell">Portfolio I</td>
+                            <td rowspan="2" class="thesis course-cell">Thesis I</td>
+                        </tr>
+                        <tr><td>02</td></tr>
+                        <tr>
+                            <td>03</td>
+                            <td rowspan="8" class="thesis course-cell">Thesis II</td>
+                        </tr>
+                        <tr><td>04</td></tr>
+                        <tr>
+                            <td rowspan="4">Mar</td>
+                            <td>05</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Themed Collage Creations</td>
+                        </tr>
+                        <tr><td>06</td></tr>
+                        <tr>
+                            <td>07</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Visual World-Building</td>
+                        </tr>
+                        <tr><td>08</td></tr>
+                        <tr>
+                            <td rowspan="4">Apr</td>
+                            <td>09</td>
+                            <td rowspan="4" class="studio course-cell">Form-Based Arts II</td>
+                            <td rowspan="2" class="digital course-cell">A.I.: Album Covers</td>
+                        </tr>
+                        <tr><td>10</td></tr>
+                        <tr>
+                            <td>11</td>
+                            <td rowspan="8" class="digital course-cell">Interactive Arts II</td>
+                            <td rowspan="8" class="thesis course-cell">Thesis III</td>
+                        </tr>
+                        <tr><td>12</td></tr>
+                        <tr>
+                            <td rowspan="4">May</td>
+                            <td>13</td>
+                            <td rowspan="6" class="studio course-cell">Form-Based Arts III</td>
+                        </tr>
+                        <tr><td>14</td></tr>
+                        <tr><td>15</td></tr>
+                        <tr><td>16</td></tr>
+                        <tr><td rowspan="2">Jun</td><td>17</td></tr>
+                        <tr><td>18</td></tr>
+                    </table>
+                </div>
                 <div id="tab-3" class="tab-panel">
                     <p class="tab-section-title">周一至周五</p>
                     <table>
