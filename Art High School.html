@@ -226,14 +226,13 @@
             table-layout: fixed;
         }
 
-        #tab-1 .grid-table { font-size: 12px; }
-
         #tab-1 .grid-table td {
             border: 1px solid #000;
-            padding: 20px 10px;
+            padding: 0;
             vertical-align: middle;
             text-align: center;
-            font-weight: 400;
+            font-size: 16px;
+            font-weight: 300;
             color: #000;
         }
 
@@ -244,19 +243,20 @@
         #tab-1 .grid-table td.intro    { background-color: #363E4F; color: #F7F5F2; }
 
         .grid-course {
-            padding: 0;
+            padding: 12px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 2px;
+            color: #000;
         }
 
-        .course-title    { font-size: 12px; font-weight: 400; }
-        .course-subtitle { font-size: 12px; font-weight: 400; }
-        .course-weeks    { font-size: 12px; font-weight: 400; }
-        .row-title       { font-size: 12px; font-weight: 400; display: block; }
-        .row-weeks       { font-size: 12px; font-weight: 400; display: block; }
+        .course-title    { font-size: 16px; font-weight: 500; }
+        .course-subtitle { font-size: 16px; font-weight: 300; }
+        .course-weeks    { font-size: 16px; font-weight: 300; }
+        .row-title       { font-weight: 500; color: #000; }
+        .row-weeks       { font-weight: 300; color: #000; display: block; }
 
         .col-link {
             display: inline-block;
