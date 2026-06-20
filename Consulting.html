@@ -502,28 +502,23 @@
                 font-size: 24px;
             }
 
-            /* 移动端改为上下布局 */
             .project-item {
-                grid-template-columns: 1fr;
-                min-height: auto;
+                grid-template-columns: 60px 1fr 60px;
             }
 
             .project-left {
-                border-right: none;
-                border-bottom: 1px solid #000;
-                justify-content: flex-start;
-                padding: 16px 20px;
+                min-height: 80px;
+                padding: 16px 12px;
             }
 
             .project-right {
-                padding: 16px 20px;
+                min-height: 80px;
+                padding: 16px 16px;
             }
 
             .project-extra {
-                border-left: none;
-                border-top: 1px solid #000;
-                justify-content: flex-start;
-                padding: 16px 20px;
+                min-height: 80px;
+                padding: 16px 12px;
             }
 
             .dropdown-panel {
@@ -537,8 +532,8 @@
             }
 
             .logo {
-                width: 72px;
-                height: 72px;
+                width: 100%;
+                height: auto;
             }
 
             .intro-text {
@@ -552,12 +547,17 @@
             .project-description {
                 font-size: 20px;
             }
+
+            .header-left {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 480px) {
             .logo {
-                width: 48px;
-                height: 48px;
+                width: 60%;
+                height: auto;
+                margin: 0 auto;
             }
 
             .header-left {
@@ -622,6 +622,23 @@
             color: #000;
             margin-top: 8px;
         }
+
+        @media (max-width: 768px) {
+            .letter-block {
+                padding: 40px 20px;
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .letter-title {
+                font-size: 28px;
+                margin-bottom: 24px;
+            }
+            .letter-block p:not(.letter-title) {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+        }
+
         /* ADMISSIONS STATISTICS table */
         #stats-table {
             width: 100%;
