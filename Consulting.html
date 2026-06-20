@@ -6,7 +6,7 @@
     <title>HANAHANA STUDIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -78,7 +78,8 @@
 
         .nav-label {
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 200;
+            line-height: 1.8;
         }
 
         .nav-arrow svg {
@@ -100,9 +101,9 @@
         .intro-text {
             margin-top: 60px;
             font-size: 30px;
-            font-weight: 300;
+            font-weight: 400;
             color: #000;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         /* Project List - full bleed */
@@ -127,16 +128,16 @@
 
         .section-title {
             font-size: 96px;
-            font-weight: 900;
+            font-weight: 800;
             color: #000;
             margin-bottom: 8px;
             letter-spacing: 1px;
-            line-height: 1.0;
+            line-height: 1.2;
         }
 
         .section-tagline {
             font-size: 60px;
-            font-weight: 700;
+            font-weight: 600;
             color: #000;
             line-height: 1.2;
         }
@@ -164,8 +165,9 @@
         }
 
         .project-name {
-            font-size: 48px;
-            font-weight: 700;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.8;
             color: #000;
         }
 
@@ -236,7 +238,8 @@
             padding: 64px 40px;
             border-bottom: 1px solid #000;
             font-size: 30px;
-            font-weight: 300;
+            font-weight: 400;
+            line-height: 1.8;
             color: #fff;
         }
 
@@ -264,11 +267,14 @@
             text-align: left;
             border-bottom: 1px solid rgba(255,255,255,0.3);
             color: #fff;
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
         }
 
         .dropdown-col h3 {
             font-size: 24px;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 16px;
         }
 
@@ -281,9 +287,9 @@
 
         .project-description {
             font-size: 36px;
-            font-weight: 700;
+            font-weight: 600;
             color: #000;
-            line-height: 1.4;
+            line-height: 1.8;
         }
 
 
@@ -346,7 +352,7 @@
         }
 
         .project-description th {
-            font-weight: 600;
+            font-weight: 400;
             color: #000;
             background-color: transparent;
         }
@@ -425,23 +431,24 @@
         }
 
         .footer-info p {
-            font-size: 14px;
-            font-weight: 100;
+            font-size: 16px;
+            font-weight: 200;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.6);
         }
 
         .footer-info .footer-name {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.8;
             letter-spacing: 0.1em;
             color: #fff;
             margin-bottom: 8px;
         }
 
         .footer-info .footer-copyright {
-            font-size: 11px;
-            font-weight: 100;
+            font-size: 16px;
+            font-weight: 200;
             letter-spacing: 0.1em;
             color: rgba(255, 255, 255, 0.3);
             margin-top: 8px;
@@ -582,6 +589,39 @@
                 padding: 16px;
             }
         }
+
+        .letter-block {
+            padding: 64px 150px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 64px;
+            border-top: 1px solid #000;
+        }
+
+        .letter-title {
+            grid-column: 1 / -1;
+            font-size: 36px;
+            font-weight: 600;
+            color: #000;
+            line-height: 1.2;
+            margin-bottom: 40px;
+        }
+
+        .letter-block p:not(.letter-title) {
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.8;
+            color: #000;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .letter-signature {
+            font-size: 18px;
+            font-weight: 400;
+            color: #000;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -656,6 +696,16 @@
         <p class="section-tagline">BREATHE · CREATE · REPEAT</p>
         <p class="intro-text">HANAHANA STUDIO 成立于2013年，我们不是培训机构，不做批量生产，也不承诺捷径。我们做的事只有一件：帮助学生找到自己真正的学术人格，并用最严密的逻辑将它呈现出来。</p>
     </main>
+
+    <div class="letter-block">
+        <p class="letter-title">WRITE TO STUDENTS</p>
+        <p>每一个创意、每一次实验、每一次不完美的尝试，都是通往伟大作品的必经之路。当你在桌前或工作室里，面对一个看似无解的设计问题，或努力让创意概念更清晰时，你可能会开始质疑自己："这些努力有什么意义？我真的能脱颖而出吗？"但请记住，这些挣扎与探索正是视觉艺术的核心——因为你不只是在完成任务，而是在塑造一个真正独特的自我。</p>
+        <p>艺术和设计的伟大之处在于它们让你重新定义世界的规则。通过一幅画作、一件装置、一款产品，或一个空间，你能让人们看到新的可能性。你不是在创作单纯的"作品"，而是在表达你的身份，以及你想对这个世界诉说的话语。招生官期待看到的，不是"完美"的作品，而是能展现你的思维、好奇心和对未知的探索精神的作品。</p>
+        <p>有时，你会困惑于一个想法是否"足够好"。但艺术和设计从不是关于"对"与"错"。每次失败都是成长的契机，每次冒险都可能带来惊人的发现。不要畏惧超越边界，不要害怕挑战规则。招生官想看到你如何通过作品提出问题、解决问题，甚至重新定义问题本身。他们渴望看到你独特的视角、思想和勇气。</p>
+        <p>无论是通过艺术创作发声，还是用设计改变世界，你当下的每件作品都是未来成就的基石。每个失败的模型、每张反复修改的图纸、每件让你熬夜的实验，都不会白费。这些努力将塑造你，使你成为更强大、更独特的艺术家或设计师。</p>
+        <p>所以，继续前进吧。去画画、去建造、去设计、去实验，把你所有的热爱都融入作品中。无论结果如何，这些作品都将展现你是谁、为何热爱视觉艺术。相信你的旅程，创造那些独一无二的作品。未来的你必将感激今天敢于冒险的自己。</p>
+        <p class="letter-signature">Chris Chenglin Xue<br>2025</p>
+    </div>
 
     <div class="project-list-wrapper">
         <div class="project-list">
@@ -828,7 +878,8 @@
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
-                    <div class="dropdown-col">
+                    <div class="dropdown-col" style="padding:0;">
+                        <iframe src="../Design Material/网站用图片存档/students profile image/STUDENT CASE STUDIES.html" style="width:100%;height:800px;border:none;display:block;"></iframe>
                     </div>
                 </div>
             </article>
