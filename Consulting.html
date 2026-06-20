@@ -471,6 +471,8 @@
             }
         }
 
+        #stats-table-mobile { display: none; }
+
         @media (max-width: 768px) {
             .project-list-wrapper::after {
                 display: none;
@@ -503,7 +505,7 @@
             }
 
             .section-tagline {
-                font-size: 24px;
+                display: none;
             }
 
             .project-item {
@@ -528,6 +530,9 @@
             .dropdown-panel {
                 grid-template-columns: 1fr;
             }
+
+            #stats-table { display: none; }
+            #stats-table-mobile { display: table; }
 
             .dropdown-col {
                 padding: 20px;
@@ -644,7 +649,7 @@
         }
 
         /* ADMISSIONS STATISTICS table */
-        #stats-table {
+        #stats-table, #stats-table-mobile {
             width: 100%;
             border-collapse: collapse;
             font-family: 'Courier Prime', 'Noto Serif SC', serif;
@@ -652,7 +657,8 @@
             font-weight: 200;
             line-height: 1.8;
         }
-        #stats-table th, #stats-table td {
+        #stats-table th, #stats-table td,
+        #stats-table-mobile th, #stats-table-mobile td {
             border: 1px solid #fff;
             padding: 14px 10px;
             text-align: center;
@@ -664,15 +670,65 @@
         #stats-table colgroup col:nth-child(4) { width: 28%; }
         #stats-table colgroup col:nth-child(5) { width: 14%; }
         #stats-table colgroup col:nth-child(6) { width: 8%; }
-        #stats-table .col-header       { background: rgba(0,0,0,0.3); text-align: left; padding-left: 40px; }
-        #stats-table .col-header-center { background: rgba(0,0,0,0.3); }
-        #stats-table td.name-en { text-align: left; padding-left: 28px; }
-        #stats-table td.name-zh { text-align: left; padding-left: 20px; }
-        #stats-table td.count   { text-align: center; letter-spacing: 0.05em; }
-        #stats-table tr:first-child th { border-top: none; }
-        #stats-table tr:last-child td  { border-bottom: none; }
-        #stats-table tr th:first-child, #stats-table tr td:first-child { border-left: none; }
-        #stats-table tr th:last-child,  #stats-table tr td:last-child  { border-right: none; }
+        #stats-table-mobile colgroup col:nth-child(1) { width: 55%; }
+        #stats-table-mobile colgroup col:nth-child(2) { width: 30%; }
+        #stats-table-mobile colgroup col:nth-child(3) { width: 15%; }
+        #stats-table .col-header, #stats-table-mobile .col-header { background: rgba(0,0,0,0.3); text-align: left; padding-left: 16px; }
+        #stats-table .col-header-center, #stats-table-mobile .col-header-center { background: rgba(0,0,0,0.3); }
+        #stats-table td.name-en, #stats-table-mobile td.name-en { text-align: left; padding-left: 16px; }
+        #stats-table td.name-zh, #stats-table-mobile td.name-zh { text-align: left; padding-left: 12px; }
+        #stats-table td.count, #stats-table-mobile td.count   { text-align: center; letter-spacing: 0.05em; }
+        #stats-table tr:first-child th, #stats-table-mobile tr:first-child th { border-top: none; }
+        #stats-table tr:last-child td, #stats-table-mobile tr:last-child td  { border-bottom: none; }
+        #stats-table tr th:first-child, #stats-table tr td:first-child,
+        #stats-table-mobile tr th:first-child, #stats-table-mobile tr td:first-child { border-left: none; }
+        #stats-table tr th:last-child,  #stats-table tr td:last-child,
+        #stats-table-mobile tr th:last-child, #stats-table-mobile tr td:last-child  { border-right: none; }
+
+        /* STUDENT CASE STUDIES grid */
+        #student-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+        }
+        #student-grid .cell {
+            aspect-ratio: 4 / 5;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            background: #f2f2f2;
+            overflow: hidden;
+            position: relative;
+        }
+        #student-grid .cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        #student-grid .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(241, 101, 39, 0.9);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-weight: 200;
+        }
+        #student-grid .cell:hover .overlay { opacity: 1; }
+        #student-grid .overlay .en-name { font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
+        #student-grid .overlay .school  { font-size: 12px; margin-top: 4px; opacity: 0.85; letter-spacing: 0.03em; }
+
+        @media (max-width: 768px) {
+            #student-grid { grid-template-columns: repeat(3, 1fr); }
+        }
     </style>
 </head>
 <body>
@@ -910,7 +966,7 @@
                     <h2 class="project-name">06</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">ADMISSIONS STATISTICS (2013–2025)</div>
+                    <div class="project-description">ADMISSIONS STATISTICS</div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
@@ -945,6 +1001,49 @@
                                 <tr><td class="name-en">New York School of Interior Design</td><td class="name-zh">纽约室内设计学院</td><td class="count">13</td><td class="name-en"></td><td class="name-zh"></td><td class="count"></td></tr>
                             </tbody>
                         </table>
+                        <table id="stats-table-mobile">
+                            <colgroup><col><col><col></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th class="col-header">院校名称</th>
+                                    <th class="col-header">中文名称</th>
+                                    <th class="col-header-center">录取人数</th>
+                                </tr>
+                                <tr><td class="name-en">Harvard University</td><td class="name-zh">哈佛大学</td><td class="count">1</td></tr>
+                                <tr><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">1</td></tr>
+                                <tr><td class="name-en">Cornell University</td><td class="name-zh">康奈尔大学</td><td class="count">13</td></tr>
+                                <tr><td class="name-en">Columbia University</td><td class="name-zh">哥伦比亚大学</td><td class="count">7</td></tr>
+                                <tr><td class="name-en">Carnegie Mellon University</td><td class="name-zh">卡内基梅隆大学</td><td class="count">3</td></tr>
+                                <tr><td class="name-en">Duke University</td><td class="name-zh">杜克大学</td><td class="count">2</td></tr>
+                                <tr><td class="name-en">University of Southern California</td><td class="name-zh">南加州大学</td><td class="count">4</td></tr>
+                                <tr><td class="name-en">University of California, Berkeley</td><td class="name-zh">加州大学伯克利</td><td class="count">27</td></tr>
+                                <tr><td class="name-en">New York University</td><td class="name-zh">纽约大学</td><td class="count">17</td></tr>
+                                <tr><td class="name-en">University of Michigan</td><td class="name-zh">密歇根大学</td><td class="count">23</td></tr>
+                                <tr><td class="name-en">Washington University in St. Louis</td><td class="name-zh">华盛顿大学圣路易斯</td><td class="count">13</td></tr>
+                                <tr><td class="name-en">University of Texas at Austin</td><td class="name-zh">德州大学奥斯汀</td><td class="count">11</td></tr>
+                                <tr><td class="name-en">University of Illinois Urbana-Champaign</td><td class="name-zh">伊利诺伊大学</td><td class="count">7</td></tr>
+                                <tr><td class="name-en">University of Wisconsin-Madison</td><td class="name-zh">威斯康星大学麦迪逊</td><td class="count">12</td></tr>
+                                <tr><td class="name-en">Syracuse University</td><td class="name-zh">雪城大学</td><td class="count">23</td></tr>
+                                <tr><td class="name-en">Arizona State University</td><td class="name-zh">亚利桑那州立大学</td><td class="count">15</td></tr>
+                                <tr><td class="name-en">Virginia Commonwealth University</td><td class="name-zh">维吉尼亚联邦大学</td><td class="count">18</td></tr>
+                                <tr><td class="name-en">Hunter College</td><td class="name-zh">亨特学院</td><td class="count">8</td></tr>
+                                <tr><td class="name-en">Bard College</td><td class="name-zh">巴德学院</td><td class="count">7</td></tr>
+                                <tr><td class="name-en">Rhode Island School of Design</td><td class="name-zh">罗德岛设计学院</td><td class="count">17</td></tr>
+                                <tr><td class="name-en">Parsons School of Design</td><td class="name-zh">帕森斯设计学院</td><td class="count">39</td></tr>
+                                <tr><td class="name-en">School of the Art Institute of Chicago</td><td class="name-zh">芝加哥艺术学院</td><td class="count">52</td></tr>
+                                <tr><td class="name-en">School of Visual Arts</td><td class="name-zh">纽约视觉艺术学院</td><td class="count">43</td></tr>
+                                <tr><td class="name-en">California Institute of the Arts</td><td class="name-zh">加州艺术学院</td><td class="count">48</td></tr>
+                                <tr><td class="name-en">Pratt Institute</td><td class="name-zh">普瑞特艺术学院</td><td class="count">44</td></tr>
+                                <tr><td class="name-en">ArtCenter College of Design</td><td class="name-zh">艺术中心设计学院</td><td class="count">32</td></tr>
+                                <tr><td class="name-en">Maryland Institute College of Art</td><td class="name-zh">马里兰艺术学院</td><td class="count">35</td></tr>
+                                <tr><td class="name-en">Cranbrook Academy of Art</td><td class="name-zh">克兰布鲁克艺术学院</td><td class="count">17</td></tr>
+                                <tr><td class="name-en">Alfred University</td><td class="name-zh">艾尔弗雷德大学</td><td class="count">28</td></tr>
+                                <tr><td class="name-en">California College of the Arts</td><td class="name-zh">加州艺术学院（旧金山）</td><td class="count">26</td></tr>
+                                <tr><td class="name-en">Massachusetts College of Art and Design</td><td class="name-zh">麻省艺术与设计学院</td><td class="count">37</td></tr>
+                                <tr><td class="name-en">Rochester Institute of Technology</td><td class="name-zh">罗切斯特理工大学</td><td class="count">28</td></tr>
+                                <tr><td class="name-en">New York School of Interior Design</td><td class="name-zh">纽约室内设计学院</td><td class="count">13</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </article>
@@ -960,7 +1059,53 @@
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
                     <div class="dropdown-col" style="padding:0;">
-                        <iframe src="STUDENT CASE STUDIES.html" style="width:100%;height:800px;border:none;display:block;"></iframe>
+                        <div id="student-grid">
+                            <div class="cell"><img src="images/students/王洛姗_hanahana※.png" alt="王洛姗"><div class="overlay"><div class="en-name">Wang Luoshan</div><div class="school">Cornell University</div></div></div>
+                            <div class="cell"><img src="images/students/王怡然_hanahana.png" alt="王怡然"><div class="overlay"><div class="en-name">Wang Yiran</div><div class="school">New York University ITP</div></div></div>
+                            <div class="cell"><img src="images/students/朱诚超_hanahana.png" alt="朱诚超"><div class="overlay"><div class="en-name">Zhu Chengchao</div><div class="school">New York University ITP</div></div></div>
+                            <div class="cell"><img src="images/students/郑婉佳_hanahana※.png" alt="郑婉佳"><div class="overlay"><div class="en-name">Zheng Wanjia</div><div class="school">Rhode Island School of Design</div></div></div>
+                            <div class="cell"><img src="images/students/赵唯_hanahana.png" alt="赵唯"><div class="overlay"><div class="en-name">Zhao Wei</div><div class="school">School of the Art Institute of Chicago</div></div></div>
+                            <div class="cell"><img src="images/students/曾子珊_hanahana.png" alt="曾子珊"><div class="overlay"><div class="en-name">Zeng Zishan</div><div class="school">Virginia Commonwealth University</div></div></div>
+                            <div class="cell"><img src="images/students/孙楚伦_hanahana.png" alt="孙楚伦"><div class="overlay"><div class="en-name">Sun Chulun</div><div class="school">School of the Art Institute of Chicago</div></div></div>
+                            <div class="cell"><img src="images/students/赵瀚_hanahana.png" alt="赵瀚"><div class="overlay"><div class="en-name">Zhao Han</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/王晓琳_hanahana.png" alt="王晓琳"><div class="overlay"><div class="en-name">Wang Xiaolin</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/王苏君_hanahana.png" alt="王苏君"><div class="overlay"><div class="en-name">Wang Sujun</div><div class="school">OCAD University</div></div></div>
+                            <div class="cell"><img src="images/students/张可涵_hanahana.png" alt="张可涵"><div class="overlay"><div class="en-name">Zhang Kehan</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/田雅琦_hanahana.png" alt="田雅琦"><div class="overlay"><div class="en-name">Tian Yaqi</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/何婧婷_hanahana.png" alt="何婧婷"><div class="overlay"><div class="en-name">He Jingting</div><div class="school">Cranbrook Academy of Art</div></div></div>
+                            <div class="cell"><img src="images/students/雒艺涵_hanahana.png" alt="雒艺涵"><div class="overlay"><div class="en-name">Luo Yihan</div><div class="school">ArtCenter College of Design</div></div></div>
+                            <div class="cell"><img src="images/students/朱伽仪_hanahana.png" alt="朱伽仪"><div class="overlay"><div class="en-name">Zhu Jiayi</div><div class="school">California Institute of the Arts</div></div></div>
+                            <div class="cell"><img src="images/students/史汇伦_hanahana.png" alt="史汇伦"><div class="overlay"><div class="en-name">Shi Huilun</div><div class="school">Walnut Hill School for the Arts</div></div></div>
+                            <div class="cell"><img src="images/students/赵桐_hanahana※.png" alt="赵桐"><div class="overlay"><div class="en-name">Zhao Tong</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/魏晓岩_hanahana.png" alt="魏晓岩"><div class="overlay"><div class="en-name">Wei Xiaoyan</div><div class="school">ArtCenter College of Design</div></div></div>
+                            <div class="cell"><img src="images/students/余菁丹_hanahana※.png" alt="余菁丹"><div class="overlay"><div class="en-name">Yu Jingdan</div><div class="school">ArtCenter College of Design</div></div></div>
+                            <div class="cell"><img src="images/students/石东帛_hanahana.png" alt="石东帛"><div class="overlay"><div class="en-name">Shi Dongbo</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/严若水_hanahana※.png" alt="严若水"><div class="overlay"><div class="en-name">Yan Ruoshui</div><div class="school">Cranbrook Academy of Art</div></div></div>
+                            <div class="cell"><img src="images/students/汤智捷_hanahana※.png" alt="汤智捷"><div class="overlay"><div class="en-name">Tang Zhijie</div><div class="school">Rhode Island School of Design</div></div></div>
+                            <div class="cell"><img src="images/students/李梓淇_hanahana※.png" alt="李梓淇"><div class="overlay"><div class="en-name">Li Ziqi</div><div class="school">Cornell University</div></div></div>
+                            <div class="cell"><img src="images/students/罗紫璇_hanahana※.png" alt="罗紫璇"><div class="overlay"><div class="en-name">Luo Zixuan</div><div class="school">Maryland Institute College of Art</div></div></div>
+                            <div class="cell"><img src="images/students/冯海麟_hanahana※.png" alt="冯海麟"><div class="overlay"><div class="en-name">Feng Hailin</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/张可昕_hanahana.png" alt="张可昕"><div class="overlay"><div class="en-name">Zhang Kexin</div><div class="school">California College of the Arts</div></div></div>
+                            <div class="cell"><img src="images/students/李星澄_hanahana.png" alt="李星澄"><div class="overlay"><div class="en-name">Li Xingcheng</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/厉周新_hanahana.png" alt="厉周新"><div class="overlay"><div class="en-name">Li Zhouxin</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/穆星_hanahana.png" alt="穆星"><div class="overlay"><div class="en-name">Mu Xing</div><div class="school">Virginia Commonwealth University</div></div></div>
+                            <div class="cell"><img src="images/students/陈天泽_hanahana※.png" alt="陈天泽"><div class="overlay"><div class="en-name">Chen Tianze</div><div class="school">University of California, Berkeley</div></div></div>
+                            <div class="cell"><img src="images/students/史欣雅_hanahana※.png" alt="史欣雅"><div class="overlay"><div class="en-name">Shi Xinya</div><div class="school">California College of the Arts</div></div></div>
+                            <div class="cell"><img src="images/students/宋炳男_hanahana※.png" alt="宋炳男"><div class="overlay"><div class="en-name">Song Bingnan</div><div class="school">Arizona State University</div></div></div>
+                            <div class="cell"><img src="images/students/唐秋晓_hanahana※.png" alt="唐秋晓"><div class="overlay"><div class="en-name">Tang Qiuxiao</div><div class="school">Carnegie Mellon University</div></div></div>
+                            <div class="cell"><img src="images/students/徐萌萌_hanahana※.png" alt="徐萌萌"><div class="overlay"><div class="en-name">Xu Mengmeng</div><div class="school">Harvard University</div></div></div>
+                            <div class="cell"><img src="images/students/张明_hanahana※.png" alt="张明"><div class="overlay"><div class="en-name">Zhang Ming</div><div class="school">Massachusetts Institute of Technology</div></div></div>
+                            <div class="cell"><img src="images/students/郭晓峰_hanahana.png" alt="郭晓峰"><div class="overlay"><div class="en-name">Guo Xiaofeng</div><div class="school">Maryland Institute College of Art</div></div></div>
+                            <div class="cell"><img src="images/students/韩雨洋_hanahana※.png" alt="韩雨洋"><div class="overlay"><div class="en-name">Han Yuyang</div><div class="school">University of Southern California</div></div></div>
+                            <div class="cell"><img src="images/students/黄昕_hanahana.png" alt="黄昕"><div class="overlay"><div class="en-name">Huang Xin</div><div class="school">Massachusetts Institute of Technology</div></div></div>
+                            <div class="cell"><img src="images/students/潘欣怡_hanahana※.png" alt="潘欣怡"><div class="overlay"><div class="en-name">Pan Xinyi</div><div class="school">School of Visual Arts</div></div></div>
+                            <div class="cell"><img src="images/students/裴益生_hanahana.png" alt="裴益生"><div class="overlay"><div class="en-name">Pei Yisheng</div><div class="school">LIM College</div></div></div>
+                            <div class="cell"><img src="images/students/谢昕雨_hanahana.png" alt="谢昕雨"><div class="overlay"><div class="en-name">Xie Xinyu</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/张曼琳_hanahana.png" alt="张曼琳"><div class="overlay"><div class="en-name">Zhang Manlin</div><div class="school">Pratt Institute</div></div></div>
+                            <div class="cell"><img src="images/students/郑程_hanahana.png" alt="郑程"><div class="overlay"><div class="en-name">Zheng Cheng</div><div class="school">LIM College</div></div></div>
+                            <div class="cell"><img src="images/students/杨昊_hanahana.png" alt="杨昊"><div class="overlay"><div class="en-name">Hao Yang</div><div class="school">Alfred University</div></div></div>
+                            <div class="cell"><img src="images/students/Eva Mo_hanahana※.png" alt="Eva Mo"><div class="overlay"><div class="en-name">Eva Mo</div><div class="school">School of Visual Arts</div></div></div>
+                        </div>
                     </div>
                 </div>
             </article>
