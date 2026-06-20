@@ -622,6 +622,36 @@
             color: #000;
             margin-top: 8px;
         }
+        /* ADMISSIONS STATISTICS table */
+        #stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
+        }
+        #stats-table th, #stats-table td {
+            border: 1px solid #fff;
+            padding: 14px 10px;
+            text-align: center;
+            color: #fff;
+        }
+        #stats-table colgroup col:nth-child(1) { width: 28%; }
+        #stats-table colgroup col:nth-child(2) { width: 14%; }
+        #stats-table colgroup col:nth-child(3) { width: 8%; }
+        #stats-table colgroup col:nth-child(4) { width: 28%; }
+        #stats-table colgroup col:nth-child(5) { width: 14%; }
+        #stats-table colgroup col:nth-child(6) { width: 8%; }
+        #stats-table .col-header       { background: rgba(0,0,0,0.3); text-align: left; padding-left: 40px; }
+        #stats-table .col-header-center { background: rgba(0,0,0,0.3); }
+        #stats-table td.name-en { text-align: left; padding-left: 28px; }
+        #stats-table td.name-zh { text-align: left; padding-left: 20px; }
+        #stats-table td.count   { text-align: center; letter-spacing: 0.05em; }
+        #stats-table tr:first-child th { border-top: none; }
+        #stats-table tr:last-child td  { border-bottom: none; }
+        #stats-table tr th:first-child, #stats-table tr td:first-child { border-left: none; }
+        #stats-table tr th:last-child,  #stats-table tr td:last-child  { border-right: none; }
     </style>
 </head>
 <body>
@@ -863,7 +893,37 @@
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
-                    <div class="dropdown-col">
+                    <div class="dropdown-col" style="padding:0;">
+                        <table id="stats-table">
+                            <colgroup><col><col><col><col><col><col></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th class="col-header">院校名称</th>
+                                    <th class="col-header">中文名称</th>
+                                    <th class="col-header-center">录取人数</th>
+                                    <th class="col-header">院校名称</th>
+                                    <th class="col-header">中文名称</th>
+                                    <th class="col-header-center">录取人数</th>
+                                </tr>
+                                <tr><td class="name-en">Harvard University</td><td class="name-zh">哈佛大学</td><td class="count">1</td><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">1</td></tr>
+                                <tr><td class="name-en">Cornell University</td><td class="name-zh">康奈尔大学</td><td class="count">13</td><td class="name-en">Columbia University</td><td class="name-zh">哥伦比亚大学</td><td class="count">7</td></tr>
+                                <tr><td class="name-en">Carnegie Mellon University</td><td class="name-zh">卡内基梅隆大学</td><td class="count">3</td><td class="name-en">Duke University</td><td class="name-zh">杜克大学</td><td class="count">2</td></tr>
+                                <tr><td class="name-en">University of Southern California</td><td class="name-zh">南加州大学</td><td class="count">4</td><td class="name-en">University of California, Berkeley</td><td class="name-zh">加州大学伯克利</td><td class="count">27</td></tr>
+                                <tr><td class="name-en">New York University</td><td class="name-zh">纽约大学</td><td class="count">17</td><td class="name-en">University of Michigan</td><td class="name-zh">密歇根大学</td><td class="count">23</td></tr>
+                                <tr><td class="name-en">Washington University in St. Louis</td><td class="name-zh">华盛顿大学圣路易斯</td><td class="count">13</td><td class="name-en">University of Texas at Austin</td><td class="name-zh">德州大学奥斯汀</td><td class="count">11</td></tr>
+                                <tr><td class="name-en">University of Illinois Urbana-Champaign</td><td class="name-zh">伊利诺伊大学</td><td class="count">7</td><td class="name-en">University of Wisconsin-Madison</td><td class="name-zh">威斯康星大学麦迪逊</td><td class="count">12</td></tr>
+                                <tr><td class="name-en">Syracuse University</td><td class="name-zh">雪城大学</td><td class="count">23</td><td class="name-en">Arizona State University</td><td class="name-zh">亚利桑那州立大学</td><td class="count">15</td></tr>
+                                <tr><td class="name-en">Virginia Commonwealth University</td><td class="name-zh">维吉尼亚联邦大学</td><td class="count">18</td><td class="name-en">Hunter College</td><td class="name-zh">亨特学院</td><td class="count">8</td></tr>
+                                <tr><td class="name-en">Bard College</td><td class="name-zh">巴德学院</td><td class="count">7</td><td class="name-en">Rhode Island School of Design</td><td class="name-zh">罗德岛设计学院</td><td class="count">17</td></tr>
+                                <tr><td class="name-en">Parsons School of Design</td><td class="name-zh">帕森斯设计学院</td><td class="count">39</td><td class="name-en">School of the Art Institute of Chicago</td><td class="name-zh">芝加哥艺术学院</td><td class="count">52</td></tr>
+                                <tr><td class="name-en">School of Visual Arts</td><td class="name-zh">纽约视觉艺术学院</td><td class="count">43</td><td class="name-en">California Institute of the Arts</td><td class="name-zh">加州艺术学院</td><td class="count">48</td></tr>
+                                <tr><td class="name-en">Pratt Institute</td><td class="name-zh">普瑞特艺术学院</td><td class="count">44</td><td class="name-en">ArtCenter College of Design</td><td class="name-zh">艺术中心设计学院</td><td class="count">32</td></tr>
+                                <tr><td class="name-en">Maryland Institute College of Art</td><td class="name-zh">马里兰艺术学院</td><td class="count">35</td><td class="name-en">Cranbrook Academy of Art</td><td class="name-zh">克兰布鲁克艺术学院</td><td class="count">17</td></tr>
+                                <tr><td class="name-en">Alfred University</td><td class="name-zh">艾尔弗雷德大学</td><td class="count">28</td><td class="name-en">California College of the Arts</td><td class="name-zh">加州艺术学院（旧金山）</td><td class="count">26</td></tr>
+                                <tr><td class="name-en">Massachusetts College of Art and Design</td><td class="name-zh">麻省艺术与设计学院</td><td class="count">37</td><td class="name-en">Rochester Institute of Technology</td><td class="name-zh">罗切斯特理工大学</td><td class="count">28</td></tr>
+                                <tr><td class="name-en">New York School of Interior Design</td><td class="name-zh">纽约室内设计学院</td><td class="count">13</td><td class="name-en"></td><td class="name-zh"></td><td class="count"></td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </article>
