@@ -275,6 +275,15 @@
         .row-title       { font-weight: 500; color: #000; }
         .row-weeks       { font-weight: 300; color: #000; display: block; }
 
+        .tab-mobile-notice {
+            display: none;
+            padding: 48px 20px;
+            font-size: 16px;
+            font-weight: 200;
+            color: #888;
+            font-family: 'Courier Prime', serif;
+        }
+
         .col-link {
             display: inline-block;
             margin-top: 24px;
@@ -304,11 +313,33 @@
         .footer-info .footer-copyright { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
         @media (max-width: 768px) {
+            /* Header */
             .header-grid { grid-template-columns: 1fr; }
-            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 48px 20px; justify-content: center; }
+            .logo { width: 60%; height: auto; margin: 0 auto; }
+            .header-right { padding: 0; }
             .nav-item { padding: 12px 20px; }
-            .main-content { padding: 80px 20px; }
-            .section-title { font-size: 40px; }
+
+            /* Layout rows - 全部单列堆叠 */
+            .ahs-row-hero { grid-template-columns: 1fr; }
+            .ahs-row      { grid-template-columns: 1fr; }
+            .ahs-row-3    { grid-template-columns: 1fr; }
+
+            .ahs-col { padding: 32px 20px; }
+            .ahs-col:not(:last-child) { border-right: none; border-bottom: 1px solid #000; }
+            .ahs-col-img { border-right: none; border-bottom: 1px solid #000; min-height: 220px; }
+
+            /* Tab 区：全宽竖列导航，内容区显示提示 */
+            .ahs-tab-layout { grid-template-columns: 1fr; }
+            .ahs-tab-nav { border-right: none; border-bottom: 1px solid #000; }
+            .ahs-tab-item { padding: 14px 20px; }
+            .tab-panel { display: none !important; }
+            .tab-mobile-notice { display: flex; }
+            /* 底部三列行 padding 缩小 */
+            .ahs-row-3 .ahs-col { padding: 24px 20px; }
+
+            /* 底部三列行 padding 缩小 */
+            .ahs-row-3 .ahs-col { padding: 24px 20px; }
         }
     </style>
 </head>
@@ -418,6 +449,7 @@
                 <div class="ahs-tab-item" onclick="showTab('tab-5')">学生作品</div>
             </div>
             <div class="ahs-tab-content">
+                <div class="tab-mobile-notice">请在电脑端查看详细内容</div>
                 <div id="tab-1" class="tab-panel active">
                     <table class="grid-table">
                         <tr>
