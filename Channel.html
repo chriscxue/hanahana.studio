@@ -6,7 +6,7 @@
     <title>CHANNEL — HANAHANA STUDIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scrollbar-gutter: stable; }
@@ -20,13 +20,13 @@
         }
 
         /* Header */
-        .header { width: 100%; border-bottom: 1px solid #000; }
+        .header { width: 100%; border-bottom: 0.5px solid #000; }
         .header-grid { display: grid; grid-template-columns: 2fr 1fr; }
         .header-left {
             display: flex;
             align-items: center;
             padding: 40px 40px 40px 150px;
-            border-right: 1px solid #000;
+            border-right: 0.5px solid #000;
             background: #000;
         }
         .logo { display: block; width: 200px; height: 200px; color: #000; text-decoration: none; }
@@ -36,20 +36,20 @@
             align-items: center;
             justify-content: space-between;
             padding: 14px 40px;
-            border-bottom: 1px solid #000;
+            border-bottom: 0.5px solid #000;
             text-decoration: none;
             color: #000;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .nav-item:last-child { border-bottom: none; }
         .nav-item:hover { background-color: #F16527; color: #fff; }
-        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; }
         .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
         .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
 
         /* Main */
         .main-content { padding: 200px 150px; }
-        .section-title { font-size: 96px; font-weight: 900; color: #000; line-height: 1.0; }
+        .section-title { font-size: 96px; font-weight: 800; color: #000; line-height: 1.2; }
 
         /* Footer */
         .footer {
@@ -63,13 +63,13 @@
         }
         .footer-logo { display: block; width: 140px; height: 140px; }
         .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
-        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
-        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
-        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+        .footer-info p { font-size: 16px; font-weight: 200; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 20px; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
         @media (max-width: 768px) {
             .header-grid { grid-template-columns: 1fr; }
-            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; }
             .nav-item { padding: 12px 20px; }
             .main-content { padding: 80px 20px; }
             .section-title { font-size: 40px; }

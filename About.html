@@ -6,7 +6,7 @@
     <title>ABOUT — HANAHANA STUDIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scrollbar-gutter: stable; }
@@ -19,13 +19,13 @@
         }
 
         /* Header */
-        .header { width: 100%; border-bottom: 1px solid #000; }
+        .header { width: 100%; border-bottom: 0.5px solid #000; }
         .header-grid { display: grid; grid-template-columns: 2fr 1fr; }
         .header-left {
             display: flex;
             align-items: center;
             padding: 40px 40px 40px 150px;
-            border-right: 1px solid #000;
+            border-right: 0.5px solid #000;
             background: #000;
         }
         .logo { display: block; width: 200px; height: 200px; color: #000; text-decoration: none; }
@@ -35,14 +35,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 14px 40px;
-            border-bottom: 1px solid #000;
+            border-bottom: 0.5px solid #000;
             text-decoration: none;
             color: #000;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .nav-item:last-child { border-bottom: none; }
         .nav-item:hover { background-color: #F16527; color: #fff; }
-        .nav-label { font-size: 16px; font-weight: 400; }
+        .nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; }
         .nav-arrow svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
         .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
 
@@ -54,13 +54,13 @@
         }
 
         .about-left {
-            border-right: 1px solid #000;
+            border-right: 0.5px solid #000;
             display: grid;
             grid-template-rows: auto 1fr;
         }
 
         .about-left-row {
-            border-bottom: 1px solid #000;
+            border-bottom: 0.5px solid #000;
         }
 
         .about-left-row:last-child {
@@ -74,16 +74,16 @@
 
         .left-block-label {
             font-size: 28px;
-            font-weight: 900;
+            font-weight: 600;
             color: #000;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 32px;
         }
 
         .left-block-body {
-            font-size: 18px;
-            font-weight: 300;
-            line-height: 1.9;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.8;
             color: #000;
         }
 
@@ -93,7 +93,7 @@
         }
 
         .about-right-row {
-            border-bottom: 1px solid #000;
+            border-bottom: 0.5px solid #000;
         }
 
         .about-right-row:first-child {
@@ -121,16 +121,16 @@
         .letter-title {
             grid-column: 1 / -1;
             font-size: 28px;
-            font-weight: 900;
+            font-weight: 600;
             color: #000;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 40px;
         }
 
         .letter-block p:not(.letter-title) {
-            font-size: 18px;
-            font-weight: 300;
-            line-height: 1.9;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.8;
             color: #000;
             margin-bottom: 20px;
             break-inside: avoid;
@@ -138,7 +138,7 @@
 
         .letter-signature {
             font-size: 18px;
-            font-weight: 300;
+            font-weight: 400;
             color: #000;
             margin-top: 8px;
         }
@@ -161,9 +161,9 @@
 
         .founder-label {
             font-size: 28px;
-            font-weight: 900;
+            font-weight: 600;
             color: #000;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 12px;
         }
 
@@ -171,7 +171,7 @@
             font-size: 24px;
             font-weight: 400;
             color: #000;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 8px;
         }
 
@@ -179,6 +179,7 @@
             font-size: 24px;
             font-weight: 400;
             color: #000;
+            line-height: 1.2;
             margin-bottom: 0;
         }
 
@@ -192,20 +193,21 @@
         .founder-education {
             list-style: none;
             margin-bottom: 48px;
-            border-top: 1px solid #000;
+            border-top: 0.5px solid #000;
         }
 
         .founder-education li {
             display: flex;
             gap: 24px;
             padding: 14px 0;
-            border-bottom: 1px solid #e0e0e0;
-            line-height: 1.5;
+            border-bottom: 0.5px solid #e0e0e0;
+            line-height: 1.8;
         }
 
         .edu-year {
-            font-size: 15px;
-            font-weight: 300;
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
             color: #000;
             white-space: nowrap;
             padding-top: 1px;
@@ -218,22 +220,24 @@
         }
 
         .edu-en {
-            font-size: 15px;
-            font-weight: 300;
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
             color: #000;
         }
 
         .edu-zh {
-            font-size: 14px;
-            font-weight: 300;
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
             color: #000;
         }
 
         .founder-bio p {
-            font-size: 18px;
-            font-weight: 300;
+            font-size: 20px;
+            font-weight: 200;
             color: #000;
-            line-height: 1.9;
+            line-height: 1.8;
             margin-bottom: 24px;
         }
 
@@ -253,20 +257,20 @@
         }
         .footer-logo { display: block; width: 140px; height: 140px; }
         .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
-        .footer-info p { font-size: 14px; font-weight: 100; line-height: 1.8; color: rgba(255,255,255,0.6); }
-        .footer-info .footer-name { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
-        .footer-info .footer-copyright { font-size: 11px; font-weight: 100; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+        .footer-info p { font-size: 16px; font-weight: 200; line-height: 1.8; color: rgba(255,255,255,0.6); }
+        .footer-info .footer-name { font-size: 20px; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+        .footer-info .footer-copyright { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
         @media (max-width: 768px) {
             /* Header */
             .header-grid { grid-template-columns: 1fr; }
-            .header-left { border-right: none; border-bottom: 1px solid #000; padding: 24px 20px; }
+            .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; }
             .nav-item { padding: 12px 20px; }
 
             /* Layout: 右列先显示 */
             .about-layout { grid-template-columns: 1fr; }
             .about-right { order: 1; }
-            .about-left { order: 2; border-right: none; border-top: 1px solid #000; }
+            .about-left { order: 2; border-right: none; border-top: 0.5px solid #000; }
             .about-left-row { grid-template-rows: unset; }
 
             /* Padding 缩减 */
@@ -379,7 +383,7 @@
         </div>
         <div class="about-right">
             <div class="about-right-row">
-                <img src="../Design Material/studio image/chris at studio.png" alt="Chris at HANAHANA Studio">
+                <img src="images/about/chris-at-studio.png" alt="Chris at HANAHANA Studio">
             </div>
             <div class="about-right-row">
                 <div class="founder-block">
@@ -389,7 +393,7 @@
                             <h2 class="founder-name">XUE CHENGLIN · 薛承林</h2>
                             <p class="founder-title">Founder / Director of Art Education</p>
                         </div>
-                        <img src="../Design Material/Content Files/WeChat.svg" alt="WeChat QR" class="founder-qr">
+                        <img src="images/about/wechat-qr.svg" alt="WeChat QR" class="founder-qr">
                     </div>
                     <ul class="founder-education">
                         <li>
