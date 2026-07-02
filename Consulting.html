@@ -291,6 +291,25 @@
             font-weight: 600;
             color: #000;
             line-height: 1.8;
+            display: grid;
+        }
+
+        .desc-en,
+        .desc-cn {
+            grid-area: 1 / 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .desc-cn { opacity: 0; }
+
+        .project-item:not(.is-open):hover .desc-en,
+        .project-item.is-open .desc-en {
+            opacity: 0;
+        }
+
+        .project-item:not(.is-open):hover .desc-cn,
+        .project-item.is-open .desc-cn {
+            opacity: 1;
         }
 
 
@@ -807,7 +826,7 @@
                     <h2 class="project-name">01</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">THE PHILOSOPHY</div>
+                    <div class="project-description"><span class="desc-en">THE PHILOSOPHY</span><span class="desc-cn">教育理念</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel">
@@ -836,7 +855,7 @@
                     <h2 class="project-name">02</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">CORE POSITIONING</div>
+                    <div class="project-description"><span class="desc-en">CORE POSITIONING</span><span class="desc-cn">核心定位</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel">
@@ -864,7 +883,7 @@
                     <h2 class="project-name">03</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">WHAT WE DO</div>
+                    <div class="project-description"><span class="desc-en">WHAT WE DO</span><span class="desc-cn">我们做什么</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel">
@@ -892,7 +911,7 @@
                     <h2 class="project-name">04</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">MAJOR MATRIX</div>
+                    <div class="project-description"><span class="desc-en">MAJOR MATRIX</span><span class="desc-cn">专业矩阵</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel">
@@ -923,7 +942,7 @@
                     <h2 class="project-name">05</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">APPLICATION SYSTEM</div>
+                    <div class="project-description"><span class="desc-en">APPLICATION SYSTEM</span><span class="desc-cn">申请材料系统</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel">
@@ -951,7 +970,7 @@
                     <h2 class="project-name">06</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">ADMISSIONS STATISTICS</div>
+                    <div class="project-description"><span class="desc-en">ADMISSIONS STATISTICS</span><span class="desc-cn">录取数据</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
@@ -1039,7 +1058,7 @@
                     <h2 class="project-name">07</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">STUDENT CASE STUDIES</div>
+                    <div class="project-description"><span class="desc-en">STUDENT CASE STUDIES</span><span class="desc-cn">学生案例</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
@@ -1101,7 +1120,7 @@
                     <h2 class="project-name">08</h2>
                 </div>
                 <div class="project-right">
-                    <div class="project-description">MENTOR GROUP</div>
+                    <div class="project-description"><span class="desc-en">MENTOR GROUP</span><span class="desc-cn">导师团队</span></div>
                 </div>
                 <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                 <div class="dropdown-panel dropdown-single">
