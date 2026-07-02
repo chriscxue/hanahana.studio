@@ -61,9 +61,14 @@
             border-top: 0.5px solid #000;
         }
 
+        .ahs-row-3 .ahs-col {
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
         .ahs-row-hero {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr;
         }
         .ahs-col {
             padding: 48px 40px;
@@ -73,24 +78,15 @@
         }
 
         .ahs-col-img {
-            border-right: 0.5px solid #000;
             overflow: hidden;
         }
 
         .ahs-col-img img {
             width: 100%;
             height: 100%;
+            max-height: 480px;
             object-fit: cover;
             display: block;
-        }
-
-        .ahs-col-img.grayscale img {
-            filter: grayscale(100%);
-            transition: filter 0.4s ease;
-        }
-
-        .ahs-col-img.grayscale:hover img {
-            filter: grayscale(0%);
         }
 
         .col-label {
@@ -132,8 +128,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .ahs-tab-item:last-child { border-bottom: none; }
-
         .ahs-tab-item:hover,
         .ahs-tab-item.active {
             background-color: #F16527;
@@ -154,10 +148,15 @@
             table-layout: fixed;
         }
 
+        #tab-2 { overflow: hidden; }
+
         #tab-2 .schedule-table {
             font-family: 'Courier Prime', 'Noto Serif SC', serif;
             font-size: 16px;
             font-weight: 300;
+            border: none;
+            margin: -0.5px;
+            width: calc(100% + 1px);
         }
 
         #tab-2 .schedule-table td,
@@ -240,6 +239,11 @@
             table-layout: fixed;
         }
 
+        #tab-1 .grid-table {
+            border: none;
+            margin-bottom: 0;
+        }
+
         #tab-1 .grid-table td {
             border: 0.5px solid #000;
             padding: 0;
@@ -250,6 +254,11 @@
             font-weight: 300;
             color: #000;
         }
+
+        #tab-1 .grid-table tr:first-child td { border-top: none; }
+        #tab-1 .grid-table tr:last-child td { border-bottom: none; }
+        #tab-1 .grid-table td:first-child { border-left: none; }
+        #tab-1 .grid-table td:last-child { border-right: none; }
 
         #tab-1 .grid-table td.studio   { background-color: #FBE0D2; }
         #tab-1 .grid-table td.digital  { background-color: #F0B8A6; }
@@ -294,6 +303,86 @@
         }
 
         .col-link:hover { color: #F16527; }
+
+        .col-crossfade {
+            display: grid;
+        }
+
+        .col-crossfade .col-body,
+        .col-crossfade .cert-image,
+        .col-crossfade .contact-map,
+        .col-crossfade .contact-text-wrap {
+            grid-area: 1 / 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .col-crossfade .cert-image,
+        .col-crossfade .contact-map {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .col-crossfade .cert-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .col-crossfade .contact-map {
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+        }
+
+        .col-crossfade .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+            border: none;
+            display: block;
+        }
+
+        .ahs-row-3 .ahs-col.contact-col {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .contact-col .col-crossfade {
+            height: 100%;
+        }
+
+        .contact-text-wrap {
+            padding: 80px 40px;
+        }
+
+        .col-crossfade.show-cert .col-body,
+        .col-crossfade.show-cert .contact-text-wrap {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .col-crossfade.show-cert .cert-image {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .col-crossfade.show-cert .contact-map {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cert-toggle {
+            color: #F16527;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .contact-toggle {
+            color: #F16527;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
         /* Footer */
         .footer {
@@ -408,9 +497,6 @@
 
     <div class="ahs-layout">
         <div class="ahs-row-hero">
-            <div class="ahs-col-img grayscale">
-                <img src="images/art-high-school/via-certificate.gif" alt="VIA Certificate of Accreditation">
-            </div>
             <div class="ahs-col-img">
                 <img src="images/art-high-school/student-studio.png" alt="VIA student studio">
             </div>
@@ -418,12 +504,16 @@
         <div class="ahs-row">
             <div class="ahs-col">
                 <p class="col-label">ABOUT VIA</p>
-                <div class="col-body">
-                    <p>维吉尼亚国际学校创办于2012年，是一所独立的，无宗教背景的国际学校，旨在为国际学生进入美国高中和大学学习做好充分准备而提供教育和帮助。</p>
-                    <p>2013年我们在维吉尼亚州芙蓉镇的校园开始招收来自中国的留学生，首批学生15名，学校提供七至九年级的教育。2013至2022年之间，有超过250名学生就读过VIA，他们绝大多数都已经入读哈佛大学、宾夕法尼亚大学、哥伦比亚大学、纽约大学、维吉尼亚大学、南加利福尼亚大学、加州大学洛杉矶分校、加州大学伯克利分校、乔治亚理工大学、埃默里大学等等美国名校。</p>
-                    <p>2022年我们出售了芙蓉镇校园，同时把学校的教学范围扩展到高中。2025年，我们购入维吉尼亚州茂乐镇的新校园，可以容纳100名学生，我们在这里为初中和高中学生提供教育。</p>
-                    <p>VIA通过美国教育部指定的地区认证机构认证，是一所正规提供初中和高中学历教育的学校。图为VIA所获认证的证书。</p>
-                    <a href="https://usvia.org/" target="_blank" class="col-link">VIA官网</a>
+                <div class="col-crossfade" id="aboutViaCrossfade">
+                    <div class="col-body">
+                        <p>维吉尼亚国际学校创办于2012年，是一所独立的，无宗教背景的国际学校，旨在为国际学生进入美国高中和大学学习做好充分准备而提供教育和帮助。</p>
+                        <p>2013年我们在维吉尼亚州芙蓉镇的校园开始招收来自中国的留学生，首批学生15名，学校提供七至九年级的教育。2013至2022年之间，有超过250名学生就读过VIA，他们绝大多数都已经入读哈佛大学、宾夕法尼亚大学、哥伦比亚大学、纽约大学、维吉尼亚大学、南加利福尼亚大学、加州大学洛杉矶分校、加州大学伯克利分校、乔治亚理工大学、埃默里大学等等美国名校。</p>
+                        <p>2022年我们出售了芙蓉镇校园，同时把学校的教学范围扩展到高中。2025年，我们购入维吉尼亚州茂乐镇的新校园，可以容纳100名学生，我们在这里为初中和高中学生提供教育。</p>
+                        <p>VIA通过美国教育部指定的地区认证机构认证，是一所正规提供初中和高中学历教育的学校。</p>
+                        <p><span class="cert-toggle" id="certToggle">查看VIA所获认证的证书</span></p>
+                        <a href="https://usvia.org/" target="_blank" class="col-link">VIA官网</a>
+                    </div>
+                    <img class="cert-image" src="images/art-high-school/via-certificate.gif" alt="VIA Certificate of Accreditation">
                 </div>
             </div>
             <div class="ahs-col">
@@ -711,10 +801,17 @@
                     <p>学习与成长。学习是应当贯穿人一生的持续性过程，学生将学会不断获取文化与知识，增强对世界的理解，改进行为规范，培养生活技能和获得幸福生活的能力。成长体现在学生在学术上、智力上、社交上、情感上和身体上的系统性变化和提升，摆脱稚嫩，走向成熟。</p>
                 </div>
             </div>
-            <div class="ahs-col">
-                <p class="col-label">联系我们</p>
-                <div class="col-body">
-                    <p>学校地址：257 Toll House Rd, Maurertown VA 22644<br>学校电话：(703) 818-9178<br>校长邮箱：helen.wu@usvia.org<br>校长微信：helenwuva</p>
+            <div class="ahs-col contact-col">
+                <div class="col-crossfade" id="contactCrossfade">
+                    <div class="contact-text-wrap">
+                        <p class="col-label">联系我们</p>
+                        <div class="col-body">
+                            <p><span class="contact-toggle" id="contactToggle">学校地址：257 Toll House Rd, Maurertown VA 22644</span><br>学校电话：(703) 818-9178<br>校长邮箱：helen.wu@usvia.org<br>校长微信：helenwuva</p>
+                        </div>
+                    </div>
+                    <div class="contact-map">
+                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-78.60%2C38.82%2C-78.53%2C38.88&amp;layer=mapnik&amp;marker=38.8514%2C-78.5661" loading="lazy" title="VIA 地图"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -770,6 +867,36 @@
             event.currentTarget.classList.add('active');
             document.getElementById(id).classList.add('active');
         }
+
+        (function() {
+            var crossfade = document.getElementById('aboutViaCrossfade');
+            var certToggle = document.getElementById('certToggle');
+
+            certToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                crossfade.classList.add('show-cert');
+            });
+
+            document.addEventListener('click', function() {
+                crossfade.classList.remove('show-cert');
+            });
+        })();
+
+        (function() {
+            var crossfade = document.getElementById('contactCrossfade');
+            var contactToggle = document.getElementById('contactToggle');
+
+            contactToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                crossfade.classList.add('show-cert');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (crossfade.classList.contains('show-cert') && !e.target.closest('.contact-map')) {
+                    crossfade.classList.remove('show-cert');
+                }
+            });
+        })();
     </script>
 </body>
 </html>
