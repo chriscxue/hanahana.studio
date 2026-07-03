@@ -458,8 +458,9 @@ nav: art-high-school
         @media (max-width: 768px) {
             /* Header */
             .header-grid { grid-template-columns: 1fr; }
-            .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; }
+            .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; justify-content: center; }
             .nav-item { padding: 12px 20px; }
+            .logo { width: 100%; height: auto; }
 
             /* Layout rows - 全部单列堆叠 */
             .ahs-row-hero { grid-template-columns: 1fr; }
@@ -478,6 +479,12 @@ nav: art-high-school
             .tab-mobile-notice { display: flex; }
             /* 底部三列行 padding 缩小 */
             .ahs-row-3 .ahs-col { padding: 24px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .logo { width: 60%; height: auto; margin: 0 auto; }
+            .header-left { padding: 48px 16px; }
+            .header-right { padding: 0; }
         }
     </style>
 </head>
