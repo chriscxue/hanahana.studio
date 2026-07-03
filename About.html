@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Noto+Serif+SC:wght@200&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scrollbar-gutter: stable; }
@@ -245,6 +246,141 @@
             margin-bottom: 0;
         }
 
+        /* Roadmap section */
+        @font-face {
+            font-family: 'Huiwen';
+            src: url('fonts/Huiwen.otf') format('opentype');
+        }
+
+        .roadmap-row {
+            border-top: 0.5px solid #000;
+        }
+
+        .roadmap-table-wrap { overflow: hidden; }
+
+        #roadmap-table {
+            --color-hairline: #1f1d1a;
+            --color-paper: #fff;
+            --col-year: transparent;
+            --col-art-base: #E8B8AC;
+            --col-portfolio: #E8B8AC;
+            --col-portfolio-opt: #E8B8AC;
+            --col-ps: #E9E9E9;
+            --col-essay: #E9E9E9;
+            --col-rec: #E9E9E9;
+            --col-ed: #ADC2B5;
+            --col-rd: #ADC2B5;
+            --col-uc: #ADC2B5;
+            --col-rolling: #ADC2B5;
+
+            width: calc(100% + 1px);
+            margin: -0.5px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            background: var(--color-paper);
+            font-family: 'Huiwen', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        #roadmap-table th,
+        #roadmap-table td {
+            padding: 10px 13px;
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-weight: 200;
+            font-size: 16px;
+            color: #000;
+            border: 0.5px solid var(--color-hairline);
+            vertical-align: top;
+        }
+
+        #roadmap-table thead th {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            vertical-align: middle;
+            padding: 12px 13px;
+        }
+
+        #roadmap-table .semester-symbol { font-family: 'Noto Sans SC', sans-serif; }
+
+        #roadmap-table .title-row th {
+            text-align: left;
+            text-transform: none;
+            letter-spacing: normal;
+            vertical-align: top;
+            background: var(--color-paper);
+            padding: 32px;
+        }
+
+        #roadmap-table .title-row h1 {
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-size: 20px;
+            font-weight: 200;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        #roadmap-table .title-row .t-sub {
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-size: 16px;
+            font-weight: 200;
+            margin-bottom: 8px;
+        }
+
+        #roadmap-table .title-row .t-symbol {
+            font-family: 'Courier Prime', 'Noto Serif SC', serif;
+            font-size: 16px;
+            font-weight: 200;
+            letter-spacing: 0.04em;
+        }
+
+        #roadmap-table .col-month       { width: 4.6%; }
+        #roadmap-table .col-school-year { width: 7.4%; }
+        #roadmap-table .col-language    { width: 5.6%; }
+        #roadmap-table .col-art-base    { width: 7.4%; }
+        #roadmap-table .col-portfolio   { width: 7.4%; }
+        #roadmap-table .col-ps          { width: 9.3%; }
+        #roadmap-table .col-essay       { width: 9.3%; }
+        #roadmap-table .col-rec         { width: 9.3%; }
+        #roadmap-table .col-ed          { width: 12%;  }
+        #roadmap-table .col-rd          { width: 11.1%;}
+        #roadmap-table .col-uc          { width: 9.3%; }
+        #roadmap-table .col-rolling     { width: 7.4%; }
+
+        #roadmap-table th.col-art-base    { background: var(--col-art-base); }
+        #roadmap-table th.col-portfolio   { background: var(--col-portfolio); }
+        #roadmap-table th.col-ps          { background: var(--col-ps); }
+        #roadmap-table th.col-essay       { background: var(--col-essay); }
+        #roadmap-table th.col-rec         { background: var(--col-rec); }
+        #roadmap-table th.col-ed          { background: var(--col-ed); }
+        #roadmap-table th.col-rd          { background: var(--col-rd); }
+        #roadmap-table th.col-uc          { background: var(--col-uc); }
+        #roadmap-table th.col-rolling     { background: var(--col-rolling); }
+
+        #roadmap-table td.col-month        { background: transparent; font-weight: 600; text-align: center; white-space: nowrap; }
+        #roadmap-table td.col-school-year  { background: var(--col-year); white-space: nowrap; text-align: center; }
+        #roadmap-table td.col-language     { background: transparent; }
+        #roadmap-table td.col-art-base     { background: var(--col-art-base); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-portfolio    { background: var(--col-portfolio); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-portfolio-opt{ background: var(--col-portfolio-opt); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-ps           { background: var(--col-ps); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-essay        { background: var(--col-essay); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-rec          { background: var(--col-rec); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-ed           { background: var(--col-ed); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-rd           { background: var(--col-rd); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-uc           { background: var(--col-uc); text-align: center; vertical-align: middle; }
+        #roadmap-table td.col-rolling      { background: var(--col-rolling); text-align: center; vertical-align: middle; }
+
+        #roadmap-table td.col-language-white  { background: var(--color-paper); width: 5.6%; }
+        #roadmap-table td.col-art-base-white  { background: var(--color-paper); width: 7.4%; }
+        #roadmap-table td.col-portfolio-white { background: var(--color-paper); width: 7.4%; }
+        #roadmap-table td.col-ps-white        { background: var(--color-paper); width: 9.3%; }
+        #roadmap-table td.col-essay-white     { background: var(--color-paper); width: 9.3%; }
+        #roadmap-table td.col-rec-white       { background: var(--color-paper); width: 9.3%; }
+        #roadmap-table td.col-ed-white        { background: var(--color-paper); width: 12%;  }
+        #roadmap-table td.col-rd-white        { background: var(--color-paper); width: 11.1%;}
+        #roadmap-table td.col-uc-white        { background: var(--color-paper); width: 9.3%; }
+        #roadmap-table td.col-rolling-white   { background: var(--color-paper); width: 7.4%; }
+
         /* Footer */
         .footer {
             width: 100%;
@@ -296,6 +432,9 @@
             /* 学历年份在窄屏换行 */
             .founder-education li { gap: 12px; }
             .edu-year { font-size: 13px; }
+
+            /* Roadmap section */
+            .roadmap-row { padding: 32px 24px; }
         }
     </style>
 </head>
@@ -436,6 +575,258 @@
                     <p class="letter-signature">Chris Chenglin Xue<br>2025</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="roadmap-row">
+        <div class="roadmap-table-wrap">
+            <table id="roadmap-table">
+                <thead>
+                    <tr class="title-row">
+                        <th colspan="12">
+                            <h1>HANAHANA STUDIO 艺术升学指导规划 (高中升本科)</h1>
+                            <p class="t-sub">高一到高三(10年级-12年级)全流程</p>
+                            <p class="t-sub">总时长: 36个月</p>
+                            <p class="t-symbol">↑ 上学期(9-12月)&nbsp;&nbsp;|&nbsp;&nbsp;↓ 下学期(1-6月)&nbsp;&nbsp;|&nbsp;&nbsp;■ 暑假(7-8月)</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-month">序号</th>
+                        <th class="col-school-year">年级/月份</th>
+                        <th class="col-language">语言考试</th>
+                        <th class="col-art-base">专业基础</th>
+                        <th class="col-portfolio">作品集</th>
+                        <th class="col-ps">个人陈述</th>
+                        <th class="col-essay">补充文书</th>
+                        <th class="col-rec">推荐信</th>
+                        <th class="col-ed">ED/EA</th>
+                        <th class="col-rd">RD</th>
+                        <th class="col-uc">UC</th>
+                        <th class="col-rolling">Rolling</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-month">01</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↑</span>-09</td>
+                        <td class="col-language" rowspan="18" style="text-align:center;vertical-align:middle;">跟随语言机构计划</td>
+                        <td class="col-art-base-white" rowspan="14"></td>
+                        <td class="col-portfolio-white" rowspan="10"></td>
+                        <td class="col-ps-white" rowspan="21"></td>
+                        <td class="col-essay-white" rowspan="21"></td>
+                        <td class="col-rec-white" rowspan="22"></td>
+                        <td class="col-ed-white" rowspan="22"></td>
+                        <td class="col-rd-white" rowspan="22"></td>
+                        <td class="col-uc-white" rowspan="22"></td>
+                        <td class="col-rolling-white" rowspan="22"></td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">02</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↑</span>-10</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">03</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↑</span>-11</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">04</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↑</span>-12</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">05</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-01</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">06</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-02</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">07</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-03</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">08</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-04</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">09</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-05</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">10</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">↓</span>-06</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">11</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">■</span>-07</td>
+                        <td class="col-portfolio-opt" rowspan="2" style="text-align:center;vertical-align:middle;">艺术与社会实践</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">12</td>
+                        <td class="col-school-year">G10-<span class="semester-symbol">■</span>-08</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">13</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↑</span>-09</td>
+                        <td class="col-portfolio-opt" rowspan="2" style="text-align:center;vertical-align:middle;">艺术竞赛</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">14</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↑</span>-10</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">15</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↑</span>-11</td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">Notion与调研方法</td>
+                        <td class="col-portfolio" rowspan="2" style="text-align:center;vertical-align:middle;">调研与批判</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">16</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↑</span>-12</td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">Claude Code与AI图像</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">17</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-01</td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">数字影像与文件格式</td>
+                        <td class="col-portfolio" rowspan="2" style="text-align:center;vertical-align:middle;">项目一</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">18</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-02</td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">p5.js与生成艺术</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">19</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-03</td>
+                        <td class="col-language-white" rowspan="18"></td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">SketchUp与空间思维</td>
+                        <td class="col-portfolio" rowspan="2" style="text-align:center;vertical-align:middle;">项目二</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">20</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-04</td>
+                        <td class="col-art-base" style="text-align:center;vertical-align:middle;">Inventor与3D打印</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">21</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-05</td>
+                        <td class="col-art-base" rowspan="2" style="text-align:center;vertical-align:middle;">Arduino与交互思维</td>
+                        <td class="col-portfolio" rowspan="2" style="text-align:center;vertical-align:middle;">项目三</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">22</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">↓</span>-06</td>
+                        <td class="col-ps" rowspan="2" style="text-align:center;vertical-align:middle;">确定主题+3次迭代</td>
+                        <td class="col-essay" rowspan="4" style="text-align:center;vertical-align:middle;">写作</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">23</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">■</span>-07</td>
+                        <td class="col-art-base" rowspan="2" style="text-align:center;vertical-align:middle;">Figma与版式设计规范</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">项目四+排版</td>
+                        <td class="col-rec" style="text-align:center;vertical-align:middle;">填写推荐人信息</td>
+                        <td class="col-ed" style="text-align:center;vertical-align:middle;">申请信息汇总</td>
+                        <td class="col-rd" style="text-align:center;vertical-align:middle;">申请信息汇总</td>
+                        <td class="col-uc" style="text-align:center;vertical-align:middle;">申请信息汇总</td>
+                        <td class="col-rolling" style="text-align:center;vertical-align:middle;">申请信息汇总</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">24</td>
+                        <td class="col-school-year">G11-<span class="semester-symbol">■</span>-08</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">排版</td>
+                        <td class="col-ps" style="text-align:center;vertical-align:middle;">最终版</td>
+                        <td class="col-rec" style="text-align:center;vertical-align:middle;">写推荐信</td>
+                        <td class="col-ed" style="text-align:center;vertical-align:middle;">填写申请表格</td>
+                        <td class="col-rd" style="text-align:center;vertical-align:middle;">填写申请表格</td>
+                        <td class="col-uc" rowspan="2" style="text-align:center;vertical-align:middle;">填写申请表格</td>
+                        <td class="col-rolling" style="text-align:center;vertical-align:middle;">填写申请表格</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">25</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↑</span>-09</td>
+                        <td class="col-art-base" rowspan="2" style="text-align:center;vertical-align:middle;">作品集叙事与呈现逻辑</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">完整版 1.0</td>
+                        <td class="col-ps" style="text-align:center;vertical-align:middle;">提交</td>
+                        <td class="col-rec" rowspan="2" style="text-align:center;vertical-align:middle;">提交</td>
+                        <td class="col-ed" rowspan="2" style="text-align:center;vertical-align:middle;">提交申请</td>
+                        <td class="col-rd" rowspan="4" style="text-align:center;vertical-align:middle;">提交申请</td>
+                        <td class="col-rolling" style="text-align:center;vertical-align:middle;">提交申请</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">26</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↑</span>-10</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">完整版 2.0<br>(提交)</td>
+                        <td class="col-ps-white" rowspan="11"></td>
+                        <td class="col-essay" rowspan="3" style="text-align:center;vertical-align:middle;">提交</td>
+                        <td class="col-uc" rowspan="2" style="text-align:center;vertical-align:middle;">提交申请</td>
+                        <td class="col-rolling" rowspan="6" style="text-align:center;vertical-align:middle;">跟进申请材料状态<br>出申请结果</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">27</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↑</span>-11</td>
+                        <td class="col-art-base" rowspan="2" style="text-align:center;vertical-align:middle;">Penpot与建站技术</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">项目五+全面优化项目</td>
+                        <td class="col-rec-white" rowspan="10"></td>
+                        <td class="col-ed" style="text-align:center;vertical-align:middle;">跟进申请材料状态</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">28</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↑</span>-12</td>
+                        <td class="col-portfolio" style="text-align:center;vertical-align:middle;">完整版 3.0<br>(提交)</td>
+                        <td class="col-ed" style="text-align:center;vertical-align:middle;">出申请结果<br>ED确定去向</td>
+                        <td class="col-uc" rowspan="3" style="text-align:center;vertical-align:middle;">跟进申请材料状态</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">29</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-01</td>
+                        <td class="col-art-base-white" rowspan="8"></td>
+                        <td class="col-portfolio" rowspan="2" style="text-align:center;vertical-align:middle;">搭建个人网站</td>
+                        <td class="col-essay-white" rowspan="8"></td>
+                        <td class="col-ed-white" rowspan="3"></td>
+                        <td class="col-rd" rowspan="2" style="text-align:center;vertical-align:middle;">跟进申请材料状态</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">30</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-02</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">31</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-03</td>
+                        <td class="col-portfolio-white" rowspan="6"></td>
+                        <td class="col-rd" style="text-align:center;vertical-align:middle;">出申请结果</td>
+                        <td class="col-uc" style="text-align:center;vertical-align:middle;">出申请结果</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">32</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-04</td>
+                        <td class="col-ed" style="text-align:center;vertical-align:middle;">EA确定去向</td>
+                        <td class="col-rd" style="text-align:center;vertical-align:middle;">确定去向</td>
+                        <td class="col-uc" style="text-align:center;vertical-align:middle;">确定去向</td>
+                        <td class="col-rolling" style="text-align:center;vertical-align:middle;">确定去向</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">33</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-05</td>
+                        <td colspan="4" style="background:var(--col-year);text-align:center;vertical-align:middle;">缴纳入学押金、housing申请</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">34</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">↓</span>-06</td>
+                        <td colspan="4" style="background:var(--col-year);text-align:center;vertical-align:middle;">寄送最终成绩单、收到I-20</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">35</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">■</span>-07</td>
+                        <td colspan="4" style="background:var(--col-year);text-align:center;vertical-align:middle;">签证申请、体检、订机票</td>
+                    </tr>
+                    <tr>
+                        <td class="col-month">36</td>
+                        <td class="col-school-year">G12-<span class="semester-symbol">■</span>-08</td>
+                        <td colspan="4" style="background:var(--col-year);text-align:center;vertical-align:middle;">出发</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
