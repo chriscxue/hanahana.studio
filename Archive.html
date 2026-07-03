@@ -46,7 +46,11 @@
         }
         .nav-item:last-child { border-bottom: none; }
         .nav-item:hover { background-color: #F16527; color: #fff; }
-        .nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; }
+        .nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; display: grid; }
+        .nav-en, .nav-cn { grid-area: 1 / 1; transition: opacity 0.3s ease; }
+        .nav-cn { opacity: 0; }
+        .nav-item:hover .nav-en { opacity: 0; }
+        .nav-item:hover .nav-cn { opacity: 1; }
         .nav-arrow svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
         .nav-item:hover .nav-arrow svg { transform: translateX(4px); }
         .nav-item.current .nav-arrow svg { transform: rotate(90deg); }
@@ -223,27 +227,27 @@
             </div>
             <nav class="header-right">
                 <a href="Consulting.html" class="nav-item">
-                    <span class="nav-label">CONSULTING</span>
+                    <span class="nav-label"><span class="nav-en">CONSULTING</span><span class="nav-cn">艺术升学指导</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
                 <a href="Art High School.html" class="nav-item">
-                    <span class="nav-label">ART HIGH SCHOOL</span>
+                    <span class="nav-label"><span class="nav-en">ART HIGH SCHOOL</span><span class="nav-cn">美国艺术高中</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
                 <a href="Archive.html" class="nav-item current">
-                    <span class="nav-label">ARCHIVE</span>
+                    <span class="nav-label"><span class="nav-en">ARCHIVE</span><span class="nav-cn">工作室档案</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
                 <a href="Member.html" class="nav-item">
-                    <span class="nav-label">MEMBER</span>
+                    <span class="nav-label"><span class="nav-en">MEMBER</span><span class="nav-cn">学员信息中心</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
                 <a href="Channel.html" class="nav-item">
-                    <span class="nav-label">CHANNEL</span>
+                    <span class="nav-label"><span class="nav-en">CHANNEL</span><span class="nav-cn">内容频道</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
                 <a href="About.html" class="nav-item">
-                    <span class="nav-label">ABOUT</span>
+                    <span class="nav-label"><span class="nav-en">ABOUT</span><span class="nav-cn">关于我们</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </a>
             </nav>
