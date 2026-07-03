@@ -5,3 +5,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  # 根目录的 header.html / footer.html 是早期设计稿，实际使用 _includes/ 内的片段
+  - header.html
+  - footer.html
