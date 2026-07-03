@@ -9,7 +9,7 @@ nav: consulting
     <title>HANAHANA STUDIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -780,7 +780,7 @@ nav: consulting
     <div class="project-list-wrapper">
         <div class="project-list">
             <!-- Project 1 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">01</h2>
                 </div>
@@ -809,7 +809,7 @@ nav: consulting
             </article>
 
             <!-- Project 2 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">02</h2>
                 </div>
@@ -837,7 +837,7 @@ nav: consulting
             </article>
 
             <!-- Project 3 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">03</h2>
                 </div>
@@ -865,7 +865,7 @@ nav: consulting
             </article>
 
             <!-- Project 4 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">04</h2>
                 </div>
@@ -896,7 +896,7 @@ nav: consulting
             </article>
 
             <!-- Project 5 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">05</h2>
                 </div>
@@ -924,7 +924,7 @@ nav: consulting
             </article>
 
             <!-- Project 6 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">06</h2>
                 </div>
@@ -1012,7 +1012,7 @@ nav: consulting
             </article>
 
             <!-- Project 7 -->
-            <article class="project-item" onclick="toggleDropdown(this)">
+            <article class="project-item" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">07</h2>
                 </div>
@@ -1074,7 +1074,7 @@ nav: consulting
             </article>
 
             <!-- Project 8 -->
-            <article class="project-item" style="display:none" onclick="toggleDropdown(this)">
+            <article class="project-item" style="display:none" onclick="toggleDropdown(this, event)">
                 <div class="project-left">
                     <h2 class="project-name">08</h2>
                 </div>
@@ -1093,7 +1093,10 @@ nav: consulting
     {% include footer.html %}
 
     <script>
-        function toggleDropdown(item) {
+        function toggleDropdown(item, event) {
+            // 点击发生在展开的内容区内（选文字、点图片）时不收起面板
+            if (event && event.target.closest('.dropdown-panel')) return;
+
             const panel = item.querySelector('.dropdown-panel');
             const extra = item.querySelector('.project-extra');
             const isOpen = item.classList.contains('is-open');
@@ -1111,6 +1114,13 @@ nav: consulting
                 panel.style.maxHeight = panel.scrollHeight + 'px';
             }
         }
+
+        // 窗口尺寸变化时重算已展开面板的高度，避免固定 max-height 裁切内容
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.project-item.is-open .dropdown-panel').forEach(panel => {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            });
+        });
     </script>
 </body>
 </html>
