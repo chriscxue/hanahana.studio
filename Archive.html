@@ -104,6 +104,10 @@ nav: archive
         /* Content Area */
         .archive-content {
             padding: 64px;
+            /* min-width:0 解除 grid 轨道被表格最小内容宽度撑大；
+               宽表格（1000px设计宽）在窄视口下于内容区内部横向滚动，不撑破页面 */
+            min-width: 0;
+            overflow-x: auto;
         }
 
         .content-panel {
