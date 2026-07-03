@@ -1,3 +1,6 @@
+---
+nav: archive
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,71 +191,7 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-grid">
-            <div class="header-left">
-                <a href="Consulting.html" class="logo">
-                    <svg width="100%" height="100%" viewBox="0 0 288 72" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="wg1" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                            </radialGradient>
-                            <radialGradient id="wg2" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                            </radialGradient>
-                            <radialGradient id="wg3" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                                <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                            </radialGradient>
-                        </defs>
-                        <circle cx="36" cy="36" r="66" fill="url(#wg1)" opacity="0.2">
-                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                        </circle>
-                        <circle cx="144" cy="36" r="66" fill="url(#wg2)" opacity="0.2">
-                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                        </circle>
-                        <circle cx="252" cy="36" r="66" fill="url(#wg3)" opacity="0.2">
-                            <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                        </circle>
-                        <circle cx="36" cy="36" r="36" fill="#000"/>
-                        <circle cx="144" cy="36" r="36" fill="#000"/>
-                        <circle cx="252" cy="36" r="36" fill="#000"/>
-                    </svg>
-                </a>
-            </div>
-            <nav class="header-right">
-                <a href="Consulting.html" class="nav-item">
-                    <span class="nav-label"><span class="nav-en">CONSULTING</span><span class="nav-cn">艺术升学指导</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-                <a href="Art High School.html" class="nav-item">
-                    <span class="nav-label"><span class="nav-en">ART HIGH SCHOOL</span><span class="nav-cn">美国艺术高中</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-                <a href="Archive.html" class="nav-item current">
-                    <span class="nav-label"><span class="nav-en">ARCHIVE</span><span class="nav-cn">工作室档案</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-                <a href="Member.html" class="nav-item">
-                    <span class="nav-label"><span class="nav-en">MEMBER</span><span class="nav-cn">学员信息中心</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-                <a href="Channel.html" class="nav-item">
-                    <span class="nav-label"><span class="nav-en">CHANNEL</span><span class="nav-cn">内容频道</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-                <a href="About.html" class="nav-item">
-                    <span class="nav-label"><span class="nav-en">ABOUT</span><span class="nav-cn">关于我们</span></span>
-                    <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </a>
-            </nav>
-        </div>
-    </header>
+    {% include header.html %}
 
     <div class="archive-layout">
         <aside class="archive-sidebar">
@@ -18588,49 +18527,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <a href="Consulting.html" class="footer-logo">
-            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <radialGradient id="fwg1" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                    <radialGradient id="fwg2" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                    <radialGradient id="fwg3" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                </defs>
-                <circle cx="12" cy="12" r="22" fill="url(#fwg1)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="48" cy="12" r="22" fill="url(#fwg2)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="84" cy="12" r="22" fill="url(#fwg3)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="12" cy="12" r="12" fill="#000"/>
-                <circle cx="48" cy="12" r="12" fill="#000"/>
-                <circle cx="84" cy="12" r="12" fill="#000"/>
-            </svg>
-        </a>
-        <div class="footer-info">
-            <p class="footer-name">HANAHANA STUDIO</p>
-            <p>USA</p>
-            <p>257 Toll House Road, Maurertown VA 22644 USA</p>
-            <p>chris.c.xue@gmail.com</p>
-            <p>微信: keokkeokchris</p>
-            <p class="footer-copyright">@2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
-        </div>
-    </footer>
+    {% include footer.html %}
 
     <script>
         function showContent(id) {

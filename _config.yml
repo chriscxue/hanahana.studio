@@ -1,0 +1,7 @@
+title: HANAHANA STUDIO
+description: HANAHANA STUDIO 官网
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
