@@ -61,6 +61,53 @@ nav: member
         .main-content { padding: 0; }
         .section-title { font-size: 96px; font-weight: 800; color: #000; line-height: 1.2; }
 
+        /* Access Gate */
+        .access-gate { width: 100%; display: flex; justify-content: center; padding: 120px 40px; }
+        .access-gate-card { max-width: 480px; width: 100%; text-align: center; }
+        .access-label { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 16px; }
+        .access-title { font-size: 28px; font-weight: 600; color: #000; line-height: 1.2; margin-bottom: 16px; }
+        .access-desc { font-size: 16px; font-weight: 200; line-height: 1.8; color: #000; margin-bottom: 40px; }
+        .access-input-row { display: flex; gap: 12px; margin-bottom: 24px; }
+        .access-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 0.5px solid #000;
+            font-family: inherit;
+            font-size: 18px;
+            letter-spacing: 0.15em;
+            text-align: center;
+            text-transform: uppercase;
+            background: #fff;
+            color: #000;
+        }
+        .access-input::placeholder { letter-spacing: normal; text-transform: none; color: rgba(0,0,0,0.35); }
+        .access-input:focus { outline: none; border-color: #F16527; }
+        .access-submit {
+            padding: 16px 36px;
+            background: #000;
+            color: #fff;
+            border: 0.5px solid #000;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .access-submit:hover { background: #F16527; border-color: #F16527; }
+        .access-forgot {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 200;
+            color: rgba(0,0,0,0.5);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.3s ease;
+        }
+        .access-forgot:hover { color: #F16527; }
+
+        .member-content { display: none; }
+
         /* Footer */
         .footer {
             width: 100%;
@@ -83,6 +130,10 @@ nav: member
             .nav-item { padding: 12px 20px; }
             .logo { width: 100%; height: auto; }
             .section-title { font-size: 40px; }
+
+            .access-gate { padding: 64px 24px; }
+            .access-title { font-size: 22px; }
+            .access-input-row { flex-direction: column; }
         }
 
         @media (max-width: 480px) {
@@ -100,6 +151,22 @@ nav: member
     </div>
 
     <main class="main-content">
+        <div class="access-gate">
+            <div class="access-gate-card">
+                <p class="access-label">MEMBER ACCESS</p>
+                <p class="access-title">学员专属内容</p>
+                <p class="access-desc">该页面仅限 HANAHANA 学员访问，请输入你的专属验证码进入。</p>
+                <div class="access-input-row">
+                    <input type="text" class="access-input" placeholder="请输入8位验证码" maxlength="8">
+                    <button class="access-submit" type="button">进入</button>
+                </div>
+                <a href="#" class="access-forgot">忘记验证码？</a>
+            </div>
+        </div>
+
+        <div class="member-content">
+            <!-- 验证通过后显示的内部文件内容，待填 -->
+        </div>
     </main>
 
     {% include footer.html %}
