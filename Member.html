@@ -56,17 +56,14 @@ nav: member
         .nav-item.current:hover .nav-arrow svg { transform: rotate(90deg) translateX(4px); }
 
         /* Main */
-        .content-hero { width: 100%; border-bottom: 0.5px solid #000; }
+        .content-hero { position: relative; width: 100%; border-bottom: 0.5px solid #000; }
         .content-hero img { width: 100%; height: auto; display: block; }
         .main-content { padding: 0; }
         .section-title { font-size: 96px; font-weight: 800; color: #000; line-height: 1.2; }
 
-        /* Access Gate */
-        .access-gate { width: 100%; display: flex; justify-content: center; padding: 120px 40px; }
-        .access-gate-card { max-width: 480px; width: 100%; text-align: center; }
-        .access-label { font-size: 16px; font-weight: 200; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 16px; }
-        .access-title { font-size: 28px; font-weight: 600; color: #000; line-height: 1.2; margin-bottom: 16px; }
-        .access-desc { font-size: 16px; font-weight: 200; line-height: 1.8; color: #000; margin-bottom: 40px; }
+        /* Access Gate — overlaid on top of the hero image */
+        .access-gate { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        .access-gate-card { max-width: 480px; width: 100%; text-align: center; background: #fff; padding: 40px; border: 0.5px solid #000; }
         .access-input-row { display: flex; gap: 12px; margin-bottom: 24px; }
         .access-input {
             flex: 1;
@@ -91,6 +88,7 @@ nav: member
             font-size: 16px;
             font-weight: 400;
             letter-spacing: 0.05em;
+            white-space: nowrap;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -131,9 +129,11 @@ nav: member
             .logo { width: 100%; height: auto; }
             .section-title { font-size: 40px; }
 
-            .access-gate { padding: 64px 24px; }
-            .access-title { font-size: 22px; }
-            .access-input-row { flex-direction: column; }
+            .access-gate { padding: 20px; }
+            .access-gate-card { padding: 28px 20px; }
+            .access-input-row { flex-direction: column; margin-bottom: 16px; }
+            .access-input { padding: 12px 16px; font-size: 16px; }
+            .access-submit { padding: 12px 24px; }
         }
 
         @media (max-width: 480px) {
@@ -148,22 +148,18 @@ nav: member
 
     <div class="content-hero">
         <img src="images/member/team-photo.png" alt="HANAHANA members">
-    </div>
-
-    <main class="main-content">
         <div class="access-gate">
             <div class="access-gate-card">
-                <p class="access-label">MEMBER ACCESS</p>
-                <p class="access-title">学员专属内容</p>
-                <p class="access-desc">该页面仅限 HANAHANA 学员访问，请输入你的专属验证码进入。</p>
                 <div class="access-input-row">
-                    <input type="text" class="access-input" placeholder="请输入8位验证码" maxlength="8">
+                    <input type="text" class="access-input" placeholder="请输入你的学员验证码" maxlength="8">
                     <button class="access-submit" type="button">进入</button>
                 </div>
                 <a href="#" class="access-forgot">忘记验证码？</a>
             </div>
         </div>
+    </div>
 
+    <main class="main-content">
         <div class="member-content">
             <!-- 验证通过后显示的内部文件内容，待填 -->
         </div>
