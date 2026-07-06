@@ -56,6 +56,8 @@ nav: member
         .nav-item.current:hover .nav-arrow svg { transform: rotate(90deg) translateX(4px); }
 
         /* Main */
+        .content-hero { width: 100%; border-bottom: 0.5px solid #000; }
+        .content-hero img { width: 100%; height: auto; display: block; }
         .main-content { padding: 200px 150px; }
         .section-title { font-size: 96px; font-weight: 800; color: #000; line-height: 1.2; }
 
@@ -93,6 +95,10 @@ nav: member
 </head>
 <body>
     {% include header.html %}
+
+    <div class="content-hero">
+        <img src="images/member/team-photo.png" alt="HANAHANA members">
+    </div>
 
     <main class="main-content">
     </main>
