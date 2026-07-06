@@ -374,6 +374,23 @@ nav: consulting
             color: #fff;
         }
 
+        .cta-button {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 16px 40px;
+            background: #fff;
+            color: #000;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .cta-button:hover {
+            opacity: 0.8;
+        }
+
         .project-description {
             font-size: 36px;
             font-weight: 600;
@@ -828,8 +845,7 @@ nav: consulting
 
     <main class="main-content">
         <h1 class="section-title">HANAHANA<br class="mobile-br"> STUDIO</h1>
-        <p class="section-tagline">BREATHE · CREATE · REPEAT</p>
-        <p class="intro-text">HANAHANA STUDIO 成立于2013年，我们不是培训机构，不做批量生产，也不承诺捷径。我们做的事只有一件：帮助学生找到自己真正的学术人格，并用最严密的逻辑将它呈现出来。</p>
+        <p class="intro-text">HANAHANA STUDIO 成立于 2013 年。十三年，94 名学生，672+ 枚 Offer——从 Harvard、MIT、Cornell，到 RISD、Parsons、SVA。2016 年起，我们成为 VIA（美国维吉尼亚国际学校）官方艺术部，教学体系获得了北美学制内的正式身份。</p>
     </main>
 
     <div class="letter-block">
@@ -838,7 +854,6 @@ nav: consulting
         <p>艺术和设计的价值，在于让你重新定义世界的规则。一幅画、一件装置、一款产品、一个空间，都可以让人看到新的可能。招生官并不期待"完美"——他们想看到的，是你如何提出问题、解决问题，甚至重新定义问题本身；是你的思维、好奇心和勇气。对与错，从来不是艺术的评判标准。</p>
         <p>所以，不要害怕失败的模型、反复修改的图纸、让你熬夜却依然不对劲的实验。它们一件都不会白费——它们正在把你磨成一个更强大、更独特的创作者，而这个过程本身，会留在你的作品里，被看见。</p>
         <p>继续前进吧。去画画、去建造、去设计、去实验，把你的热爱放进作品里。无论结果如何，这些作品都会替你回答两个问题：你是谁，你为什么热爱这件事。没有捷径，没有奇迹——但每一次回到桌前，你都离那个答案更近一步。</p>
-        <p class="letter-signature">Xue Chenglin<br>2025</p>
     </div>
 
     <div class="project-list-wrapper">
@@ -1097,7 +1112,7 @@ nav: consulting
                                     <th class="col-header">中文名称</th>
                                     <th class="col-header-center">录取人数</th>
                                 </tr>
-                                <tr><td class="name-en">Harvard University</td><td class="name-zh">哈佛大学</td><td class="count">1</td><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">1</td></tr>
+                                <tr><td class="name-en">Harvard University</td><td class="name-zh">哈佛大学</td><td class="count">1</td><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">2</td></tr>
                                 <tr><td class="name-en">Cornell University</td><td class="name-zh">康奈尔大学</td><td class="count">13</td><td class="name-en">Columbia University</td><td class="name-zh">哥伦比亚大学</td><td class="count">7</td></tr>
                                 <tr><td class="name-en">Carnegie Mellon University</td><td class="name-zh">卡内基梅隆大学</td><td class="count">3</td><td class="name-en">Duke University</td><td class="name-zh">杜克大学</td><td class="count">2</td></tr>
                                 <tr><td class="name-en">University of Southern California</td><td class="name-zh">南加州大学</td><td class="count">4</td><td class="name-en">University of California, Berkeley</td><td class="name-zh">加州大学伯克利</td><td class="count">27</td></tr>
@@ -1125,7 +1140,7 @@ nav: consulting
                                     <th class="col-header-center">录取人数</th>
                                 </tr>
                                 <tr><td class="name-en">Harvard University</td><td class="name-zh">哈佛大学</td><td class="count">1</td></tr>
-                                <tr><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">1</td></tr>
+                                <tr><td class="name-en">Massachusetts Institute of Technology</td><td class="name-zh">麻省理工学院</td><td class="count">2</td></tr>
                                 <tr><td class="name-en">Cornell University</td><td class="name-zh">康奈尔大学</td><td class="count">13</td></tr>
                                 <tr><td class="name-en">Columbia University</td><td class="name-zh">哥伦比亚大学</td><td class="count">7</td></tr>
                                 <tr><td class="name-en">Carnegie Mellon University</td><td class="name-zh">卡内基梅隆大学</td><td class="count">3</td></tr>
@@ -1175,6 +1190,24 @@ nav: consulting
                 <div class="dropdown-panel dropdown-single">
                     <div class="dropdown-col" style="padding:0;">
                         {% include student-grid.html %}
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 11 -->
+            <article class="project-item" onclick="toggleDropdown(this, event)">
+                <div class="project-left">
+                    <h2 class="project-name">11</h2>
+                </div>
+                <div class="project-right">
+                    <div class="project-description"><span class="desc-en">CALL TO ACTION</span><span class="desc-cn">页尾行动入口</span></div>
+                </div>
+                <div class="project-extra"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="dropdown-panel dropdown-single">
+                    <div class="dropdown-col">
+                        <h3>BOOK A CRITIQUE · 预约一次作品集诊断</h3>
+                        <p>我们不推销课程。一次 40 分钟的深度 Critique，只诚实地告诉你两件事：你现在的作品处在什么位置，距离目标院校还差哪几步。</p>
+                        <a href="About.html#founder" class="cta-button">BOOK A CRITIQUE</a>
                     </div>
                 </div>
             </article>
