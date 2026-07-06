@@ -59,8 +59,8 @@ nav: channel
         .nav-item.current:hover .nav-arrow svg { transform: rotate(90deg) translateX(4px); }
 
         /* Main */
-        .content-hero { width: 100%; border-bottom: 0.5px solid #000; }
-        .content-hero-placeholder { width: 100%; height: 480px; background-color: #D9D9D9; }
+        .content-hero { width: 100%; border-bottom: 0.5px solid #000; overflow: hidden; }
+        .content-hero img { width: 100%; height: 100%; max-height: 480px; object-fit: cover; display: block; }
 
         .channel-nav {
             display: grid;
@@ -138,7 +138,7 @@ nav: channel
             .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; justify-content: center; }
             .nav-item { padding: 12px 20px; }
             .logo { width: 100%; height: auto; }
-            .content-hero-placeholder { height: 240px; }
+            .content-hero img { max-height: 240px; }
             .channel-nav { grid-template-columns: repeat(2, 1fr); }
             .channel-nav-item { padding: 20px; font-size: 16px; }
             .channel-layout { grid-template-columns: 1fr; }
@@ -157,7 +157,7 @@ nav: channel
     {% include header.html %}
 
     <div class="content-hero">
-        <div class="content-hero-placeholder"></div>
+        <img src="images/channel/content-studio.png" alt="HANAHANA content studio">
     </div>
 
     <div class="channel-nav">
