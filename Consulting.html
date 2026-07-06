@@ -312,16 +312,24 @@ nav: consulting
         }
 
         .mentor-hero-text {
-            position: relative;
+            position: absolute;
+            inset: 0;
             z-index: 2;
             padding: 64px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .mentor-hero-text .mentor-tagline {
             font-size: 36px;
             font-weight: 500;
             line-height: 1.4;
-            margin-bottom: 24px;
+            margin-bottom: 0;
+        }
+
+        .mentor-hero-bottom p {
+            margin-bottom: 0;
         }
 
         .dropdown-quad-row .dropdown-col:not(.dropdown-col-full) {
@@ -1054,8 +1062,10 @@ nav: consulting
                         <img src="images/about/chris-at-studio.png" alt="HANAHANA Studio" class="mentor-hero-img">
                         <div class="mentor-hero-text">
                             <p class="mentor-tagline">咨询机构的上限，是坐在学生对面那个人的上限。</p>
-                            <h3>XUE CHENGLIN · 薛承林 — Founder / Director of Art Education</h3>
-                            <p>中央美术学院 BFA，Alfred University MFA。13 年北美艺术升学战略经验，2016 年起主持 VIA（美国维吉尼亚国际学校）官方艺术部。工作室 Critique 体系与"交互思维"方法论的构建者。</p>
+                            <div class="mentor-hero-bottom">
+                                <h3>XUE CHENGLIN · 薛承林 — Founder / Director of Art Education</h3>
+                                <p>中央美术学院 BFA，Alfred University MFA。13 年北美艺术升学战略经验，2016 年起主持 VIA（美国维吉尼亚国际学校）官方艺术部。工作室 Critique 体系与"交互思维"方法论的构建者。</p>
+                            </div>
                         </div>
                     </div>
                     <div class="dropdown-col"></div>
