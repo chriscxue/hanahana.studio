@@ -28,13 +28,11 @@ nav: member
             border: 0.5px solid #000;
             font-family: inherit;
             font-size: 18px;
-            letter-spacing: 0.15em;
             text-align: center;
-            text-transform: uppercase;
             background: #fff;
             color: #000;
         }
-        .access-input::placeholder { letter-spacing: normal; text-transform: none; color: rgba(0,0,0,0.35); }
+        .access-input::placeholder { color: rgba(0,0,0,0.35); }
         .access-input:focus { outline: none; border-color: #F16527; }
         .access-submit {
             padding: 16px 36px;
@@ -50,16 +48,8 @@ nav: member
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .access-submit:hover { background: #F16527; border-color: #F16527; }
-        .access-forgot {
-            display: inline-block;
-            font-size: 14px;
-            font-weight: 200;
-            color: rgba(0,0,0,0.5);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            transition: color 0.3s ease;
-        }
-        .access-forgot:hover { color: #F16527; }
+        .access-error { font-size: 14px; font-weight: 200; color: #c0392b; margin-top: 4px; }
+        .access-error a { color: inherit; }
 
         .member-content { display: none; }
 
@@ -79,23 +69,94 @@ nav: member
 
     <div class="content-hero">
         <img src="images/member/team-photo.png" alt="HANAHANA members">
-        <div class="access-gate">
+        <div class="access-gate" id="access-gate">
             <div class="access-gate-card">
                 <div class="access-input-row">
-                    <input type="text" class="access-input" placeholder="请输入你的学员验证码" maxlength="8">
-                    <button class="access-submit" type="button">进入</button>
+                    <input type="email" class="access-input" id="access-email-input" placeholder="请输入你的学员邮箱" autocomplete="email">
+                    <button class="access-submit" type="button" id="access-submit-btn">进入</button>
                 </div>
-                <a href="#" class="access-forgot">忘记验证码？</a>
+                <div class="access-error" id="access-error" style="display:none;"></div>
             </div>
         </div>
     </div>
 
     <main class="main-content">
-        <div class="member-content">
+        <div class="member-content" id="member-content">
             <!-- 验证通过后显示的内部文件内容，待填 -->
         </div>
     </main>
 
     {% include footer.html %}
+
+    <script>
+        (function () {
+            var API_BASE = location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://api.hanahana.studio';
+            var STORAGE_KEY = 'hanahana_member_email';
+
+            var gate = document.getElementById('access-gate');
+            var content = document.getElementById('member-content');
+            var input = document.getElementById('access-email-input');
+            var submitBtn = document.getElementById('access-submit-btn');
+            var errorEl = document.getElementById('access-error');
+
+            function showError(msg) {
+                errorEl.textContent = msg;
+                errorEl.style.display = 'block';
+            }
+            function clearError() {
+                errorEl.style.display = 'none';
+                errorEl.textContent = '';
+            }
+            function unlock() {
+                gate.style.display = 'none';
+                content.style.display = 'block';
+            }
+
+            function checkEmail(email, onResult) {
+                fetch(API_BASE + '/member/check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) { onResult(data.allowed === true, null); })
+                    .catch(function (err) { onResult(false, err); });
+            }
+
+            function submit() {
+                var email = input.value.trim().toLowerCase();
+                clearError();
+                if (!email) return;
+                checkEmail(email, function (allowed, err) {
+                    if (err) {
+                        showError('网络错误，请重试');
+                        return;
+                    }
+                    if (allowed) {
+                        localStorage.setItem(STORAGE_KEY, email);
+                        unlock();
+                    } else {
+                        showError('该邮箱不在学员名单内，如有疑问请联系 chris.c.xue@gmail.com');
+                    }
+                });
+            }
+
+            submitBtn.addEventListener('click', submit);
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') submit();
+            });
+
+            var savedEmail = localStorage.getItem(STORAGE_KEY);
+            if (savedEmail) {
+                checkEmail(savedEmail, function (allowed) {
+                    if (allowed) {
+                        unlock();
+                    } else {
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

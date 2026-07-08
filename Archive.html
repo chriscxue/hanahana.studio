@@ -34,8 +34,31 @@ nav: archive
         }
 
         .sidebar-search {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
             padding: 16px 40px;
+            border: none;
             border-bottom: 0.5px solid #000;
+            border-radius: 0;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 300;
+            color: #000;
+        }
+
+        .sidebar-search::placeholder {
+            color: #999;
+        }
+
+        .sidebar-item.hidden {
+            display: none;
+        }
+
+        .sidebar-no-results {
+            padding: 12px 40px;
             font-size: 16px;
             font-weight: 300;
             color: #999;
@@ -145,7 +168,8 @@ nav: archive
 
     <div class="archive-layout">
         <aside class="archive-sidebar">
-            <div class="sidebar-search">搜索知识库...</div>
+            <input type="text" class="sidebar-search" id="archive-search-input" placeholder="搜索知识库...（如：插画 / Illustration）" autocomplete="off">
+            <div class="sidebar-no-results" id="sidebar-no-results" style="display:none;">未找到匹配院校</div>
             <div class="sidebar-item" onclick="showContent('topic-1')">Yale University</div>
 <div class="sidebar-item" onclick="showContent('topic-2')">Columbia University</div>
 <div class="sidebar-item" onclick="showContent('topic-3')">Cornell University</div>
@@ -18486,6 +18510,58 @@ nav: archive
             event.currentTarget.classList.add('active');
             document.getElementById(id).classList.add('active');
         }
+
+        (function () {
+            var API_BASE = location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://api.hanahana.studio';
+            var searchInput = document.getElementById('archive-search-input');
+            var noResultsEl = document.getElementById('sidebar-no-results');
+            var debounceTimer = null;
+
+            function getTopicId(item) {
+                var m = /showContent\('([^']+)'\)/.exec(item.getAttribute('onclick') || '');
+                return m ? m[1] : null;
+            }
+
+            function resetSidebar() {
+                document.querySelectorAll('.sidebar-item').forEach(function (item) {
+                    item.classList.remove('hidden');
+                });
+                noResultsEl.style.display = 'none';
+            }
+
+            function applyResults(topicIds) {
+                var idSet = new Set(topicIds);
+                var anyVisible = false;
+                document.querySelectorAll('.sidebar-item').forEach(function (item) {
+                    if (idSet.has(getTopicId(item))) {
+                        item.classList.remove('hidden');
+                        anyVisible = true;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                noResultsEl.style.display = anyVisible ? 'none' : 'block';
+            }
+
+            function runSearch(query) {
+                if (!query) {
+                    resetSidebar();
+                    return;
+                }
+                fetch(API_BASE + '/archive/search?q=' + encodeURIComponent(query))
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        applyResults((data.results || []).map(function (r) { return r.topicId; }));
+                    })
+                    .catch(function () { /* network error: leave sidebar as-is */ });
+            }
+
+            searchInput.addEventListener('input', function () {
+                clearTimeout(debounceTimer);
+                var query = searchInput.value.trim();
+                debounceTimer = setTimeout(function () { runSearch(query); }, 250);
+            });
+        })();
     </script>
 </body>
 </html>
