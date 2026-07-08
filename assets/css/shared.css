@@ -1,0 +1,75 @@
+/* HANAHANA Studio — 全站共享样式
+   Header / Footer / 基础重置，供 About / Archive / Art High School / Channel / Consulting / Member 六个页面共同引用
+   页面专属样式仍保留在各自 <style> 内，不要把这里的规则复制回页面文件 */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scrollbar-gutter: stable; }
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.6;
+    color: #000;
+    background-color: #fff;
+}
+
+/* Header */
+.header { width: 100%; border-bottom: 0.5px solid #000; }
+.header-grid { display: grid; grid-template-columns: 2fr 1fr; }
+.header-left {
+    display: flex;
+    align-items: center;
+    padding: 40px 40px 40px 150px;
+    border-right: 0.5px solid #000;
+}
+.logo { display: none; width: 288px; height: 72px; color: #000; text-decoration: none; }
+.header-right { display: flex; flex-direction: column; }
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 0.5px solid #000;
+    text-decoration: none;
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav-item:last-child { border-bottom: none; }
+.nav-item:hover { background-color: #F16527; color: #fff; }
+.nav-label { font-size: 16px; font-weight: 200; line-height: 1.8; display: grid; }
+.nav-en, .nav-cn { grid-area: 1 / 1; transition: opacity 0.3s ease; }
+.nav-cn { opacity: 0; }
+.nav-item:hover .nav-en { opacity: 0; }
+.nav-item:hover .nav-cn { opacity: 1; }
+.nav-arrow svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.nav-item:hover .nav-arrow svg { transform: translateX(4px); }
+.nav-item.current .nav-arrow svg { transform: rotate(90deg); }
+.nav-item.current:hover .nav-arrow svg { transform: rotate(90deg) translateX(4px); }
+
+/* Footer */
+.footer {
+    width: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 40px 40px;
+    gap: 60px;
+}
+.footer-logo { display: block; width: 200px; height: 50px; }
+.footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.footer-info p { font-size: 16px; font-weight: 200; line-height: 1.4; color: rgba(255,255,255,0.6); }
+.footer-info .footer-name { font-size: 20px; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
+.footer-info .footer-copyright { font-size: 14px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+@media (max-width: 768px) {
+    .header-grid { grid-template-columns: 1fr; }
+    .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; justify-content: center; }
+    .nav-item { padding: 12px 20px; }
+    .logo { width: 100%; height: auto; }
+}
+
+@media (max-width: 480px) {
+    .logo { width: 60%; height: auto; margin: 0 auto; }
+    .header-left { padding: 48px 16px; }
+    .header-right { padding: 0; }
+}
