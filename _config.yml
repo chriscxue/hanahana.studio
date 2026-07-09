@@ -8,6 +8,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+collections:
+  channel:
+    output: true
+    permalink: /channel/:path/
+
 exclude:
   - Gemfile
   - Gemfile.lock

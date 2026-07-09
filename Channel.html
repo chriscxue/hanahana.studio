@@ -45,37 +45,19 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-category { display: none; }
         .channel-category.active { display: flex; flex-direction: column; flex: 1; }
 
-        .channel-layout {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
+        .channel-list { display: flex; flex-direction: column; flex: 1; }
+        .channel-list-item {
+            display: block;
+            padding: 24px 40px;
             border-bottom: 0.5px solid #000;
-        }
-
-        .channel-sidebar {
-            border-right: 0.5px solid #000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .channel-sidebar-item {
-            padding: 12px 40px;
-            border-bottom: 0.5px solid #000;
-            cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 300;
             color: #000;
+            text-decoration: none;
             transition: background-color 0.3s ease, color 0.3s ease;
-            user-select: none;
         }
-
-        .channel-sidebar-item:last-child { border-bottom: none; }
-        .channel-sidebar-item:hover,
-        .channel-sidebar-item.active { background-color: #F16527; color: #fff; }
-
-        .channel-content { padding: 64px; }
-        .channel-panel { display: none; font-size: 16px; font-weight: 300; color: #888; }
-        .channel-panel.active { display: block; }
+        .channel-list-item:last-child { border-bottom: none; }
+        .channel-list-item:hover { background-color: #F16527; color: #fff; }
 
         .channel-single { flex: 1; padding: 64px; border-bottom: 0.5px solid #000; font-size: 16px; font-weight: 300; color: #888; }
 
@@ -83,9 +65,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .content-hero img { max-height: 240px; }
             .channel-nav { grid-template-columns: repeat(2, 1fr); }
             .channel-nav-item { padding: 20px; font-size: 16px; }
-            .channel-layout { grid-template-columns: 1fr; }
-            .channel-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
-            .channel-content { padding: 32px 20px; }
+            .channel-list-item { padding: 20px; }
         }
     </style>
 </head>
@@ -104,44 +84,20 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
     </div>
 
     <div id="cat-speaking" class="channel-category active">
-        <div class="channel-layout">
-            <aside class="channel-sidebar">
-                <div class="channel-sidebar-item active" onclick="showContent('speaking-1')">01</div>
-                <div class="channel-sidebar-item" onclick="showContent('speaking-2')">02</div>
-                <div class="channel-sidebar-item" onclick="showContent('speaking-3')">03</div>
-                <div class="channel-sidebar-item" onclick="showContent('speaking-4')">04</div>
-                <div class="channel-sidebar-item" onclick="showContent('speaking-5')">05</div>
-                <div class="channel-sidebar-item" onclick="showContent('speaking-6')">06</div>
-            </aside>
-            <div class="channel-content">
-                <div id="speaking-1" class="channel-panel active">内容待填</div>
-                <div id="speaking-2" class="channel-panel">内容待填</div>
-                <div id="speaking-3" class="channel-panel">内容待填</div>
-                <div id="speaking-4" class="channel-panel">内容待填</div>
-                <div id="speaking-5" class="channel-panel">内容待填</div>
-                <div id="speaking-6" class="channel-panel">内容待填</div>
-            </div>
+        <div class="channel-list">
+            {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
+            {% for item in speaking_items %}
+            <a class="channel-list-item" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            {% endfor %}
         </div>
     </div>
 
     <div id="cat-papers" class="channel-category">
-        <div class="channel-layout">
-            <aside class="channel-sidebar">
-                <div class="channel-sidebar-item active" onclick="showContent('papers-1')">01</div>
-                <div class="channel-sidebar-item" onclick="showContent('papers-2')">02</div>
-                <div class="channel-sidebar-item" onclick="showContent('papers-3')">03</div>
-                <div class="channel-sidebar-item" onclick="showContent('papers-4')">04</div>
-                <div class="channel-sidebar-item" onclick="showContent('papers-5')">05</div>
-                <div class="channel-sidebar-item" onclick="showContent('papers-6')">06</div>
-            </aside>
-            <div class="channel-content">
-                <div id="papers-1" class="channel-panel active">内容待填</div>
-                <div id="papers-2" class="channel-panel">内容待填</div>
-                <div id="papers-3" class="channel-panel">内容待填</div>
-                <div id="papers-4" class="channel-panel">内容待填</div>
-                <div id="papers-5" class="channel-panel">内容待填</div>
-                <div id="papers-6" class="channel-panel">内容待填</div>
-            </div>
+        <div class="channel-list">
+            {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
+            {% for item in notes_items %}
+            <a class="channel-list-item" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            {% endfor %}
         </div>
     </div>
 
@@ -161,15 +117,6 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             document.querySelectorAll('.channel-category').forEach(cat => cat.classList.remove('active'));
             event.currentTarget.classList.add('active');
             document.getElementById(id).classList.add('active');
-        }
-
-        function showContent(id) {
-            var panel = document.getElementById(id);
-            var scope = panel.closest('.channel-category');
-            scope.querySelectorAll('.channel-sidebar-item').forEach(item => item.classList.remove('active'));
-            scope.querySelectorAll('.channel-panel').forEach(p => p.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            panel.classList.add('active');
         }
     </script>
 </body>

@@ -1,0 +1,39 @@
+---
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% seo %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/shared.css' | relative_url }}">
+    <style>
+        .channel-item-main { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+        .channel-item-back { display: inline-block; margin-bottom: 40px; font-size: 14px; font-weight: 300; color: #888; text-decoration: none; }
+        .channel-item-back:hover { color: #F16527; }
+        .channel-item-title { font-size: 36px; font-weight: 600; color: #000; margin-bottom: 40px; }
+        .channel-item-body { font-size: 18px; font-weight: 300; line-height: 1.8; color: #000; }
+
+        @media (max-width: 768px) {
+            .channel-item-main { padding: 40px 20px; }
+            .channel-item-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    {% include header.html %}
+
+    <main class="channel-item-main">
+        <a class="channel-item-back" href="{{ '/Channel.html' | relative_url }}">← 返回 CHANNEL</a>
+        <h1 class="channel-item-title">{{ page.title }}</h1>
+        <div class="channel-item-body">
+            {{ content }}
+        </div>
+    </main>
+
+    {% include footer.html %}
+</body>
+</html>
