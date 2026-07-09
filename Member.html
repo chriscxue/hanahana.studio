@@ -22,8 +22,9 @@ nav: member
         .access-gate { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 40px; }
         .access-gate-card { max-width: 480px; width: 100%; text-align: center; background: #fff; padding: 40px; border: 0.5px solid #000; }
         .access-input-row { display: flex; gap: 12px; margin-bottom: 24px; }
+        .access-input-wrap { position: relative; flex: 1; }
         .access-input {
-            flex: 1;
+            width: 100%;
             padding: 16px 20px;
             border: 0.5px solid #000;
             font-family: inherit;
@@ -32,8 +33,21 @@ nav: member
             background: #fff;
             color: #000;
         }
-        .access-input::placeholder { color: rgba(0,0,0,0.35); }
+        .access-input::placeholder { color: transparent; }
         .access-input:focus { outline: none; border-color: #F16527; }
+        .fake-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35em;
+            font-size: 18px;
+            color: rgba(0,0,0,0.35);
+            pointer-events: none;
+        }
+        .fake-placeholder .emoji { color: initial; }
+        .access-input:not(:placeholder-shown) + .fake-placeholder { display: none; }
         .access-submit {
             padding: 16px 36px;
             background: #000;
@@ -60,6 +74,7 @@ nav: member
             .access-gate-card { padding: 28px 20px; }
             .access-input-row { flex-direction: column; margin-bottom: 16px; }
             .access-input { padding: 12px 16px; font-size: 16px; }
+            .fake-placeholder { font-size: 16px; }
             .access-submit { padding: 12px 24px; }
         }
     </style>
@@ -72,7 +87,10 @@ nav: member
         <div class="access-gate" id="access-gate">
             <div class="access-gate-card">
                 <div class="access-input-row">
-                    <input type="email" class="access-input" id="access-email-input" placeholder="你知道该输入什么 😉" autocomplete="email">
+                    <div class="access-input-wrap">
+                        <input type="email" class="access-input" id="access-email-input" placeholder=" " autocomplete="email">
+                        <span class="fake-placeholder"><span>你知道该输入什么</span><span class="emoji">😉</span></span>
+                    </div>
                     <button class="access-submit" type="button" id="access-submit-btn">进入</button>
                 </div>
                 <div class="access-error" id="access-error" style="display:none;"></div>
