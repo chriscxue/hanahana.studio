@@ -45,8 +45,20 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-category { display: none; }
         .channel-category.active { display: flex; flex-direction: column; flex: 1; }
 
-        .channel-list { display: flex; flex-direction: column; flex: 1; }
-        .channel-list-item {
+        .channel-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            border-bottom: 0.5px solid #000;
+        }
+
+        .channel-sidebar {
+            border-right: 0.5px solid #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .channel-sidebar-item {
             display: block;
             padding: 24px 40px;
             border-bottom: 0.5px solid #000;
@@ -57,20 +69,18 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .channel-list-item:hover,
-        .channel-list-item.active { background-color: #F16527; color: #fff; }
+        .channel-sidebar-item:last-child { border-bottom: none; }
+        .channel-sidebar-item:hover,
+        .channel-sidebar-item.active { background-color: #F16527; color: #fff; }
 
-        .channel-list-preview {
-            display: none;
-            padding: 40px;
-            border-bottom: 0.5px solid #000;
+        .channel-content {
+            padding: 64px;
             font-size: 16px;
             font-weight: 300;
             line-height: 1.8;
             color: #000;
         }
-        .channel-list-preview.active { display: block; }
-        .channel-list-preview:last-child { border-bottom: none; }
+        .channel-content-placeholder { color: #888; }
 
         .channel-single { flex: 1; padding: 64px; border-bottom: 0.5px solid #000; font-size: 16px; font-weight: 300; color: #888; }
 
@@ -78,7 +88,10 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .content-hero img { max-height: 240px; }
             .channel-nav { grid-template-columns: repeat(2, 1fr); }
             .channel-nav-item { padding: 20px; font-size: 16px; }
-            .channel-list-item { padding: 20px; }
+            .channel-layout { grid-template-columns: 1fr; }
+            .channel-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
+            .channel-sidebar-item { padding: 20px; }
+            .channel-content { padding: 32px 20px; }
         }
     </style>
 </head>
@@ -97,22 +110,30 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
     </div>
 
     <div id="cat-speaking" class="channel-category active">
-        <div class="channel-list">
-            {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
-            {% for item in speaking_items %}
-            <a class="channel-list-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
-            <div class="channel-list-preview" data-channel-preview></div>
-            {% endfor %}
+        <div class="channel-layout">
+            <aside class="channel-sidebar">
+                {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
+                {% for item in speaking_items %}
+                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
+                {% endfor %}
+            </aside>
+            <div class="channel-content" data-channel-content>
+                <div class="channel-content-placeholder">点击左侧查看内容</div>
+            </div>
         </div>
     </div>
 
     <div id="cat-papers" class="channel-category">
-        <div class="channel-list">
-            {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
-            {% for item in notes_items %}
-            <a class="channel-list-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
-            <div class="channel-list-preview" data-channel-preview></div>
-            {% endfor %}
+        <div class="channel-layout">
+            <aside class="channel-sidebar">
+                {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
+                {% for item in notes_items %}
+                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
+                {% endfor %}
+            </aside>
+            <div class="channel-content" data-channel-content>
+                <div class="channel-content-placeholder">点击左侧查看内容</div>
+            </div>
         </div>
     </div>
 
@@ -139,39 +160,41 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         document.querySelectorAll('[data-channel-link]').forEach(function (link) {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
-                var preview = link.nextElementSibling;
+                var category = link.closest('.channel-category');
+                var content = category.querySelector('[data-channel-content]');
                 var wasActive = link.classList.contains('active');
 
-                document.querySelectorAll('[data-channel-link].active').forEach(function (l) { l.classList.remove('active'); });
-                document.querySelectorAll('[data-channel-preview].active').forEach(function (p) { p.classList.remove('active'); });
+                category.querySelectorAll('[data-channel-link].active').forEach(function (l) { l.classList.remove('active'); });
 
                 if (wasActive) {
+                    content.innerHTML = '<div class="channel-content-placeholder">点击左侧查看内容</div>';
                     history.pushState({ channel: 'home' }, '', channelHomeUrl);
                     return;
                 }
 
                 link.classList.add('active');
-                preview.classList.add('active');
 
-                if (preview.dataset.loaded === 'true') {
+                if (link.dataset.cachedBody) {
+                    content.innerHTML = link.dataset.cachedBody;
                     history.pushState({ channel: 'item', url: link.href }, '', link.href);
                     return;
                 }
 
-                preview.innerHTML = '<p style="color:#888;">加载中…</p>';
+                content.innerHTML = '<p style="color:#888;">加载中…</p>';
 
                 fetch(link.href)
                     .then(function (res) { return res.text(); })
                     .then(function (html) {
                         var doc = new DOMParser().parseFromString(html, 'text/html');
                         var body = doc.querySelector('.channel-item-body');
-                        preview.innerHTML = body ? body.innerHTML : '<p>内容加载失败</p>';
-                        preview.dataset.loaded = 'true';
+                        var bodyHtml = body ? body.innerHTML : '<p>内容加载失败</p>';
+                        link.dataset.cachedBody = bodyHtml;
+                        content.innerHTML = bodyHtml;
                         document.title = doc.title;
                         history.pushState({ channel: 'item', url: link.href }, '', link.href);
                     })
                     .catch(function () {
-                        preview.innerHTML = '<p style="color:#c0392b;">内容加载失败，请刷新页面重试</p>';
+                        content.innerHTML = '<p style="color:#c0392b;">内容加载失败，请刷新页面重试</p>';
                     });
             });
         });
