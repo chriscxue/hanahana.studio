@@ -345,6 +345,9 @@ description: "关于HANAHANA STUDIO：创始人薛承林的教育理念、工作
         #roadmap-table td.col-rolling-white   { background: var(--color-paper); width: 7.4%; }
 
         @media (max-width: 768px) {
+            /* Hero 图裁成正方形 */
+            .about-hero-row img { aspect-ratio: 1 / 1; max-height: none; }
+
             /* Layout: 右列先显示 */
             .about-layout { grid-template-columns: 1fr; }
             .about-right { order: 1; }
