@@ -54,10 +54,23 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             font-weight: 300;
             color: #000;
             text-decoration: none;
+            cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .channel-list-item:last-child { border-bottom: none; }
-        .channel-list-item:hover { background-color: #F16527; color: #fff; }
+        .channel-list-item:hover,
+        .channel-list-item.active { background-color: #F16527; color: #fff; }
+
+        .channel-list-preview {
+            display: none;
+            padding: 40px;
+            border-bottom: 0.5px solid #000;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #000;
+        }
+        .channel-list-preview.active { display: block; }
+        .channel-list-preview:last-child { border-bottom: none; }
 
         .channel-single { flex: 1; padding: 64px; border-bottom: 0.5px solid #000; font-size: 16px; font-weight: 300; color: #888; }
 
@@ -87,7 +100,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         <div class="channel-list">
             {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
             {% for item in speaking_items %}
-            <a class="channel-list-item" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            <a class="channel-list-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
+            <div class="channel-list-preview" data-channel-preview></div>
             {% endfor %}
         </div>
     </div>
@@ -96,7 +110,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         <div class="channel-list">
             {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
             {% for item in notes_items %}
-            <a class="channel-list-item" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            <a class="channel-list-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
+            <div class="channel-list-preview" data-channel-preview></div>
             {% endfor %}
         </div>
     </div>
@@ -118,6 +133,52 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             event.currentTarget.classList.add('active');
             document.getElementById(id).classList.add('active');
         }
+
+        var channelHomeUrl = '{{ "/Channel.html" | relative_url }}';
+
+        document.querySelectorAll('[data-channel-link]').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var preview = link.nextElementSibling;
+                var wasActive = link.classList.contains('active');
+
+                document.querySelectorAll('[data-channel-link].active').forEach(function (l) { l.classList.remove('active'); });
+                document.querySelectorAll('[data-channel-preview].active').forEach(function (p) { p.classList.remove('active'); });
+
+                if (wasActive) {
+                    history.pushState({ channel: 'home' }, '', channelHomeUrl);
+                    return;
+                }
+
+                link.classList.add('active');
+                preview.classList.add('active');
+
+                if (preview.dataset.loaded === 'true') {
+                    history.pushState({ channel: 'item', url: link.href }, '', link.href);
+                    return;
+                }
+
+                preview.innerHTML = '<p style="color:#888;">加载中…</p>';
+
+                fetch(link.href)
+                    .then(function (res) { return res.text(); })
+                    .then(function (html) {
+                        var doc = new DOMParser().parseFromString(html, 'text/html');
+                        var body = doc.querySelector('.channel-item-body');
+                        preview.innerHTML = body ? body.innerHTML : '<p>内容加载失败</p>';
+                        preview.dataset.loaded = 'true';
+                        document.title = doc.title;
+                        history.pushState({ channel: 'item', url: link.href }, '', link.href);
+                    })
+                    .catch(function () {
+                        preview.innerHTML = '<p style="color:#c0392b;">内容加载失败，请刷新页面重试</p>';
+                    });
+            });
+        });
+
+        window.addEventListener('popstate', function () {
+            location.reload();
+        });
     </script>
 </body>
 </html>
