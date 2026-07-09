@@ -19,7 +19,7 @@ sitemap: false
 
         /* Access Gate — overlaid on top of the hero image */
         .access-gate { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 40px; }
-        .access-gate-card { max-width: 480px; width: 100%; text-align: center; background: #fff; padding: 40px; border: 0.5px solid #000; }
+        .access-gate-card { max-width: 480px; width: 100%; text-align: center; background: rgba(255, 255, 255, 0.8); padding: 40px; border: 0.5px solid #000; }
         .access-input-row { display: flex; gap: 12px; margin-bottom: 24px; }
         .access-input-wrap { position: relative; flex: 1; }
         .access-input {
@@ -69,6 +69,7 @@ sitemap: false
         @media (max-width: 768px) {
             .section-title { font-size: 40px; }
 
+            .content-hero img { aspect-ratio: 1 / 1; object-fit: cover; }
             .access-gate { padding: 20px; }
             .access-gate-card { padding: 28px 20px; }
             .access-input-row { flex-direction: column; margin-bottom: 16px; }
