@@ -35,7 +35,13 @@
                   </svg>
                 </a>
             </div>
-            <nav class="header-right">
+            <div class="mobile-nav-bar">
+                <span class="mobile-nav-title">HANAHANA STUDIO</span>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="header-nav">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <nav class="header-right" id="header-nav">
                 <a href="{{ '/Consulting.html' | relative_url }}" class="nav-item{% if page.nav == 'consulting' %} current{% endif %}">
                     <span class="nav-label"><span class="nav-en">CONSULTING</span><span class="nav-cn">艺术升学指导工作室</span></span>
                     <span class="nav-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -63,3 +69,15 @@
             </nav>
         </div>
     </header>
+
+    <script>
+        (function () {
+            var toggle = document.getElementById('mobile-nav-toggle');
+            var nav = document.getElementById('header-nav');
+            toggle.addEventListener('click', function () {
+                var isOpen = nav.classList.toggle('open');
+                toggle.classList.toggle('open', isOpen);
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        })();
+    </script>
