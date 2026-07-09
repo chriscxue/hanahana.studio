@@ -60,7 +60,7 @@ body {
 .footer-info { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
 .footer-info p { font-size: 16px; font-weight: 200; line-height: 1.4; color: rgba(255,255,255,0.6); }
 .footer-info .footer-name { font-size: 30px; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; color: #fff; margin-bottom: 8px; }
-.footer-info .footer-copyright { font-size: 14px; font-weight: 200; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
+.footer-info .footer-copyright { font-size: 14px; font-weight: 200; line-height: 1.4; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
 @media (max-width: 768px) {
     .header-grid { grid-template-columns: 1fr; }
@@ -68,7 +68,7 @@ body {
     .logo { width: 100%; height: auto; }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
-    .mobile-nav-title { font-size: 24px; font-weight: 600; }
+    .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
     .mobile-nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 22px; background: none; border: none; padding: 0; cursor: pointer; }
     .mobile-nav-toggle span { display: block; width: 100%; height: 2px; background: #000; }
 
