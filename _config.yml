@@ -1,5 +1,12 @@
 title: HANAHANA STUDIO
-description: HANAHANA STUDIO 官网
+tagline: 美国VIA高中官方艺术部 · 艺术院校升学指导工作室
+description: HANAHANA STUDIO 是美国 VIA 高中官方艺术部与独立艺术院校升学指导工作室，十三年辅导94名学生获得672+枚艺术院校offer。
+url: "https://hanahana.studio"
+lang: zh-CN
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 exclude:
   - Gemfile
