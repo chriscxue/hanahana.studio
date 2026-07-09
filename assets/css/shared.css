@@ -75,6 +75,7 @@ body {
     .header-right { display: none; }
     .header-right.open { display: flex; border-top: 0.5px solid #000; }
     .nav-item { padding: 12px 20px; }
+    .header-right.open .nav-item { background-color: #F16527; color: #fff; }
 
     .footer-info p { font-size: 14px; }
     .footer-info .footer-name { font-size: 24px; }
