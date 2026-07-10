@@ -167,6 +167,11 @@ description: "HANAHANA STUDIO是美国VIA高中官方艺术部与独立艺术院
             border-right: none;
         }
 
+        /* 无 dropdown-header 的 quad 面板（如 11 节）：第一行右列是第 2 个子元素 */
+        .dropdown-quad > .dropdown-col:first-child + .dropdown-col {
+            border-right: none;
+        }
+
         .dropdown-quad-row {
             grid-template-columns: repeat(4, 1fr);
         }
@@ -306,56 +311,6 @@ description: "HANAHANA STUDIO是美国VIA高中官方艺术部与独立艺术院
             opacity: 1;
         }
 
-
-        .project-description p {
-            font-size: 24px;
-            font-weight: 400;
-            margin-top: 16px;
-            margin-bottom: 12px;
-        }
-
-        .project-description ul,
-        .project-description ol {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-
-        .project-description li {
-            margin: 4px 0;
-        }
-
-        .project-description strong {
-            color: #000;
-        }
-
-        .project-description a {
-            color: #2446A8;
-            text-decoration: none;
-        }
-
-        .project-description a:hover {
-            text-decoration: underline;
-        }
-
-        /* Table */
-        .project-description table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-        }
-
-        .project-description th,
-        .project-description td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 0.5px solid #eee;
-        }
-
-        .project-description th {
-            font-weight: 400;
-            color: #000;
-            background-color: transparent;
-        }
 
         /* Hover 效果 — 背景统一染父级单一盒子（无格子接缝白缝）；
            不加 z-index，让 ::after 竖线仍浮在橙色之上 */

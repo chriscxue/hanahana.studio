@@ -65,7 +65,6 @@ body {
 @media (max-width: 768px) {
     .header-grid { grid-template-columns: 1fr; }
     .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 24px 20px; justify-content: center; aspect-ratio: 2 / 1; }
-    .logo { width: 100%; height: auto; }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
@@ -82,7 +81,5 @@ body {
 }
 
 @media (max-width: 480px) {
-    .logo { width: 60%; height: auto; margin: 0 auto; }
     .header-left { padding: 48px 16px; }
-    .header-right { padding: 0; }
 }

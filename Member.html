@@ -162,10 +162,11 @@ sitemap: false
 
             var savedEmail = localStorage.getItem(STORAGE_KEY);
             if (savedEmail) {
-                checkEmail(savedEmail, function (allowed) {
+                checkEmail(savedEmail, function (allowed, err) {
                     if (allowed) {
                         unlock();
-                    } else {
+                    } else if (!err) {
+                        // 只有明确被移出名单才清除；网络错误保留登录邮箱，下次刷新再验
                         localStorage.removeItem(STORAGE_KEY);
                     }
                 });

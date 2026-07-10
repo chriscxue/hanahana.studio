@@ -148,10 +148,6 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
             color: #F16527;
         }
 
-        .content-panel a:hover {
-            color: #F16527;
-        }
-
         @media (max-width: 768px) {
             .archive-layout { grid-template-columns: 1fr; }
             .archive-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
@@ -14385,7 +14381,7 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
       <td>BLA</td>
       <td>11/1</td>
       <td>⟳</td>
-      <td><a target="_blank" href="http://stuckeman.psu.edu/larch/programs/mla">Landscape Architecture</a></td>
+      <td><a target="_blank" href="https://stuckeman.psu.edu/larch/programs/mla">Landscape Architecture</a></td>
       <td>MLA</td>
       <td>1/15</td>
     </tr>
@@ -18512,6 +18508,11 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
             var searchInput = document.getElementById('archive-search-input');
             var noResultsEl = document.getElementById('sidebar-no-results');
             var debounceTimer = null;
+            var searchSeq = 0;
+
+            // 默认显示 topic-1，侧边栏同步高亮第一项（不改注入区 HTML，pipeline 安全）
+            var firstItem = document.querySelector('.sidebar-item');
+            if (firstItem) firstItem.classList.add('active');
 
             function getTopicId(item) {
                 var m = /showContent\('([^']+)'\)/.exec(item.getAttribute('onclick') || '');
@@ -18540,6 +18541,7 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
             }
 
             function runSearch(query) {
+                var mySeq = ++searchSeq;
                 if (!query) {
                     resetSidebar();
                     return;
@@ -18547,6 +18549,7 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
                 fetch(API_BASE + '/archive/search?q=' + encodeURIComponent(query))
                     .then(function (res) { return res.json(); })
                     .then(function (data) {
+                        if (mySeq !== searchSeq) return; // 已有更新的查询，丢弃旧响应
                         applyResults((data.results || []).map(function (r) { return r.topicId; }));
                     })
                     .catch(function () { /* network error: leave sidebar as-is */ });

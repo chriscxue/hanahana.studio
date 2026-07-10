@@ -153,6 +153,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         }
 
         var channelHomeUrl = '{{ "/Channel.html" | relative_url }}';
+        var channelHomeTitle = document.title;
 
         document.querySelectorAll('[data-channel-link]').forEach(function (link) {
             link.addEventListener('click', function (e) {
@@ -165,6 +166,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
 
                 if (wasActive) {
                     content.innerHTML = '<div class="channel-content-placeholder">点击左侧查看内容</div>';
+                    document.title = channelHomeTitle;
                     history.pushState({ channel: 'home' }, '', channelHomeUrl);
                     return;
                 }
@@ -173,6 +175,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
 
                 if (link.dataset.cachedBody) {
                     content.innerHTML = link.dataset.cachedBody;
+                    document.title = link.dataset.cachedTitle || channelHomeTitle;
                     history.pushState({ channel: 'item', url: link.href }, '', link.href);
                     return;
                 }
@@ -186,6 +189,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
                         var body = doc.querySelector('.channel-item-body');
                         var bodyHtml = body ? body.innerHTML : '<p>内容加载失败</p>';
                         link.dataset.cachedBody = bodyHtml;
+                        link.dataset.cachedTitle = doc.title;
                         content.innerHTML = bodyHtml;
                         document.title = doc.title;
                         history.pushState({ channel: 'item', url: link.href }, '', link.href);
