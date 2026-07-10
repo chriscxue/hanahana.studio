@@ -7,6 +7,15 @@ sitemap: false
     <meta charset="utf-8">
     <link rel="icon" type="image/svg+xml" href="{{ '/favicon.svg' | relative_url }}">
     <title>HANAHANA STUDIO</title>
+    <!-- 跳转页不走 {% raw %}{% seo %}{% endraw %}，手动补 og 标签：微信/Telegram 抓裸域名时不执行跳转 -->
+    <meta name="description" content="{{ site.description }}">
+    <meta property="og:title" content="HANAHANA STUDIO">
+    <meta property="og:description" content="{{ site.description }}">
+    <meta property="og:image" content="{{ site.url }}/images/member/team-photo-og.jpg">
+    <meta property="og:url" content="{{ site.url }}/">
+    <meta property="og:site_name" content="HANAHANA STUDIO">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <script>location.replace("Consulting.html");</script>
     <noscript><meta http-equiv="refresh" content="0; url=Consulting.html"></noscript>
     <link rel="canonical" href="Consulting.html">
