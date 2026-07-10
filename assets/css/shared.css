@@ -18,10 +18,10 @@ body {
 .header-left {
     display: flex;
     align-items: center;
-    padding: 40px 40px 40px 150px;
+    padding: 40px;
     border-right: 0.5px solid #000;
 }
-.logo { display: none; width: 288px; height: 72px; color: #000; text-decoration: none; }
+.logo { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; color: #000; text-decoration: none; }
 .mobile-nav-bar { display: none; }
 .header-right { display: flex; flex-direction: column; }
 .nav-item {
