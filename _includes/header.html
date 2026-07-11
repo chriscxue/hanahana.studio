@@ -1,8 +1,38 @@
     <header class="header">
         <div class="header-grid">
             <div class="header-left">
-                <a href="{{ '/Consulting.html' | relative_url }}" class="logo" aria-label="HANAHANA STUDIO">
-                  <svg id="hh-ink-logo" width="100%" height="100%" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+                <a href="{{ '/Consulting.html' | relative_url }}" class="logo">
+                  <svg width="100%" height="100%" viewBox="0 0 288 72" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="hwg1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                      </radialGradient>
+                      <radialGradient id="hwg2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                      </radialGradient>
+                      <radialGradient id="hwg3" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
+                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                      </radialGradient>
+                    </defs>
+                    <circle cx="36" cy="36" r="66" fill="url(#hwg1)" opacity="0.2">
+                      <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    </circle>
+                    <circle cx="144" cy="36" r="66" fill="url(#hwg2)" opacity="0.2">
+                      <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    </circle>
+                    <circle cx="252" cy="36" r="66" fill="url(#hwg3)" opacity="0.2">
+                      <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    </circle>
+                    <circle cx="36" cy="36" r="36" fill="#000"/>
+                    <circle cx="144" cy="36" r="36" fill="#000"/>
+                    <circle cx="252" cy="36" r="36" fill="#000"/>
+                  </svg>
                 </a>
             </div>
             <div class="mobile-nav-bar">
@@ -49,87 +79,5 @@
                 toggle.classList.toggle('open', isOpen);
                 toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
-        })();
-    </script>
-
-    <script>
-        (function () {
-            var svg = document.getElementById('hh-ink-logo');
-            if (!svg) return;
-
-            // 画布固定300x300，r=106是按这个seed(cellSeed=13)动画实际最大摆动范围反推的
-            // （穷举一整个摆动周期，最大距中心约145px，留约3%安全边距凑到150），
-            // 所以可见的墨滴范围基本贴满这个300x300画布，没有大片看不见的留白。
-            // 参考: logo/ink_overlap_cell_r3c4_tight.html
-            var cx = 150, cy = 150, r = 106;
-
-            function mulberry32(seed) {
-                return function () {
-                    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
-                    var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-                    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-                };
-            }
-
-            function wobblePath(cx, cy, r, rng, t) {
-                var h1 = 0.10 + rng() * 0.08, p1 = rng() * Math.PI * 2;
-                var h2 = 0.06 + rng() * 0.06, p2 = rng() * Math.PI * 2;
-                var h3 = 0.04 + rng() * 0.04, p3 = rng() * Math.PI * 2;
-                var h4 = 0.03 + rng() * 0.03, p4 = rng() * Math.PI * 2;
-                var breatheSeed = rng() * Math.PI * 2;
-                var driftSeed = rng() * Math.PI * 2;
-
-                var breathe = 1 + 0.008 * Math.sin(t * 0.0004 + breatheSeed);
-                var driftMag = 1.2 * (r / 180);
-                var driftX = driftMag * Math.sin(t * 0.00025 + driftSeed);
-                var driftY = driftMag * Math.cos(t * 0.0003 + driftSeed * 1.7);
-                var rotation = 0.02 * Math.sin(t * 0.0002 + breatheSeed * 0.7);
-
-                var steps = 24;
-                var pts = [];
-                for (var i = 0; i < steps; i++) {
-                    var a = (i / steps) * Math.PI * 2 + rotation;
-                    var w = 1
-                        + h1 * Math.sin(a * 2 + p1 + t * 0.00012)
-                        + h2 * Math.sin(a * 3 + p2 + t * 0.00009)
-                        + h3 * Math.sin(a * 5 + p3 + t * 0.00007)
-                        + h4 * Math.sin(a * 7 + p4 + t * 0.00005);
-                    var rr = r * breathe * w;
-                    pts.push([cx + driftX + Math.cos(a) * rr, cy + driftY + Math.sin(a) * rr]);
-                }
-
-                var d = 'M' + pts[0][0].toFixed(2) + ',' + pts[0][1].toFixed(2);
-                for (var j = 0; j < steps; j++) {
-                    var curr = pts[j];
-                    var next = pts[(j + 1) % steps];
-                    var mid = [(curr[0] + next[0]) / 2, (curr[1] + next[1]) / 2];
-                    d += 'Q' + curr[0].toFixed(2) + ',' + curr[1].toFixed(2) + ' ' + mid[0].toFixed(2) + ',' + mid[1].toFixed(2);
-                }
-                return d + 'Z';
-            }
-
-            var cellSeed = 2 * 5 + 3;
-            var layers = [];
-
-            for (var i = 0; i < 25; i++) {
-                var seed = cellSeed * 10000 + i * 9973 + 4211;
-                var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.setAttribute('fill', '#111');
-                path.setAttribute('opacity', '0.1');
-                svg.appendChild(path);
-                layers.push({ el: path, seed: seed });
-            }
-
-            function step(now) {
-                for (var k = 0; k < layers.length; k++) {
-                    var layer = layers[k];
-                    var rng = mulberry32(layer.seed);
-                    layer.el.setAttribute('d', wobblePath(cx, cy, r, rng, now));
-                }
-                requestAnimationFrame(step);
-            }
-
-            requestAnimationFrame(step);
         })();
     </script>
