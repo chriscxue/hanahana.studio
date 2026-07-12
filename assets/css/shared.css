@@ -21,10 +21,12 @@ body {
     padding: 25px 50px 25px 130px;
     border-right: 0.5px solid #000;
     /* 浅灰点阵底纹，铺满整个白色区域，logo压在上面 */
+    /* 点阵版（保留备用，Chris确认要的）：
     background-image: radial-gradient(circle, #ccc 0.75px, transparent 0.75px);
     background-size: 10px 10px;
-    /* round让格子微调到正好铺满整数格，四边留白相等（各半格），点阵在区域内均匀分布 */
-    background-repeat: round;
+    background-repeat: round;  round让格子微调到正好铺满整数格，四边留白相等 */
+    /* 横线版试验：1px粗，每6px一条 */
+    background-image: repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent 6px);
 }
 /* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
 .logo { display: block; width: 294px; height: 294px; color: #000; text-decoration: none; }
