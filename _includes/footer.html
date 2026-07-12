@@ -1,35 +1,26 @@
     <footer class="footer">
         <a href="{{ '/Consulting.html' | relative_url }}" class="footer-logo">
-            <svg width="100%" height="100%" viewBox="0 0 96 24" preserveAspectRatio="xMidYMid meet" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- ink overlap r2c5 渐变版，黑底白墨；形状动画由 header.html 定义的 window.hhInitInkLogo 驱动 -->
+            <svg width="100%" height="100%" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <radialGradient id="fwg1" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    <radialGradient id="hhInkGradF">
+                        <stop offset="0%"  stop-color="#fff" stop-opacity="0.05"/>
+                        <stop offset="45%" stop-color="#fff" stop-opacity="0.25"/>
+                        <stop offset="80%" stop-color="#fff" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
                     </radialGradient>
-                    <radialGradient id="fwg2" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                    <radialGradient id="fwg3" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9"/>
-                        <stop offset="40%"  stop-color="#fff" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
+                    <filter id="hhInkEdgeF" x="-15%" y="-15%" width="130%" height="130%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="9" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+                    </filter>
+                    <filter id="hhInkBleedF" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                        <feGaussianBlur in="displaced" stdDeviation="1.6"/>
+                    </filter>
                 </defs>
-                <circle cx="12" cy="12" r="22" fill="url(#fwg1)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="48" cy="12" r="22" fill="url(#fwg2)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="84" cy="12" r="22" fill="url(#fwg3)" opacity="0.2">
-                    <animate attributeName="opacity" values="0.2;1;0.2" dur="7s" begin="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-                </circle>
-                <circle cx="12" cy="12" r="12" fill="#000"/>
-                <circle cx="48" cy="12" r="12" fill="#000"/>
-                <circle cx="84" cy="12" r="12" fill="#000"/>
+                <g id="hh-ink-bleed-f" filter="url(#hhInkBleedF)"></g>
+                <g id="hh-ink-body-f" filter="url(#hhInkEdgeF)"></g>
             </svg>
         </a>
         <div class="footer-info">
@@ -41,3 +32,13 @@
             <p class="footer-copyright">©2026 HANAHANA STUDIO – ALL RIGHTS RESERVED</p>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var bleedGroup = document.getElementById('hh-ink-bleed-f');
+            var bodyGroup = document.getElementById('hh-ink-body-f');
+            if (bleedGroup && bodyGroup && window.hhInitInkLogo) {
+                window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGradF');
+            }
+        })();
+    </script>
