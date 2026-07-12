@@ -68,6 +68,8 @@ body {
     .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 25px; justify-content: center; aspect-ratio: 1 / 1; }
     /* 高度撑满header-left内容区（border-box下=视口宽−上下padding），宽度随1:1比例走，任何视口都不溢出，水平居中由justify-content完成 */
     .logo { height: 100%; width: auto; aspect-ratio: 1 / 1; }
+    /* 点阵底纹只在桌面版显示 */
+    .logo .hh-dot-bg { display: none; }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }

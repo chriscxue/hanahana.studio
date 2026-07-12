@@ -20,7 +20,11 @@
                         <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
                         <feGaussianBlur in="displaced" stdDeviation="1.6"/>
                       </filter>
+                      <pattern id="hhDotGrid" width="15" height="15" patternUnits="userSpaceOnUse">
+                        <circle cx="7.5" cy="7.5" r="1.5" fill="#ddd"/>
+                      </pattern>
                     </defs>
+                    <rect class="hh-dot-bg" x="0" y="0" width="300" height="300" fill="url(#hhDotGrid)"/>
                     <g id="hh-ink-bleed" filter="url(#hhInkBleed)"></g>
                     <g id="hh-ink-body" filter="url(#hhInkEdge)"></g>
                   </svg>
