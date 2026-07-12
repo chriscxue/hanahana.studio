@@ -21,8 +21,8 @@ body {
     padding: 25px 50px 25px 150px; /* 左150px与main-content的hero标题左边距对齐 */
     border-right: 0.5px solid #000;
 }
-/* 207px = header实际高度344.75px（由右侧6项nav撑起）的60% */
-.logo { display: block; width: 207px; height: 207px; color: #000; text-decoration: none; }
+/* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
+.logo { display: block; width: 294px; height: 294px; color: #000; text-decoration: none; }
 .mobile-nav-bar { display: none; }
 .header-right { display: flex; flex-direction: column; }
 .nav-item {
