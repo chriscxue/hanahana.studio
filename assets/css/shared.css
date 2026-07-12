@@ -25,9 +25,11 @@ body {
     background-image: radial-gradient(circle, #ccc 0.75px, transparent 0.75px);
     background-size: 10px 10px;
     background-repeat: round;  round让格子微调到正好铺满整数格，四边留白相等 */
-    /* 横线版试验：1px粗，每4px一条。周期4px×常见缩放系数(1.25/1.5/1.75)均为整数物理像素，
-       每条线落点一致，避免6px时深浅交替的亚像素分组 */
-    background-image: repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent 4px);
+    /* 横线：1px粗，行距以4px为基准。线居中在格内 + repeat:round 把格高微调到整除区域高度，
+       行数取整、行距相等、上下边距相等（各约1.5px），不写死4px */
+    background-image: linear-gradient(to bottom, transparent 1.5px, #ccc 1.5px, #ccc 2.5px, transparent 2.5px);
+    background-size: 100% 4px;
+    background-repeat: round;
 }
 /* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
 .logo { display: block; width: 294px; height: 294px; color: #000; text-decoration: none; }
@@ -77,13 +79,7 @@ body {
     /* 宽度驱动（禁止改回height:100%驱动——WebKit布局反馈循环→逐帧膨胀→白屏）。
        动画在移动端静止到第一帧，由header.html的JS按max-width:768px判断 */
     .logo { width: 100%; height: auto; aspect-ratio: 1 / 1; }
-    /* 横线均分版：线居中在4px格内 + repeat:round微调格高铺满整数格，上下边距相等（各约1.5px），
-       解决repeating-linear-gradient从顶部起铺导致的上宽下窄 */
-    .header-left {
-        background-image: linear-gradient(to bottom, transparent 1.5px, #ccc 1.5px, #ccc 2.5px, transparent 2.5px);
-        background-size: 100% 4px;
-        background-repeat: round;
-    }
+    /* 横线均分规则已统一写在桌面基础样式里，移动端直接继承 */
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
