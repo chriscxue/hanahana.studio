@@ -80,7 +80,7 @@ body {
     /* 移动端横线等距由header.html的JS精确均分（量实际高度算周期，首尾线贴边、可见间隙全等）。
        这里的round版只是无JS时的兜底 */
     .header-left {
-        background-image: linear-gradient(to bottom, transparent 1.5px, #ccc 1.5px, #ccc 2.5px, transparent 2.5px);
+        background-image: linear-gradient(to bottom, transparent 1.5px, #ddd 1.5px, #ddd 2.5px, transparent 2.5px);
         background-size: 100% 4px;
         background-repeat: round;
     }

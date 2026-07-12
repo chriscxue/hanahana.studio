@@ -179,7 +179,8 @@
                 // n条间隙+首尾贴边的线：周期t=(H-1)/n，行距基准4px
                 var n = Math.max(1, Math.round((H - 1) / 4));
                 var t = (H - 1) / n;
-                el.style.backgroundImage = 'repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent ' + t + 'px)';
+                // 移动端线色#ddd，比桌面#ccc浅一档（Chris要求移动端更淡）
+                el.style.backgroundImage = 'repeating-linear-gradient(to bottom, #ddd 0, #ddd 1px, transparent 1px, transparent ' + t + 'px)';
                 el.style.backgroundSize = 'auto';
                 el.style.backgroundRepeat = 'repeat';
             }
