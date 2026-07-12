@@ -18,7 +18,7 @@ body {
 .header-left {
     display: flex;
     align-items: center;
-    padding: 25px 50px 25px 150px; /* 左150px与main-content的hero标题左边距对齐 */
+    padding: 25px 50px 25px 130px;
     border-right: 0.5px solid #000;
 }
 /* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
