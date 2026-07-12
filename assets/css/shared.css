@@ -25,8 +25,9 @@ body {
     background-image: radial-gradient(circle, #ccc 0.75px, transparent 0.75px);
     background-size: 10px 10px;
     background-repeat: round;  round让格子微调到正好铺满整数格，四边留白相等 */
-    /* 横线版试验：1px粗，每6px一条 */
-    background-image: repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent 6px);
+    /* 横线版试验：1px粗，每4px一条。周期4px×常见缩放系数(1.25/1.5/1.75)均为整数物理像素，
+       每条线落点一致，避免6px时深浅交替的亚像素分组 */
+    background-image: repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent 4px);
 }
 /* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
 .logo { display: block; width: 294px; height: 294px; color: #000; text-decoration: none; }
