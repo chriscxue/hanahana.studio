@@ -73,8 +73,9 @@
         })();
 
         /* ink overlap r2c5 渐变版动画，与 logo/ink_overlap_cell_r2c5_gradient.html 同一套参数。
-           挂在 window 上供 footer 复用（同一形状，只换填充渐变的颜色） */
-        window.hhInitInkLogo = function (bleedGroup, bodyGroup, gradId) {
+           挂在 window 上供 footer 复用（同一形状，只换填充渐变的颜色）。
+           forceStatic=true 时只渲染第一帧不进动画循环（footer 用；手机端全页只留 header 一个动的logo控发热） */
+        window.hhInitInkLogo = function (bleedGroup, bodyGroup, gradId, forceStatic) {
             var cx = 150, cy = 150, r = 100;
 
             function mulberry32(seed) {
@@ -148,9 +149,8 @@
                 }
             }
 
-            // 移动端静止到第一帧：SVG滤镜动画在手机上GPU负载大（发热→iOS压暗屏幕）
-            var staticFrame = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-                           || window.matchMedia('(max-width: 768px)').matches;
+            var staticFrame = forceStatic
+                           || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (staticFrame) {
                 render(0);
             } else {
@@ -192,9 +192,10 @@
             var bleedGroup = document.getElementById('hh-ink-bleed');
             var bodyGroup = document.getElementById('hh-ink-body');
             if (!bleedGroup || !bodyGroup) return;
-            // logo被CSS隐藏时（当前移动端）不启动动画，避免每帧空算25层路径
+            // logo被CSS隐藏时不启动动画，避免每帧空算25层路径
             var logoEl = bleedGroup.closest('.logo');
             if (logoEl && window.getComputedStyle(logoEl).display === 'none') return;
-            window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGrad');
+            // header logo 桌面/移动端都动（白屏根因是布局循环已修，见shared.css注释；移动端发热靠footer静止减半负载）
+            window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGrad', false);
         })();
     </script>

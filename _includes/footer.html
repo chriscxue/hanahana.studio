@@ -38,7 +38,8 @@
             var bleedGroup = document.getElementById('hh-ink-bleed-f');
             var bodyGroup = document.getElementById('hh-ink-body-f');
             if (bleedGroup && bodyGroup && window.hhInitInkLogo) {
-                window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGradF');
+                // footer logo 桌面/移动端都静止（forceStatic），全页只留header一个动的logo
+                window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGradF', true);
             }
         })();
     </script>
