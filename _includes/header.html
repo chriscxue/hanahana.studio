@@ -161,6 +161,32 @@
             }
         };
 
+        /* 移动端横线等距：量出header-left实际高度精确均分周期，首尾线贴边、所有可见间隙相等
+           （对齐桌面端的视觉标准；桌面端是纯CSS固定4px，正好整除，此JS不碰桌面端） */
+        (function () {
+            var el = document.querySelector('.header-left');
+            if (!el) return;
+            var mq = window.matchMedia('(max-width: 768px)');
+            function apply() {
+                if (!mq.matches) {
+                    el.style.backgroundImage = '';
+                    el.style.backgroundSize = '';
+                    el.style.backgroundRepeat = '';
+                    return;
+                }
+                var H = el.offsetHeight;
+                if (H < 8) return;
+                // n条间隙+首尾贴边的线：周期t=(H-1)/n，行距基准4px
+                var n = Math.max(1, Math.round((H - 1) / 4));
+                var t = (H - 1) / n;
+                el.style.backgroundImage = 'repeating-linear-gradient(to bottom, #ccc 0, #ccc 1px, transparent 1px, transparent ' + t + 'px)';
+                el.style.backgroundSize = 'auto';
+                el.style.backgroundRepeat = 'repeat';
+            }
+            apply();
+            window.addEventListener('resize', apply);
+        })();
+
         (function () {
             var bleedGroup = document.getElementById('hh-ink-bleed');
             var bodyGroup = document.getElementById('hh-ink-body');

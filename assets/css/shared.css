@@ -77,8 +77,8 @@ body {
     /* 宽度驱动（禁止改回height:100%驱动——WebKit布局反馈循环→逐帧膨胀→白屏）。
        动画在移动端静止到第一帧，由header.html的JS按max-width:768px判断 */
     .logo { width: 100%; height: auto; aspect-ratio: 1 / 1; }
-    /* 移动端横线均分版：线居中在4px基准格内 + round微调格高整除区域高度，
-       行距相等、上下边距相等，消除上宽下窄（高DPR手机屏上round的小数格高不会造成深浅交替） */
+    /* 移动端横线等距由header.html的JS精确均分（量实际高度算周期，首尾线贴边、可见间隙全等）。
+       这里的round版只是无JS时的兜底 */
     .header-left {
         background-image: linear-gradient(to bottom, transparent 1.5px, #ccc 1.5px, #ccc 2.5px, transparent 2.5px);
         background-size: 100% 4px;
