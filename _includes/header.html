@@ -148,7 +148,10 @@
                 }
             }
 
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // 移动端静止到第一帧：SVG滤镜动画在手机上GPU负载大（发热→iOS压暗屏幕）
+            var staticFrame = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                           || window.matchMedia('(max-width: 768px)').matches;
+            if (staticFrame) {
                 render(0);
             } else {
                 requestAnimationFrame(function step(now) {

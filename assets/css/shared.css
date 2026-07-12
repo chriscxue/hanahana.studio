@@ -74,10 +74,16 @@ body {
 @media (max-width: 768px) {
     .header-grid { grid-template-columns: 1fr; }
     .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 25px; justify-content: center; aspect-ratio: 1 / 1; }
-    /* 移动端试验：隐藏logo，只显示横线底纹（沿用桌面版的background-image，不再覆盖为none）。
-       此前的宽度驱动写法 width:100%; height:auto; aspect-ratio:1/1 保留在注释里，
-       禁止改回height:100%驱动（WebKit布局反馈循环→逐帧膨胀→白屏） */
-    .logo { display: none; }
+    /* 宽度驱动（禁止改回height:100%驱动——WebKit布局反馈循环→逐帧膨胀→白屏）。
+       动画在移动端静止到第一帧，由header.html的JS按max-width:768px判断 */
+    .logo { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    /* 横线均分版：线居中在4px格内 + repeat:round微调格高铺满整数格，上下边距相等（各约1.5px），
+       解决repeating-linear-gradient从顶部起铺导致的上宽下窄 */
+    .header-left {
+        background-image: linear-gradient(to bottom, transparent 1.5px, #ccc 1.5px, #ccc 2.5px, transparent 2.5px);
+        background-size: 100% 4px;
+        background-repeat: round;
+    }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
