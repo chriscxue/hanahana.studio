@@ -161,6 +161,10 @@
         (function () {
             var bleedGroup = document.getElementById('hh-ink-bleed');
             var bodyGroup = document.getElementById('hh-ink-body');
-            if (bleedGroup && bodyGroup) window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGrad');
+            if (!bleedGroup || !bodyGroup) return;
+            // logo被CSS隐藏时（当前移动端）不启动动画，避免每帧空算25层路径
+            var logoEl = bleedGroup.closest('.logo');
+            if (logoEl && window.getComputedStyle(logoEl).display === 'none') return;
+            window.hhInitInkLogo(bleedGroup, bodyGroup, 'hhInkGrad');
         })();
     </script>

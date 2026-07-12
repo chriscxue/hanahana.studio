@@ -74,12 +74,10 @@ body {
 @media (max-width: 768px) {
     .header-grid { grid-template-columns: 1fr; }
     .header-left { border-right: none; border-bottom: 0.5px solid #000; padding: 25px; justify-content: center; aspect-ratio: 1 / 1; }
-    /* 宽度驱动：width:100%在所有内核都可靠，父容器内容区是正方形，高度随1:1比例走。
-       禁用height:100%驱动——父容器高度由aspect-ratio推导时，WebKit(iOS全部浏览器)会形成
-       布局反馈循环：动画每帧触发重排→logo逐帧膨胀→滤镜渲染面积暴涨→GPU内存耗尽整页白屏 */
-    .logo { width: 100%; height: auto; aspect-ratio: 1 / 1; }
-    /* 点阵底纹只在桌面版显示 */
-    .header-left { background-image: none; }
+    /* 移动端试验：隐藏logo，只显示横线底纹（沿用桌面版的background-image，不再覆盖为none）。
+       此前的宽度驱动写法 width:100%; height:auto; aspect-ratio:1/1 保留在注释里，
+       禁止改回height:100%驱动（WebKit布局反馈循环→逐帧膨胀→白屏） */
+    .logo { display: none; }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
