@@ -20,6 +20,9 @@ body {
     align-items: center;
     padding: 25px 50px 25px 130px;
     border-right: 0.5px solid #000;
+    /* 浅灰点阵底纹，铺满整个白色区域，logo压在上面 */
+    background-image: radial-gradient(circle, #ddd 1.5px, transparent 1.5px);
+    background-size: 15px 15px;
 }
 /* 294px = header实际高度344.75px（由右侧6项nav撑起）− 上下padding各25px，logo贴满内容区高度 */
 .logo { display: block; width: 294px; height: 294px; color: #000; text-decoration: none; }
@@ -69,7 +72,7 @@ body {
     /* 高度撑满header-left内容区（border-box下=视口宽−上下padding），宽度随1:1比例走，任何视口都不溢出，水平居中由justify-content完成 */
     .logo { height: 100%; width: auto; aspect-ratio: 1 / 1; }
     /* 点阵底纹只在桌面版显示 */
-    .logo .hh-dot-bg { display: none; }
+    .header-left { background-image: none; }
 
     .mobile-nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
     .mobile-nav-title { font-size: 24px; font-weight: 600; line-height: 1.4; }
