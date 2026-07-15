@@ -10,10 +10,18 @@ sitemap: false
     {% include head-meta.html %}
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
-        /* Main */
-        .content-hero { position: relative; width: 100%; border-bottom: 0.5px solid #000; }
+        /* Main — 叠层舞台：正文垫底，照片幕布盖在同一格上面（grid叠层），
+           验证通过后幕布原地渐隐露出正文。幕布带白底，正文比照片高时下方也不会提前透出 */
+        .member-stage { display: grid; }
+        .member-stage > .main-content,
+        .member-stage > .content-hero { grid-area: 1 / 1; }
+        .content-hero { position: relative; width: 100%; border-bottom: 0.5px solid #000; background: #fff; transition: opacity 1.8s ease; }
+        .content-hero.curtain-fading { opacity: 0; }
+        /* 淡完彻底隐藏并放行鼠标事件，正文链接才可点击 */
+        .content-hero.curtain-done { visibility: hidden; pointer-events: none; }
         .content-hero img { width: 100%; height: auto; display: block; }
         .main-content { padding: 0; }
+        @media (prefers-reduced-motion: reduce) { .content-hero { transition: none; } }
 
         /* Access Gate — overlaid on top of the hero image */
         .access-gate { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 40px; }
@@ -78,27 +86,30 @@ sitemap: false
 <body>
     {% include header.html %}
 
-    <div class="content-hero">
-        <img src="images/member/team-photo.webp" alt="HANAHANA members">
-        <div class="access-gate" id="access-gate">
-            <div class="access-gate-card">
-                <div class="access-input-row">
-                    <div class="access-input-wrap">
-                        <input type="email" class="access-input" id="access-email-input" placeholder=" " autocomplete="email">
-                        <span class="fake-placeholder"><span>你知道该输入什么</span><span class="emoji">😉</span></span>
+    <div class="member-stage">
+        <!-- 正文在前、幕布在后：grid同格叠放时后出现的元素画在上层，不用z-index -->
+        <main class="main-content">
+            <div class="member-content" id="member-content">
+                <!-- 验证通过后显示的内部文件内容，待填 -->
+            </div>
+        </main>
+
+        <div class="content-hero" id="content-hero">
+            <img src="images/member/team-photo.webp" alt="HANAHANA members">
+            <div class="access-gate" id="access-gate">
+                <div class="access-gate-card">
+                    <div class="access-input-row">
+                        <div class="access-input-wrap">
+                            <input type="email" class="access-input" id="access-email-input" placeholder=" " autocomplete="email">
+                            <span class="fake-placeholder"><span>你知道该输入什么</span><span class="emoji">😉</span></span>
+                        </div>
+                        <button class="access-submit" type="button" id="access-submit-btn">进入</button>
                     </div>
-                    <button class="access-submit" type="button" id="access-submit-btn">进入</button>
+                    <div class="access-error" id="access-error" style="display:none;"></div>
                 </div>
-                <div class="access-error" id="access-error" style="display:none;"></div>
             </div>
         </div>
     </div>
-
-    <main class="main-content">
-        <div class="member-content" id="member-content">
-            <!-- 验证通过后显示的内部文件内容，待填 -->
-        </div>
-    </main>
 
     {% include footer.html %}
 
@@ -107,7 +118,7 @@ sitemap: false
             var API_BASE = location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://api.hanahana.studio';
             var STORAGE_KEY = 'hanahana_member_email';
 
-            var gate = document.getElementById('access-gate');
+            var hero = document.getElementById('content-hero');
             var content = document.getElementById('member-content');
             var input = document.getElementById('access-email-input');
             var submitBtn = document.getElementById('access-submit-btn');
@@ -122,8 +133,12 @@ sitemap: false
                 errorEl.textContent = '';
             }
             function unlock() {
-                gate.style.display = 'none';
+                // 正文先就位在幕布后面，整块幕布（照片+验证卡片）原地渐隐；
+                // 首次登录和老学员localStorage静默验证走同一条路，每次访问都播这个过场
                 content.style.display = 'block';
+                hero.classList.add('curtain-fading');
+                // 用定时器而非transitionend收尾：prefers-reduced-motion下transition被禁不会触发事件
+                setTimeout(function () { hero.classList.add('curtain-done'); }, 1900);
             }
 
             function checkEmail(email, onResult) {
