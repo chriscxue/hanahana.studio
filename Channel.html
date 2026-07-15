@@ -169,8 +169,16 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-info { padding: 20px 24px; }
         .channel-card-title { font-size: 20px; font-weight: 500; color: #000; }
         .channel-card-meta { font-size: 14px; font-weight: 300; line-height: 1.6; color: #888; margin-top: 4px; }
+
+        /* 教学笔记卡片的分格结构（0.5px细线画格）：标题独占一行 → 一行两列（左"第N期"/右预留空格）→ 底部大格全文 */
+        .channel-card-title-row { padding: 16px 24px; font-size: 20px; font-weight: 500; color: #000; border-bottom: 0.5px solid #000; }
+        .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
+        .channel-card-issue { padding: 10px 24px; font-size: 14px; font-weight: 300; line-height: 1.6; color: #000; border-right: 0.5px solid #000; }
+        /* 右格预留，先放空（以后放日期/标签之类再定） */
+        .channel-card-meta-spare { padding: 10px 24px; }
+
         /* 教学笔记卡片带全文正文；不废话艺术/Podcast卡片没有这块（全文在独立页） */
-        .channel-card-body { padding: 0 24px 24px; font-size: 16px; font-weight: 300; line-height: 1.8; color: #000; }
+        .channel-card-body { padding: 24px; font-size: 16px; font-weight: 300; line-height: 1.8; color: #000; }
         .channel-card-body p { margin-bottom: 1em; }
         .channel-card-body p:last-child { margin-bottom: 0; }
         .channel-card-body img { max-width: 100%; }
@@ -194,7 +202,9 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
             #cat-papers .channel-cards { grid-template-columns: 1fr; padding: 20px; }
             .channel-card-info { padding: 16px 20px; }
-            .channel-card-body { padding: 0 20px 20px; }
+            .channel-card-title-row { padding: 12px 20px; }
+            .channel-card-issue, .channel-card-meta-spare { padding: 8px 20px; }
+            .channel-card-body { padding: 20px; }
         }
     </style>
 </head>
@@ -253,9 +263,10 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
                 {% else %}
                 <div class="card-media-placeholder">图片待添加</div>
                 {% endif %}
-                <div class="channel-card-info">
-                    <h3 class="channel-card-title">{{ item.title }}</h3>
-                    {% if item.summary %}<p class="channel-card-meta">{{ item.summary }}</p>{% endif %}
+                <h3 class="channel-card-title-row">{{ item.title }}</h3>
+                <div class="channel-card-meta-row">
+                    <div class="channel-card-issue">第{{ item.issue | default: item.order }}期</div>
+                    <div class="channel-card-meta-spare"></div>
                 </div>
                 <div class="channel-card-body">{{ item.content }}</div>
             </article>
