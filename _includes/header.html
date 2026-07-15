@@ -140,11 +140,15 @@
                 var isBleed = i < 8;
                 path.setAttribute('opacity', isBleed ? '0.06' : '0.1');
                 (isBleed ? bleedGroup : bodyGroup).appendChild(path);
-                layers.push({ el: path, params: makeLayerParams(seed), r: isBleed ? r * 1.06 : r });
+                layers.push({ el: path, params: makeLayerParams(seed), r: isBleed ? r * 1.06 : r, isBleed: isBleed });
             }
 
-            function render(t) {
+            function render(t, firstFrame) {
                 for (var k = 0; k < layers.length; k++) {
+                    // bleed组8层只画第一帧后定格：0.06透明度的外圈柔晕看不出在动，
+                    // 定格后它那条滤镜链（feTurbulence+位移+高斯模糊）不再每帧重跑，
+                    // 滤镜成本约减半（A/B对比demo：logo/ink_overlap_cell_r2c5_bleed_static_ab.html，Chris确认可接受）
+                    if (layers[k].isBleed && !firstFrame) continue;
                     layers[k].el.setAttribute('d', wobblePath(cx, cy, layers[k].r, layers[k].params, t));
                 }
             }
@@ -152,7 +156,7 @@
             var staticFrame = forceStatic
                            || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (staticFrame) {
-                render(0);
+                render(0, true);
             } else {
                 // 限帧12fps：摆动周期是分钟级的，满帧率跑纯属浪费（SVG滤镜每帧全量重算，
                 // 高刷屏上GPU占用打满导致风扇转）；12fps下每帧位移量仍远小于1px，肉眼无差别
@@ -163,12 +167,12 @@
                     if (!running) return;
                     if (now - lastRender >= FRAME_INTERVAL) {
                         lastRender = now;
-                        render(now);
+                        render(now, false);
                     }
                     requestAnimationFrame(step);
                 }
                 // logo滚出视口就停掉循环（页面正文阅读时负载归零），滚回来再续跑
-                render(0);
+                render(0, true);
                 var host = bodyGroup.ownerSVGElement;
                 if (host && 'IntersectionObserver' in window) {
                     new IntersectionObserver(function (entries) {
