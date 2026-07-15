@@ -171,15 +171,15 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-meta { font-size: 14px; font-weight: 300; line-height: 1.6; color: #888; margin-top: 4px; }
 
         /* 教学笔记卡片的分格结构（0.5px细线画格）：标题独占一行 → 一行两列（左"第N期"/右预留空格）→ 底部大格全文。
-           标题行和期数行高度1:1：两行同padding+同一个固定行高（28px），字号不同总高度也相等 */
-        .channel-card-title-row { padding: 16px 24px; font-size: 20px; font-weight: 500; line-height: 28px; color: #000; border-bottom: 0.5px solid #000; }
+           标题行和期数行字号字重行高padding完全相同，高度1:1自然成立 */
+        .channel-card-title-row { padding: 16px 24px; font-size: 20px; font-weight: 400; line-height: 1.4; color: #000; border-bottom: 0.5px solid #000; }
         .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
-        .channel-card-issue { padding: 16px 24px; font-size: 14px; font-weight: 300; line-height: 28px; color: #000; border-right: 0.5px solid #000; }
+        .channel-card-issue { padding: 16px 24px; font-size: 20px; font-weight: 400; line-height: 1.4; color: #000; border-right: 0.5px solid #000; }
         /* 右格预留，先放空（以后放日期/标签之类再定） */
-        .channel-card-meta-spare { padding: 16px 24px; line-height: 28px; }
+        .channel-card-meta-spare { padding: 16px 24px; line-height: 1.4; }
 
         /* 教学笔记卡片带全文正文；不废话艺术/Podcast卡片没有这块（全文在独立页） */
-        .channel-card-body { padding: 24px; font-size: 16px; font-weight: 300; line-height: 1.8; color: #000; }
+        .channel-card-body { padding: 24px; font-size: 20px; font-weight: 200; line-height: 1.8; color: #000; }
         .channel-card-body p { margin-bottom: 1em; }
         .channel-card-body p:last-child { margin-bottom: 0; }
         .channel-card-body img { max-width: 100%; }
