@@ -77,23 +77,80 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         }
         .channel-content-placeholder { color: #888; }
 
-        /* 瀑布流卡片区（教学笔记/不废话艺术/Podcast三个分类共用）。
-           CSS columns实现：卡片按列纵向流动，高矮不一自动错落；break-inside防止单张卡片被拦腰切到下一列 */
+        /* 卡片区（教学笔记/不废话艺术/Podcast三个分类共用）。
+           grid实现，卡片横序排列（一二三四在第一行）——Chris明确要横着数，
+           CSS columns的竖向流动顺序已弃用。align-items:start让各卡片贴顶自适应高度，
+           不被同行最高的卡拉伸 */
         .channel-cards {
             flex: 1;
-            columns: 3;
-            column-gap: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
             padding: 40px;
             border-bottom: 0.5px solid #000;
         }
         /* 教学笔记4列，且与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），
-           列周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
-        #cat-papers .channel-cards { columns: 4; padding: 40px 12px; }
+           列轨道周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
+        #cat-papers .channel-cards { grid-template-columns: repeat(4, 1fr); padding: 40px 12px; }
         .channel-card {
-            break-inside: avoid;
-            margin-bottom: 24px;
             border: 0.5px solid #000;
             background: #fff;
+        }
+
+        /* 卡片图片区：固定宽5:高4；单图静态显示，2张以上slide切换（左右箭头+底部圆点） */
+        .card-slider { position: relative; aspect-ratio: 5 / 4; overflow: hidden; border-bottom: 0.5px solid #000; }
+        .card-slider-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+        .card-slider-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.75);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card-slider-arrow:hover { background: #F16527; color: #fff; }
+        .card-slider-arrow.prev { left: 8px; }
+        .card-slider-arrow.next { right: 8px; }
+        .card-slider-arrow.prev svg { transform: rotate(180deg); }
+        .card-slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        .card-slider-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.65);
+            border: 0.5px solid rgba(0, 0, 0, 0.35);
+            padding: 0;
+            cursor: pointer;
+        }
+        .card-slider-dot.active { background: #F16527; border-color: #F16527; }
+        .card-media-placeholder {
+            aspect-ratio: 5 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            color: #bbb;
+            font-size: 14px;
+            font-weight: 300;
+            border-bottom: 0.5px solid #000;
         }
         .channel-card-media img { width: 100%; display: block; border-bottom: 0.5px solid #000; }
         .channel-card-video { position: relative; aspect-ratio: 16 / 9; border-bottom: 0.5px solid #000; }
@@ -119,9 +176,9 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-body img { max-width: 100%; }
 
         @media (max-width: 1200px) {
-            .channel-cards { columns: 2; }
+            .channel-cards { grid-template-columns: repeat(2, 1fr); }
             /* 窄屏降到2列后与4格导航的对齐关系不复存在，padding退回常规值 */
-            #cat-papers .channel-cards { columns: 2; padding: 40px; }
+            #cat-papers .channel-cards { grid-template-columns: repeat(2, 1fr); padding: 40px; }
         }
 
         @media (max-width: 768px) {
@@ -134,9 +191,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
             .channel-sidebar-item { padding: 20px; }
             .channel-content { padding: 32px 20px; }
-            .channel-cards { columns: 1; padding: 20px; }
-            #cat-papers .channel-cards { columns: 1; padding: 20px; }
-            .channel-card { margin-bottom: 20px; }
+            .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+            #cat-papers .channel-cards { grid-template-columns: 1fr; padding: 20px; }
             .channel-card-info { padding: 16px 20px; }
             .channel-card-body { padding: 0 20px 20px; }
         }
@@ -177,8 +233,25 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
             {% for item in notes_items %}
             <article class="channel-card">
-                {% if item.cover %}
-                <div class="channel-card-media"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
+                {% if item.images and item.images.size > 0 %}
+                <div class="card-slider" data-slider>
+                    <div class="card-slider-track" data-slider-track>
+                        {% for img in item.images %}
+                        <img src="{{ img | relative_url }}" alt="{{ item.title }}" loading="lazy">
+                        {% endfor %}
+                    </div>
+                    {% if item.images.size > 1 %}
+                    <button class="card-slider-arrow prev" type="button" data-slider-prev aria-label="上一张"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="card-slider-arrow next" type="button" data-slider-next aria-label="下一张"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <div class="card-slider-dots">
+                        {% for img in item.images %}
+                        <button class="card-slider-dot{% if forloop.first %} active{% endif %}" type="button" data-slider-dot="{{ forloop.index0 }}" aria-label="第{{ forloop.index }}张"></button>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="card-media-placeholder">图片待添加</div>
                 {% endif %}
                 <div class="channel-card-info">
                     <h3 class="channel-card-title">{{ item.title }}</h3>
@@ -293,6 +366,25 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
 
         window.addEventListener('popstate', function () {
             location.reload();
+        });
+
+        /* 卡片图片slider：左右箭头循环切换，圆点直达；单图卡片没有[data-slider]标记不会进这里 */
+        document.querySelectorAll('[data-slider]').forEach(function (slider) {
+            var track = slider.querySelector('[data-slider-track]');
+            var count = track.children.length;
+            if (count < 2) return;
+            var dots = slider.querySelectorAll('[data-slider-dot]');
+            var index = 0;
+            function go(i) {
+                index = (i + count) % count;
+                track.style.transform = 'translateX(-' + index * 100 + '%)';
+                dots.forEach(function (d, k) { d.classList.toggle('active', k === index); });
+            }
+            slider.querySelector('[data-slider-prev]').addEventListener('click', function () { go(index - 1); });
+            slider.querySelector('[data-slider-next]').addEventListener('click', function () { go(index + 1); });
+            dots.forEach(function (d) {
+                d.addEventListener('click', function () { go(parseInt(d.dataset.sliderDot, 10)); });
+            });
         });
     </script>
 </body>
