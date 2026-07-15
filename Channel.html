@@ -260,29 +260,15 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
     </div>
 
     <div class="channel-nav">
-        <div class="channel-nav-item active" onclick="showCategory('cat-speaking')">英语口语2000小时</div>
-        <div class="channel-nav-item" onclick="showCategory('cat-papers')">艺术教学笔记</div>
+        <div class="channel-nav-item active" onclick="showCategory('cat-papers')">艺术教学笔记</div>
         <div class="channel-nav-item" onclick="showCategory('cat-youtube')">不废话艺术</div>
         <div class="channel-nav-item" onclick="showCategory('cat-podcast')">Podcast</div>
-    </div>
-
-    <div id="cat-speaking" class="channel-category active">
-        <div class="channel-layout">
-            <aside class="channel-sidebar">
-                {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
-                {% for item in speaking_items %}
-                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
-                {% endfor %}
-            </aside>
-            <div class="channel-content" data-channel-content>
-                <div class="channel-content-placeholder">点击左侧查看内容</div>
-            </div>
-        </div>
+        <div class="channel-nav-item" onclick="showCategory('cat-speaking')">英语口语2000小时</div>
     </div>
 
     <!-- 教学笔记：瀑布流卡片，全文直接铺在卡片上（同一md文件同时生成独立页供SEO收录，
          卡片不设跳转，独立页靠sitemap被发现——Chris拍板的方案） -->
-    <div id="cat-papers" class="channel-category">
+    <div id="cat-papers" class="channel-category active">
         <div class="channel-cards">
             {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
             {% for item in notes_items %}
@@ -365,6 +351,20 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
                 </div>
             </article>
             {% endfor %}
+        </div>
+    </div>
+
+    <div id="cat-speaking" class="channel-category">
+        <div class="channel-layout">
+            <aside class="channel-sidebar">
+                {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
+                {% for item in speaking_items %}
+                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
+                {% endfor %}
+            </aside>
+            <div class="channel-content" data-channel-content>
+                <div class="channel-content-placeholder">点击左侧查看内容</div>
+            </div>
         </div>
     </div>
 
