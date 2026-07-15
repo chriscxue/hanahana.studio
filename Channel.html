@@ -171,11 +171,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             font-weight: 300;
             border-bottom: 0.5px solid #000;
         }
-        .channel-card-info { padding: 20px 24px; }
-        .channel-card-title { font-size: 20px; font-weight: 500; color: #000; }
-        .channel-card-meta { font-size: 14px; font-weight: 300; line-height: 1.6; color: #888; margin-top: 4px; }
-
-        /* 教学笔记卡片的分格结构（0.5px细线画格）：标题独占一行 → 一行两列（左"第N期"/右预留空格）→ 底部大格全文。
+        /* 卡片分格结构（三个分类共用，0.5px细线画格）：媒体区（笔记5:4/视频16:9/Podcast封面1:1）→
+           标题独占一行 → 一行两列（左No.00X/右分享按钮）→ 笔记类再加底部大格全文。
            标题行和期数行字号字重行高padding完全相同，高度1:1自然成立 */
         .channel-card-title-row { padding: 16px 24px; font-size: 20px; font-weight: 400; line-height: 1.4; color: #000; border-bottom: 0.5px solid #000; }
         .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
@@ -249,7 +246,6 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-content { padding: 32px 20px; }
             .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
             .channel-cards.masonry .channel-cards-col { gap: 20px; }
-            .channel-card-info { padding: 16px 20px; }
             .channel-card-title-row { padding: 12px 20px; }
             .channel-card-issue, .channel-card-meta-spare { padding: 12px 20px; }
             .channel-card-body { padding: 20px; }
