@@ -18,6 +18,8 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         /* Main — hero区不放图：五色横向渐变（Chris给的）+ 上面叠一层点阵。
            点阵旋钮：圆点半径1.5px、格距12px、白色60%；repeat round让点格微调到正好铺满，四边不切半点 */
         .content-hero {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             height: 480px;
             border-bottom: 0.5px solid #000;
@@ -27,6 +29,15 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
                 linear-gradient(to right, #EF9393, #E17DC2, #998EE0, #43ADD0, #8BDEDA);
             background-size: 12px 12px, 100% 100%;
             background-repeat: round, no-repeat;
+        }
+        /* 最上层人物元素（001.svg，350×633竖构图）：贴满hero高度，靠右站在底边上；
+           位置/大小旋钮=right偏移和height */
+        .hero-figure {
+            position: absolute;
+            right: 8%;
+            bottom: 0;
+            height: 100%;
+            width: auto;
         }
 
         .channel-nav {
@@ -252,7 +263,9 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
 <body>
     {% include header.html %}
 
-    <div class="content-hero"></div>
+    <div class="content-hero">
+        <img class="hero-figure" src="images/channel/001.svg" alt="">
+    </div>
 
     <div class="channel-nav">
         <div class="channel-nav-item active" onclick="showCategory('cat-papers')">艺术教学笔记</div>
