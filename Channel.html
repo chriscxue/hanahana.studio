@@ -86,6 +86,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             padding: 40px;
             border-bottom: 0.5px solid #000;
         }
+        /* 教学笔记（纯文字卡）比视频卡窄一档更耐看，单独4列；不废话艺术/Podcast维持3列 */
+        #cat-papers .channel-cards { columns: 4; }
         .channel-card {
             break-inside: avoid;
             margin-bottom: 24px;
@@ -117,6 +119,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
 
         @media (max-width: 1200px) {
             .channel-cards { columns: 2; }
+            #cat-papers .channel-cards { columns: 2; }
         }
 
         @media (max-width: 768px) {
@@ -130,6 +133,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-sidebar-item { padding: 20px; }
             .channel-content { padding: 32px 20px; }
             .channel-cards { columns: 1; padding: 20px; }
+            #cat-papers .channel-cards { columns: 1; }
             .channel-card { margin-bottom: 20px; }
             .channel-card-info { padding: 16px 20px; }
             .channel-card-body { padding: 0 20px 20px; }
