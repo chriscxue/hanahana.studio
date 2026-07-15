@@ -81,18 +81,17 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
            grid实现，卡片横序排列（一二三四在第一行）——Chris明确要横着数，
            CSS columns的竖向流动顺序已弃用。align-items:start让各卡片贴顶自适应高度，
            不被同行最高的卡拉伸 */
+        /* 三个卡片分类统一4列，且与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），
+           列轨道周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
         .channel-cards {
             flex: 1;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 24px;
             align-items: start;
-            padding: 40px;
+            padding: 40px 12px;
             border-bottom: 0.5px solid #000;
         }
-        /* 教学笔记4列，且与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），
-           列轨道周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
-        #cat-papers .channel-cards { grid-template-columns: repeat(4, 1fr); padding: 40px 12px; }
         .channel-card {
             border: 0.5px solid #000;
             background: #fff;
@@ -231,9 +230,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-body img { max-width: 100%; }
 
         @media (max-width: 1200px) {
-            .channel-cards { grid-template-columns: repeat(2, 1fr); }
             /* 窄屏降到2列后与4格导航的对齐关系不复存在，padding退回常规值 */
-            #cat-papers .channel-cards { grid-template-columns: repeat(2, 1fr); padding: 40px; }
+            .channel-cards { grid-template-columns: repeat(2, 1fr); padding: 40px; }
         }
 
         @media (max-width: 768px) {
@@ -247,7 +245,6 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-sidebar-item { padding: 20px; }
             .channel-content { padding: 32px 20px; }
             .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
-            #cat-papers .channel-cards { grid-template-columns: 1fr; padding: 20px; }
             .channel-cards.masonry .channel-cards-col { gap: 20px; }
             .channel-card-info { padding: 16px 20px; }
             .channel-card-title-row { padding: 12px 20px; }
