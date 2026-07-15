@@ -1,7 +1,7 @@
 ---
 nav: channel
 title: CHANNEL
-description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观察与内容创作。"
+description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术、Podcast与英语口语2000小时。"
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -77,12 +77,10 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         }
         .channel-content-placeholder { color: #888; }
 
-        /* 卡片区（教学笔记/不废话艺术/Podcast三个分类共用）。
-           grid实现，卡片横序排列（一二三四在第一行）——Chris明确要横着数，
-           CSS columns的竖向流动顺序已弃用。align-items:start让各卡片贴顶自适应高度，
-           不被同行最高的卡拉伸 */
-        /* 三个卡片分类统一4列，且与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），
-           列轨道周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
+        /* 卡片区（教学笔记/不废话艺术/Podcast三个分类共用），统一4列。
+           与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），列轨道周期正好25%，
+           每列居中落在对应导航格正下方，列缝骑在导航分隔线上。
+           此grid是无JS的兜底布局（横序、整行对齐）；实际展示由下方masonry JS接管 */
         .channel-cards {
             flex: 1;
             display: grid;
@@ -146,22 +144,12 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             cursor: pointer;
         }
         .card-slider-dot.active { background: #F16527; border-color: #F16527; }
-        .card-media-placeholder {
-            aspect-ratio: 5 / 4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f5f5f5;
-            color: #bbb;
-            font-size: 14px;
-            font-weight: 300;
-            border-bottom: 0.5px solid #000;
-        }
         .channel-card-media img { width: 100%; display: block; border-bottom: 0.5px solid #000; }
         .channel-card-video { position: relative; aspect-ratio: 16 / 9; border-bottom: 0.5px solid #000; }
         .channel-card-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        /* 媒体占位符统一一个类，比例跟各分类媒体区一致：默认5:4（笔记），.video-ratio=16:9（视频），.square=1:1（Podcast封面） */
         .channel-card-media-placeholder {
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 5 / 4;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,11 +166,10 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
         /* 视频类卡片（不废话艺术）meta行是最后一个元素，行自身的border-bottom会和卡片外框叠在同一条边上变粗，去掉 */
         .channel-card-meta-row:last-child { border-bottom: none; }
-        /* 视频类卡片的媒体占位符用视频嵌入的16:9，不用笔记卡的5:4 */
         .channel-card-media-placeholder.video-ratio { aspect-ratio: 16 / 9; }
+        .channel-card-media-placeholder.square { aspect-ratio: 1 / 1; }
         /* Podcast卡片封面=1:1方形（专辑封面），图片超比例居中裁切 */
         .channel-card-media.square img { aspect-ratio: 1 / 1; object-fit: cover; }
-        .channel-card-media-placeholder.square { aspect-ratio: 1 / 1; }
         .channel-card-issue { padding: 16px 24px; font-family: 'Courier Prime', monospace; font-size: 20px; font-weight: 400; line-height: 1.4; color: #000; border-right: 0.5px solid #000; }
         /* 右格：分享按钮组（X/WhatsApp/Instagram/原生分享），右对齐 */
         .channel-card-meta-spare {
@@ -291,7 +278,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
                     {% endif %}
                 </div>
                 {% else %}
-                <div class="card-media-placeholder">图片待添加</div>
+                <div class="channel-card-media-placeholder">图片待添加</div>
                 {% endif %}
                 <h3 class="channel-card-title-row">{{ item.title }}</h3>
                 <div class="channel-card-meta-row">
