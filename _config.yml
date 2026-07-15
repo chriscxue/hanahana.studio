@@ -10,6 +10,11 @@ defaults:
       path: ""
     values:
       image: /images/member/team-photo-og.jpg
+  # 百度验证文件不进sitemap（文件本身必须保留，百度会定期回访验证）
+  - scope:
+      path: "baidu_verify_codeva-lauZPimBDT.html"
+    values:
+      sitemap: false
 
 plugins:
   - jekyll-seo-tag
