@@ -25,18 +25,18 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             border-bottom: 0.5px solid #000;
             background: #8BDEDA; /* 不支持渐变的老浏览器兜底色 */
             background-image:
-                radial-gradient(circle, rgba(255, 255, 255, 0.35) 1.5px, transparent 1.5px),
+                radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px),
                 linear-gradient(to right, #EF9393, #E17DC2, #998EE0, #43ADD0, #8BDEDA);
             background-size: 12px 12px, 100% 100%;
             background-repeat: round, no-repeat;
         }
-        /* 最上层人物元素（001.svg，350×633竖构图）：贴满hero高度，靠右站在底边上；
-           位置/大小旋钮=right偏移和height */
+        /* 最上层人物元素（001.svg，350×633竖构图）：靠右，上下各留40px间距不贴边；
+           位置/大小旋钮=right偏移和上下间距（bottom与height的calc同步改） */
         .hero-figure {
             position: absolute;
             right: 8%;
-            bottom: 0;
-            height: 100%;
+            bottom: 40px;
+            height: calc(100% - 80px);
             width: auto;
         }
 
