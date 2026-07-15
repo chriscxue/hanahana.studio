@@ -10,6 +10,9 @@
         .channel-item-back { display: inline-block; margin-bottom: 40px; font-size: 14px; font-weight: 300; color: #888; text-decoration: none; }
         .channel-item-back:hover { color: #F16527; }
         .channel-item-title { font-size: 36px; font-weight: 600; color: #000; margin-bottom: 40px; }
+        .channel-item-video { position: relative; aspect-ratio: 16 / 9; margin-bottom: 40px; }
+        .channel-item-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .channel-item-cover { width: 100%; display: block; margin-bottom: 40px; }
         .channel-item-body { font-size: 18px; font-weight: 300; line-height: 1.8; color: #000; }
 
         @media (max-width: 768px) {
@@ -24,6 +27,11 @@
     <main class="channel-item-main">
         <a class="channel-item-back" href="{{ '/Channel.html' | relative_url }}">← 返回 CHANNEL</a>
         <h1 class="channel-item-title">{{ page.title }}</h1>
+        {% if page.youtube %}
+        <div class="channel-item-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}" title="{{ page.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        {% elsif page.cover %}
+        <img class="channel-item-cover" src="{{ page.cover | relative_url }}" alt="{{ page.title }}">
+        {% endif %}
         <div class="channel-item-body">
             {{ content }}
         </div>

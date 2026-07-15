@@ -77,7 +77,47 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         }
         .channel-content-placeholder { color: #888; }
 
-        .channel-single { flex: 1; padding: 64px; border-bottom: 0.5px solid #000; font-size: 16px; font-weight: 300; color: #888; }
+        /* 瀑布流卡片区（教学笔记/不废话艺术/Podcast三个分类共用）。
+           CSS columns实现：卡片按列纵向流动，高矮不一自动错落；break-inside防止单张卡片被拦腰切到下一列 */
+        .channel-cards {
+            flex: 1;
+            columns: 3;
+            column-gap: 24px;
+            padding: 40px;
+            border-bottom: 0.5px solid #000;
+        }
+        .channel-card {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            border: 0.5px solid #000;
+            background: #fff;
+        }
+        .channel-card-media img { width: 100%; display: block; border-bottom: 0.5px solid #000; }
+        .channel-card-video { position: relative; aspect-ratio: 16 / 9; border-bottom: 0.5px solid #000; }
+        .channel-card-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .channel-card-media-placeholder {
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            color: #bbb;
+            font-size: 14px;
+            font-weight: 300;
+            border-bottom: 0.5px solid #000;
+        }
+        .channel-card-info { padding: 20px 24px; }
+        .channel-card-title { font-size: 20px; font-weight: 500; color: #000; }
+        .channel-card-meta { font-size: 14px; font-weight: 300; line-height: 1.6; color: #888; margin-top: 4px; }
+        /* 教学笔记卡片带全文正文；不废话艺术/Podcast卡片没有这块（全文在独立页） */
+        .channel-card-body { padding: 0 24px 24px; font-size: 16px; font-weight: 300; line-height: 1.8; color: #000; }
+        .channel-card-body p { margin-bottom: 1em; }
+        .channel-card-body p:last-child { margin-bottom: 0; }
+        .channel-card-body img { max-width: 100%; }
+
+        @media (max-width: 1200px) {
+            .channel-cards { columns: 2; }
+        }
 
         @media (max-width: 768px) {
             .content-hero img { aspect-ratio: 1 / 1; max-height: none; }
@@ -89,6 +129,10 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
             .channel-sidebar-item { padding: 20px; }
             .channel-content { padding: 32px 20px; }
+            .channel-cards { columns: 1; padding: 20px; }
+            .channel-card { margin-bottom: 20px; }
+            .channel-card-info { padding: 16px 20px; }
+            .channel-card-body { padding: 0 20px 20px; }
         }
     </style>
 </head>
@@ -120,26 +164,67 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         </div>
     </div>
 
+    <!-- 教学笔记：瀑布流卡片，全文直接铺在卡片上（同一md文件同时生成独立页供SEO收录，
+         卡片不设跳转，独立页靠sitemap被发现——Chris拍板的方案） -->
     <div id="cat-papers" class="channel-category">
-        <div class="channel-layout">
-            <aside class="channel-sidebar">
-                {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
-                {% for item in notes_items %}
-                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
-                {% endfor %}
-            </aside>
-            <div class="channel-content" data-channel-content>
-                <div class="channel-content-placeholder">点击左侧查看内容</div>
-            </div>
+        <div class="channel-cards">
+            {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
+            {% for item in notes_items %}
+            <article class="channel-card">
+                {% if item.cover %}
+                <div class="channel-card-media"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
+                {% endif %}
+                <div class="channel-card-info">
+                    <h3 class="channel-card-title">{{ item.title }}</h3>
+                    {% if item.summary %}<p class="channel-card-meta">{{ item.summary }}</p>{% endif %}
+                </div>
+                <div class="channel-card-body">{{ item.content }}</div>
+            </article>
+            {% endfor %}
         </div>
     </div>
 
+    <!-- 不废话艺术：瀑布流卡片，卡片=嵌入播放器+标题信息（原地播放不跳转）；
+         文字稿只在独立页上，供SEO收录 -->
     <div id="cat-youtube" class="channel-category">
-        <div class="channel-single">内容待填（计划做成瀑布流布局）</div>
+        <div class="channel-cards">
+            {% assign art_items = site.channel | where: "category", "art" | sort: "order" %}
+            {% for item in art_items %}
+            <article class="channel-card">
+                {% if item.youtube %}
+                <div class="channel-card-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ item.youtube }}" title="{{ item.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                {% else %}
+                <div class="channel-card-media-placeholder">视频待发布</div>
+                {% endif %}
+                <div class="channel-card-info">
+                    <h3 class="channel-card-title">{{ item.title }}</h3>
+                    {% if item.summary %}<p class="channel-card-meta">{{ item.summary }}</p>{% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     </div>
 
+    <!-- Podcast：同不废话艺术，卡片=播放器/封面+标题信息，全文（show notes/文字稿）在独立页 -->
     <div id="cat-podcast" class="channel-category">
-        <div class="channel-single">内容待填（计划做成瀑布流布局）</div>
+        <div class="channel-cards">
+            {% assign podcast_items = site.channel | where: "category", "podcast" | sort: "order" %}
+            {% for item in podcast_items %}
+            <article class="channel-card">
+                {% if item.youtube %}
+                <div class="channel-card-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ item.youtube }}" title="{{ item.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                {% elsif item.cover %}
+                <div class="channel-card-media"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
+                {% else %}
+                <div class="channel-card-media-placeholder">节目待发布</div>
+                {% endif %}
+                <div class="channel-card-info">
+                    <h3 class="channel-card-title">{{ item.title }}</h3>
+                    {% if item.summary %}<p class="channel-card-meta">{{ item.summary }}</p>{% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     </div>
 
     {% include footer.html %}
