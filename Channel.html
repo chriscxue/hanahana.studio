@@ -86,8 +86,9 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             padding: 40px;
             border-bottom: 0.5px solid #000;
         }
-        /* 教学笔记（纯文字卡）比视频卡窄一档更耐看，单独4列；不废话艺术/Podcast维持3列 */
-        #cat-papers .channel-cards { columns: 4; }
+        /* 教学笔记4列，且与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），
+           列周期正好25%，每列居中落在对应导航格正下方，列缝骑在导航分隔线上 */
+        #cat-papers .channel-cards { columns: 4; padding: 40px 12px; }
         .channel-card {
             break-inside: avoid;
             margin-bottom: 24px;
@@ -119,7 +120,8 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
 
         @media (max-width: 1200px) {
             .channel-cards { columns: 2; }
-            #cat-papers .channel-cards { columns: 2; }
+            /* 窄屏降到2列后与4格导航的对齐关系不复存在，padding退回常规值 */
+            #cat-papers .channel-cards { columns: 2; padding: 40px; }
         }
 
         @media (max-width: 768px) {
@@ -133,7 +135,7 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             .channel-sidebar-item { padding: 20px; }
             .channel-content { padding: 32px 20px; }
             .channel-cards { columns: 1; padding: 20px; }
-            #cat-papers .channel-cards { columns: 1; }
+            #cat-papers .channel-cards { columns: 1; padding: 20px; }
             .channel-card { margin-bottom: 20px; }
             .channel-card-info { padding: 16px 20px; }
             .channel-card-body { padding: 0 20px 20px; }
