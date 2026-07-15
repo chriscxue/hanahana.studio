@@ -154,8 +154,15 @@
             if (staticFrame) {
                 render(0);
             } else {
+                // 限帧12fps：摆动周期是分钟级的，满帧率跑纯属浪费（SVG滤镜每帧全量重算，
+                // 高刷屏上GPU占用打满导致风扇转）；12fps下每帧位移量仍远小于1px，肉眼无差别
+                var FRAME_INTERVAL = 1000 / 12;
+                var lastRender = -Infinity;
                 requestAnimationFrame(function step(now) {
-                    render(now);
+                    if (now - lastRender >= FRAME_INTERVAL) {
+                        lastRender = now;
+                        render(now);
+                    }
                     requestAnimationFrame(step);
                 });
             }
