@@ -15,13 +15,18 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             min-height: 100vh;
         }
 
-        /* Main — hero区不再放图，直接渐变色带（Chris给的五色横向渐变） */
+        /* Main — hero区不放图：五色横向渐变（Chris给的）+ 上面叠一层点阵。
+           点阵旋钮：圆点半径1.5px、格距12px、白色60%；repeat round让点格微调到正好铺满，四边不切半点 */
         .content-hero {
             width: 100%;
             height: 480px;
             border-bottom: 0.5px solid #000;
             background: #8BDEDA; /* 不支持渐变的老浏览器兜底色 */
-            background: linear-gradient(to right, #EF9393, #E17DC2, #998EE0, #43ADD0, #8BDEDA);
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 0.6) 1.5px, transparent 1.5px),
+                linear-gradient(to right, #EF9393, #E17DC2, #998EE0, #43ADD0, #8BDEDA);
+            background-size: 12px 12px, 100% 100%;
+            background-repeat: round, no-repeat;
         }
 
         .channel-nav {
