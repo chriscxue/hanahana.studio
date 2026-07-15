@@ -183,6 +183,9 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
         .channel-card-meta-row:last-child { border-bottom: none; }
         /* 视频类卡片的媒体占位符用视频嵌入的16:9，不用笔记卡的5:4 */
         .channel-card-media-placeholder.video-ratio { aspect-ratio: 16 / 9; }
+        /* Podcast卡片封面=1:1方形（专辑封面），图片超比例居中裁切 */
+        .channel-card-media.square img { aspect-ratio: 1 / 1; object-fit: cover; }
+        .channel-card-media-placeholder.square { aspect-ratio: 1 / 1; }
         .channel-card-issue { padding: 16px 24px; font-family: 'Courier Prime', monospace; font-size: 20px; font-weight: 400; line-height: 1.4; color: #000; border-right: 0.5px solid #000; }
         /* 右格：分享按钮组（X/WhatsApp/Instagram/原生分享），右对齐 */
         .channel-card-meta-spare {
@@ -341,16 +344,19 @@ description: "HANAHANA STUDIO内容频道，涵盖英语口语训练、行业观
             {% assign podcast_items = site.channel | where: "category", "podcast" | sort: "order" %}
             {% for item in podcast_items %}
             <article class="channel-card">
-                {% if item.youtube %}
-                <div class="channel-card-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ item.youtube }}" title="{{ item.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                {% elsif item.cover %}
-                <div class="channel-card-media"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
+                {% if item.cover %}
+                <div class="channel-card-media square"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
                 {% else %}
-                <div class="channel-card-media-placeholder">节目待发布</div>
+                <div class="channel-card-media-placeholder square">封面待添加</div>
                 {% endif %}
-                <div class="channel-card-info">
-                    <h3 class="channel-card-title">{{ item.title }}</h3>
-                    {% if item.summary %}<p class="channel-card-meta">{{ item.summary }}</p>{% endif %}
+                <h3 class="channel-card-title-row">{{ item.title }}</h3>
+                <div class="channel-card-meta-row">
+                    {% assign issue_num = item.issue | default: item.order %}
+                    <div class="channel-card-issue">No.{{ issue_num | prepend: "00" | slice: -3, 3 }}</div>
+                    <div class="channel-card-meta-spare">
+                        {% assign share_url = item.url | absolute_url %}
+                        {% include card-share.html url=share_url title=item.title %}
+                    </div>
                 </div>
             </article>
             {% endfor %}
