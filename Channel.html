@@ -169,9 +169,7 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         {% endcomment %}
         {% assign initial = 10 %}
         {% assign batch = 10 %}
-        {% assign notes_all = site.channel | where: "category", "notes" %}
-        {% comment %} 只取已到发布日期的（date <= 构建时刻），未来的等定时构建那天再出现 {% endcomment %}
-        {% assign notes_items = notes_all | where_exp: "i", "i.date <= site.time" | sort: "order" %}
+        {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
         {% comment %} 有"加载更多"按钮时，底边线交给按钮那一格画，避免两条线叠在一起 {% endcomment %}
         <div class="channel-cards{% if notes_items.size > initial %} no-bottom-border{% endif %}" data-load-more-batch="{{ batch }}">
             {% for item in notes_items %}
@@ -193,8 +191,7 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
          文字稿只在独立页上，供SEO收录 -->
     <div id="cat-youtube" class="channel-category">
         <div class="channel-cards">
-            {% assign art_all = site.channel | where: "category", "art" %}
-            {% assign art_items = art_all | where_exp: "i", "i.date <= site.time" | sort: "order" %}
+            {% assign art_items = site.channel | where: "category", "art" | sort: "order" %}
             {% for item in art_items %}
             {% include channel-card.html item=item %}
             {% endfor %}
@@ -204,8 +201,7 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
     <!-- Podcast：同不废话艺术，卡片=播放器/封面+标题信息，全文（show notes/文字稿）在独立页 -->
     <div id="cat-podcast" class="channel-category">
         <div class="channel-cards">
-            {% assign podcast_all = site.channel | where: "category", "podcast" %}
-            {% assign podcast_items = podcast_all | where_exp: "i", "i.date <= site.time" | sort: "order" %}
+            {% assign podcast_items = site.channel | where: "category", "podcast" | sort: "order" %}
             {% for item in podcast_items %}
             {% include channel-card.html item=item %}
             {% endfor %}
