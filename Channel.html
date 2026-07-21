@@ -1,7 +1,7 @@
 ---
 nav: channel
 title: CHANNEL
-description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术、Podcast与英语口语2000小时。"
+description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术与Podcast。"
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -58,46 +58,10 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         .channel-nav-item:last-child { border-right: none; }
         .channel-nav-item:hover,
         .channel-nav-item.active { background-color: #F16527; color: #fff; }
+        .channel-nav-item.is-empty { cursor: default; pointer-events: none; }
 
         .channel-category { display: none; }
         .channel-category.active { display: flex; flex-direction: column; flex: 1; }
-
-        .channel-layout {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            border-bottom: 0.5px solid #000;
-        }
-
-        .channel-sidebar {
-            border-right: 0.5px solid #000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .channel-sidebar-item {
-            display: block;
-            padding: 24px 40px;
-            border-bottom: 0.5px solid #000;
-            font-size: 18px;
-            font-weight: 300;
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .channel-sidebar-item:last-child { border-bottom: none; }
-        .channel-sidebar-item:hover,
-        .channel-sidebar-item.active { background-color: #F16527; color: #fff; }
-
-        .channel-content {
-            padding: 64px;
-            font-size: 16px;
-            font-weight: 300;
-            line-height: 1.8;
-            color: #000;
-        }
-        .channel-content-placeholder { color: #888; }
 
         /* 卡片区（教学笔记/不废话艺术/Podcast三个分类共用），统一4列。
            与顶部4格导航逐列对齐：左右padding=列间距的一半（12px），列轨道周期正好25%，
@@ -132,10 +96,6 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             .channel-nav-item { padding: 20px; font-size: 16px; }
             .channel-nav-item:nth-child(2n) { border-right: none; }
             .channel-nav-item:nth-child(-n+2) { border-bottom: 0.5px solid #000; }
-            .channel-layout { grid-template-columns: 1fr; }
-            .channel-sidebar { border-right: none; border-bottom: 0.5px solid #000; }
-            .channel-sidebar-item { padding: 20px; }
-            .channel-content { padding: 32px 20px; }
             .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
             .channel-cards.masonry .channel-cards-col { gap: 20px; }
         }
@@ -152,7 +112,10 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         <div class="channel-nav-item active" onclick="showCategory('cat-papers')">艺术教学笔记</div>
         <div class="channel-nav-item" onclick="showCategory('cat-youtube')">不废话艺术</div>
         <div class="channel-nav-item" onclick="showCategory('cat-podcast')">Podcast</div>
-        <div class="channel-nav-item" onclick="showCategory('cat-speaking')">英语口语2000小时</div>
+        <!-- 第四格空位：导航是4列网格，卡片区的4列对齐、以及移动端2×2方阵的边框规则
+             都建立在"4格"这个前提上，少一格桌面端要重算对齐、移动端右下会挂断头线。
+             所以这格保留但不放内容，pointer-events:none 防止hover变橙让人以为能点 -->
+        <div class="channel-nav-item is-empty"></div>
     </div>
 
     <!-- 教学笔记：瀑布流卡片，全文直接铺在卡片上（同一md文件同时生成独立页供SEO收录，
@@ -208,20 +171,6 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         </div>
     </div>
 
-    <div id="cat-speaking" class="channel-category">
-        <div class="channel-layout">
-            <aside class="channel-sidebar">
-                {% assign speaking_items = site.channel | where: "category", "speaking" | sort: "order" %}
-                {% for item in speaking_items %}
-                <a class="channel-sidebar-item" href="{{ item.url | relative_url }}" data-channel-link>{{ item.title }}</a>
-                {% endfor %}
-            </aside>
-            <div class="channel-content" data-channel-content>
-                <div class="channel-content-placeholder">点击左侧查看内容</div>
-            </div>
-        </div>
-    </div>
-
     {% include footer.html %}
 
     <script>
@@ -233,58 +182,6 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             // 隐藏分类里的卡片区测不出列数，切到可见时再做瀑布流分配
             if (window.__channelMasonry) window.__channelMasonry();
         }
-
-        var channelHomeUrl = '{{ "/Channel.html" | relative_url }}';
-        var channelHomeTitle = document.title;
-
-        document.querySelectorAll('[data-channel-link]').forEach(function (link) {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                var category = link.closest('.channel-category');
-                var content = category.querySelector('[data-channel-content]');
-                var wasActive = link.classList.contains('active');
-
-                category.querySelectorAll('[data-channel-link].active').forEach(function (l) { l.classList.remove('active'); });
-
-                if (wasActive) {
-                    content.innerHTML = '<div class="channel-content-placeholder">点击左侧查看内容</div>';
-                    document.title = channelHomeTitle;
-                    history.pushState({ channel: 'home' }, '', channelHomeUrl);
-                    return;
-                }
-
-                link.classList.add('active');
-
-                if (link.dataset.cachedBody) {
-                    content.innerHTML = link.dataset.cachedBody;
-                    document.title = link.dataset.cachedTitle || channelHomeTitle;
-                    history.pushState({ channel: 'item', url: link.href }, '', link.href);
-                    return;
-                }
-
-                content.innerHTML = '<p style="color:#888;">加载中…</p>';
-
-                fetch(link.href)
-                    .then(function (res) { return res.text(); })
-                    .then(function (html) {
-                        var doc = new DOMParser().parseFromString(html, 'text/html');
-                        var body = doc.querySelector('.channel-item-body');
-                        var bodyHtml = body ? body.innerHTML : '<p>内容加载失败</p>';
-                        link.dataset.cachedBody = bodyHtml;
-                        link.dataset.cachedTitle = doc.title;
-                        content.innerHTML = bodyHtml;
-                        document.title = doc.title;
-                        history.pushState({ channel: 'item', url: link.href }, '', link.href);
-                    })
-                    .catch(function () {
-                        content.innerHTML = '<p style="color:#c0392b;">内容加载失败，请刷新页面重试</p>';
-                    });
-            });
-        });
-
-        window.addEventListener('popstate', function () {
-            location.reload();
-        });
 
         /* 紧凑瀑布流分配：按原始顺序遍历卡片，每张放进当前最矮的那一列，列内贴紧堆叠。
            教学笔记的卡片没有图、高度全由文章长短决定，篇幅差异大，早先的"横序轮流进列"

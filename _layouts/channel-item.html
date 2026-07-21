@@ -24,15 +24,8 @@
         }
         .channel-item-more a:hover { color: #F16527; }
 
-        /* 英语口语分类不做SEO、也不进瀑布流，独立页维持简单文章排版。
-           注意：Channel.html 会 fetch 这个页面、抓 .channel-item-body 注入面板，
-           这个 class 名不能改 */
-        .channel-item-title { font-size: 36px; font-weight: 600; color: #000; margin-bottom: 40px; }
-        .channel-item-body { font-size: 18px; font-weight: 300; line-height: 1.8; color: #000; }
-
         @media (max-width: 768px) {
             .channel-item-main { padding: 40px 20px; }
-            .channel-item-title { font-size: 28px; }
         }
     </style>
 </head>
@@ -40,17 +33,10 @@
     {% include header.html %}
 
     <main class="channel-item-main">
-        {% if page.category == 'speaking' %}
-        <h1 class="channel-item-title">{{ page.title }}</h1>
-        <div class="channel-item-body">
-            {{ content }}
-        </div>
-        {% else %}
         {% include channel-card.html item=page body=content show_body='true' %}
         <div class="channel-item-more">
             <a href="{{ '/Channel.html' | relative_url }}">查看更多内容 · CHANNEL →</a>
         </div>
-        {% endif %}
     </main>
 
     {% include footer.html %}
