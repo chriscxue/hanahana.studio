@@ -58,7 +58,12 @@
     var countEl = btn.querySelector('[data-load-more-count]');
 
     btn.addEventListener('click', function () {
-        var hidden = container.querySelectorAll('.channel-card.is-hidden');
+        // 瀑布流把卡片重排进各列后，DOM 顺序是"列1全部、列2全部…"，
+        // 直接取前 N 个隐藏卡片会一次性揭示同一列。必须按 data-idx 的原始顺序取。
+        var hidden = Array.prototype.slice.call(container.querySelectorAll('.channel-card.is-hidden'));
+        hidden.sort(function (a, b) {
+            return (parseInt(a.dataset.idx, 10) || 0) - (parseInt(b.dataset.idx, 10) || 0);
+        });
         for (var i = 0; i < batch && i < hidden.length; i++) {
             hidden[i].classList.remove('is-hidden');
         }

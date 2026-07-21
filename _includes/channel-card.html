@@ -14,7 +14,11 @@ Channel 卡片：Channel.html 三个分类的瀑布流 + channel-item.html 独�
 {% assign item = include.item %}
 {% assign issue_num = item.issue | default: item.order %}
 
-<article class="channel-card{% if include.hidden == 'true' %} is-hidden{% endif %}">
+{% comment %}
+data-idx = 卡片的原始顺序。瀑布流会把卡片重排进各列容器，DOM 顺序从此不等于阅读顺序，
+"加载更多"必须靠这个属性才能按原始顺序揭示下一批，否则会一次性揭示同一列的卡片。
+{% endcomment %}
+<article class="channel-card{% if include.hidden == 'true' %} is-hidden{% endif %}"{% if include.idx %} data-idx="{{ include.idx }}"{% endif %}>
     {% if item.category == 'art' %}
         {% if item.youtube %}
         <div class="channel-card-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ item.youtube }}" title="{{ item.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>

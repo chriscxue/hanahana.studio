@@ -158,26 +158,30 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
          卡片不设跳转，独立页靠sitemap被发现——Chris拍板的方案） -->
     <div id="cat-papers" class="channel-category active">
         {% comment %}
-        教学笔记篇数多（全文都铺在卡片上），首屏只显示前 batch 篇，其余加 is-hidden 由
-        "加载更多"逐批揭示。隐藏卡片 display:none 不占高度，瀑布流分列不受影响，
-        揭示后位置天然正确，所以 masonry 逻辑不用改。
-        收录不依赖这里——每篇的独立页各自进 sitemap。
+        教学笔记篇数多（全文都铺在卡片上），首屏只显示前 initial 篇，其余加 is-hidden，
+        由"加载更多"逐批揭示。隐藏卡片 display:none 不占高度，瀑布流分列不受影响。
+        注意：卡片被 masonry 重排进各列后 DOM 顺序不再等于阅读顺序，揭示必须按 data-idx
+        排序（见 card.js），否则一次会揭示同一列的卡片，只有一列在变长。
+        收录不依赖这里，每篇的独立页各自进 sitemap。
+
+        initial=首屏显示几篇，batch=之后每点一次"加载更多"追加几篇
         {% endcomment %}
-        {% assign batch = 20 %}
+        {% assign initial = 20 %}
+        {% assign batch = 10 %}
         {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
         {% comment %} 有"加载更多"按钮时，底边线交给按钮那一格画，避免两条线叠在一起 {% endcomment %}
-        <div class="channel-cards{% if notes_items.size > batch %} no-bottom-border{% endif %}" data-load-more-batch="{{ batch }}">
+        <div class="channel-cards{% if notes_items.size > initial %} no-bottom-border{% endif %}" data-load-more-batch="{{ batch }}">
             {% for item in notes_items %}
-            {% if forloop.index0 < batch %}
-            {% include channel-card.html item=item show_body='true' %}
+            {% if forloop.index0 < initial %}
+            {% include channel-card.html item=item show_body='true' idx=forloop.index0 %}
             {% else %}
-            {% include channel-card.html item=item show_body='true' hidden='true' %}
+            {% include channel-card.html item=item show_body='true' hidden='true' idx=forloop.index0 %}
             {% endif %}
             {% endfor %}
         </div>
-        {% if notes_items.size > batch %}
+        {% if notes_items.size > initial %}
         <div class="channel-load-more">
-            <button type="button" data-load-more>加载更多（还有 <span data-load-more-count>{{ notes_items.size | minus: batch }}</span> 篇）</button>
+            <button type="button" data-load-more>加载更多（还有 <span data-load-more-count>{{ notes_items.size | minus: initial }}</span> 篇）</button>
         </div>
         {% endif %}
     </div>
