@@ -104,10 +104,7 @@
 /* 卡片分格结构（三个分类共用，0.5px细线画格）：媒体区（笔记5:4/视频16:9/Podcast封面1:1）→
    标题独占一行 → 一行两列（左No.00X/右分享按钮）→ 底部大格全文。
    标题行和期数行字号字重行高padding完全相同，高度1:1自然成立 */
-.channel-card-title-row { padding: 16px 24px; border-bottom: 0.5px solid #000; }
-.channel-card-title { font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; }
-/* 标题下一行简介：字重比标题轻、颜色退一档，扫读时先看标题 */
-.channel-card-summary { margin-top: 8px; font-size: 16px; font-weight: 200; line-height: 1.6; color: #666; }
+.channel-card-title-row { padding: 16px 24px; font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; border-bottom: 0.5px solid #000; }
 .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
 /* 瀑布流里视频/Podcast卡片没有全文格，meta行成了最后一个元素，
    行自身的border-bottom会和卡片外框叠在同一条边上变粗，去掉 */

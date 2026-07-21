@@ -49,13 +49,8 @@ Channel 卡片：Channel.html 三个分类的瀑布流 + channel-item.html 独�
         {% endif %}
     {% endif %}
 
-    <div class="channel-card-title-row">
-        <h3 class="channel-card-title">{{ item.title }}</h3>
-        {% comment %} description 同时供 jekyll-seo-tag 用作搜索结果摘要，这里复用作卡片上的一行简介 {% endcomment %}
-        {% if item.description and item.description != '' %}
-        <p class="channel-card-summary">{{ item.description }}</p>
-        {% endif %}
-    </div>
+    {% comment %} description 只给 jekyll-seo-tag 用（搜索结果摘要+分享卡片描述），不显示在卡片上 {% endcomment %}
+    <h3 class="channel-card-title-row">{{ item.title }}</h3>
 
     <div class="channel-card-meta-row">
         <div class="channel-card-issue">No.{{ issue_num | prepend: "00" | slice: -3, 3 }}</div>
