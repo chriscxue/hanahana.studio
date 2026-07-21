@@ -9,6 +9,32 @@
     border: 0.5px solid #000;
     background: #fff;
 }
+/* 未揭示的卡片：display:none 不占高度，瀑布流列高计算不受影响 */
+.channel-card.is-hidden { display: none; }
+
+/* 卡片区底边交给"加载更多"那一格画时，自己这条去掉（定义在 Channel.html 的 .channel-cards 上） */
+.channel-cards.no-bottom-border { border-bottom: none; }
+
+/* 加载更多按钮 */
+.channel-load-more {
+    display: flex;
+    justify-content: center;
+    padding: 0 40px 48px;
+    border-bottom: 0.5px solid #000;
+}
+.channel-load-more button {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 1.8;
+    color: #000;
+    background: none;
+    border: 0.5px solid #000;
+    padding: 12px 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.channel-load-more button:hover { background: #F16527; border-color: #F16527; color: #fff; }
 
 /* 卡片图片区：固定宽5:高4；单图静态显示，2张以上slide切换（左右箭头+底部圆点） */
 .card-slider { position: relative; aspect-ratio: 5 / 4; overflow: hidden; border-bottom: 0.5px solid #000; }
@@ -78,7 +104,10 @@
 /* 卡片分格结构（三个分类共用，0.5px细线画格）：媒体区（笔记5:4/视频16:9/Podcast封面1:1）→
    标题独占一行 → 一行两列（左No.00X/右分享按钮）→ 底部大格全文。
    标题行和期数行字号字重行高padding完全相同，高度1:1自然成立 */
-.channel-card-title-row { padding: 16px 24px; font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; border-bottom: 0.5px solid #000; }
+.channel-card-title-row { padding: 16px 24px; border-bottom: 0.5px solid #000; }
+.channel-card-title { font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; }
+/* 标题下一行简介：字重比标题轻、颜色退一档，扫读时先看标题 */
+.channel-card-summary { margin-top: 8px; font-size: 16px; font-weight: 200; line-height: 1.6; color: #666; }
 .channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
 /* 瀑布流里视频/Podcast卡片没有全文格，meta行成了最后一个元素，
    行自身的border-bottom会和卡片外框叠在同一条边上变粗，去掉 */

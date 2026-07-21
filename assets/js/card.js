@@ -45,6 +45,36 @@
     });
 })();
 
+/* 加载更多：每次揭示一批 is-hidden 卡片。
+   卡片全部已在HTML里（隐藏的 display:none 不占高度，图片带 loading=lazy 不会预先下载），
+   所以揭示后瀑布流的分列位置天然正确，只需重跑一次分列让新卡片进入布局。
+   全部揭示完按钮自己移除。 */
+(function () {
+    var btn = document.querySelector('[data-load-more]');
+    if (!btn) return;
+    var container = document.querySelector('[data-load-more-batch]');
+    if (!container) return;
+    var batch = parseInt(container.dataset.loadMoreBatch, 10) || 20;
+    var countEl = btn.querySelector('[data-load-more-count]');
+
+    btn.addEventListener('click', function () {
+        var hidden = container.querySelectorAll('.channel-card.is-hidden');
+        for (var i = 0; i < batch && i < hidden.length; i++) {
+            hidden[i].classList.remove('is-hidden');
+        }
+        var left = container.querySelectorAll('.channel-card.is-hidden').length;
+        if (left === 0) {
+            var wrap = btn.closest('.channel-load-more');
+            // 按钮那一格原本替卡片区画着底边线，移除时把线还回去
+            container.classList.remove('no-bottom-border');
+            if (wrap) wrap.remove();
+        } else if (countEl) {
+            countEl.textContent = left;
+        }
+        if (window.__channelMasonry) window.__channelMasonry();
+    });
+})();
+
 /* 卡片图片slider：左右箭头循环切换，圆点直达；单图卡片没有[data-slider]标记不会进这里 */
 document.querySelectorAll('[data-slider]').forEach(function (slider) {
     var track = slider.querySelector('[data-slider-track]');

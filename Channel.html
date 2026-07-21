@@ -157,12 +157,29 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
     <!-- 教学笔记：瀑布流卡片，全文直接铺在卡片上（同一md文件同时生成独立页供SEO收录，
          卡片不设跳转，独立页靠sitemap被发现——Chris拍板的方案） -->
     <div id="cat-papers" class="channel-category active">
-        <div class="channel-cards">
-            {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
+        {% comment %}
+        教学笔记篇数多（全文都铺在卡片上），首屏只显示前 batch 篇，其余加 is-hidden 由
+        "加载更多"逐批揭示。隐藏卡片 display:none 不占高度，瀑布流分列不受影响，
+        揭示后位置天然正确，所以 masonry 逻辑不用改。
+        收录不依赖这里——每篇的独立页各自进 sitemap。
+        {% endcomment %}
+        {% assign batch = 20 %}
+        {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
+        {% comment %} 有"加载更多"按钮时，底边线交给按钮那一格画，避免两条线叠在一起 {% endcomment %}
+        <div class="channel-cards{% if notes_items.size > batch %} no-bottom-border{% endif %}" data-load-more-batch="{{ batch }}">
             {% for item in notes_items %}
+            {% if forloop.index0 < batch %}
             {% include channel-card.html item=item show_body='true' %}
+            {% else %}
+            {% include channel-card.html item=item show_body='true' hidden='true' %}
+            {% endif %}
             {% endfor %}
         </div>
+        {% if notes_items.size > batch %}
+        <div class="channel-load-more">
+            <button type="button" data-load-more>加载更多（还有 <span data-load-more-count>{{ notes_items.size | minus: batch }}</span> 篇）</button>
+        </div>
+        {% endif %}
     </div>
 
     <!-- 不废话艺术：瀑布流卡片，卡片=嵌入播放器+标题信息（原地播放不跳转）；
