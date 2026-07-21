@@ -5,14 +5,29 @@
 <head>
     {% include head-meta.html %}
     <link rel="stylesheet" href="{{ '/assets/css/shared.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/card.css' | relative_url }}">
     <style>
-        .channel-item-main { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
-        .channel-item-back { display: inline-block; margin-bottom: 40px; font-size: 14px; font-weight: 300; color: #888; text-decoration: none; }
-        .channel-item-back:hover { color: #F16527; }
+        /* 独立页 = Channel 瀑布流里那张卡片，居中放大，下方一行链接回 Channel。
+           卡片本体样式全部复用 card.css，这里只管居中和外围间距 */
+        .channel-item-main { max-width: 880px; margin: 0 auto; padding: 80px 40px; }
+        .channel-item-more {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .channel-item-more a {
+            font-size: 16px;
+            font-weight: 200;
+            line-height: 1.8;
+            color: #000;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .channel-item-more a:hover { color: #F16527; }
+
+        /* 英语口语分类不做SEO、也不进瀑布流，独立页维持简单文章排版。
+           注意：Channel.html 会 fetch 这个页面、抓 .channel-item-body 注入面板，
+           这个 class 名不能改 */
         .channel-item-title { font-size: 36px; font-weight: 600; color: #000; margin-bottom: 40px; }
-        .channel-item-video { position: relative; aspect-ratio: 16 / 9; margin-bottom: 40px; }
-        .channel-item-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-        .channel-item-cover { width: 100%; display: block; margin-bottom: 40px; }
         .channel-item-body { font-size: 18px; font-weight: 300; line-height: 1.8; color: #000; }
 
         @media (max-width: 768px) {
@@ -25,18 +40,21 @@
     {% include header.html %}
 
     <main class="channel-item-main">
-        <a class="channel-item-back" href="{{ '/Channel.html' | relative_url }}">← 返回 CHANNEL</a>
+        {% if page.category == 'speaking' %}
         <h1 class="channel-item-title">{{ page.title }}</h1>
-        {% if page.youtube %}
-        <div class="channel-item-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}" title="{{ page.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        {% elsif page.cover %}
-        <img class="channel-item-cover" src="{{ page.cover | relative_url }}" alt="{{ page.title }}">
-        {% endif %}
         <div class="channel-item-body">
             {{ content }}
         </div>
+        {% else %}
+        {% include channel-card.html item=page body=content show_body='true' %}
+        <div class="channel-item-more">
+            <a href="{{ '/Channel.html' | relative_url }}">查看更多内容 · CHANNEL →</a>
+        </div>
+        {% endif %}
     </main>
 
     {% include footer.html %}
+
+    <script src="{{ '/assets/js/card.js' | relative_url }}"></script>
 </body>
 </html>

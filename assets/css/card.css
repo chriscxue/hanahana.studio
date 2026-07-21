@@ -1,0 +1,136 @@
+/* ============================================================
+   Channel 卡片本体样式
+   Channel.html 的瀑布流和 _layouts/channel-item.html 的独立页共用这一份。
+   瀑布流容器（.channel-cards / .masonry / 列数断点）留在 Channel.html，
+   独立页只有一张卡片、不需要容器逻辑。
+   ============================================================ */
+
+.channel-card {
+    border: 0.5px solid #000;
+    background: #fff;
+}
+
+/* 卡片图片区：固定宽5:高4；单图静态显示，2张以上slide切换（左右箭头+底部圆点） */
+.card-slider { position: relative; aspect-ratio: 5 / 4; overflow: hidden; border-bottom: 0.5px solid #000; }
+.card-slider-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+.card-slider-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.75);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.card-slider-arrow:hover { background: #F16527; color: #fff; }
+.card-slider-arrow.prev { left: 8px; }
+.card-slider-arrow.next { right: 8px; }
+.card-slider-arrow.prev svg { transform: rotate(180deg); }
+.card-slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+.card-slider-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    border: 0.5px solid rgba(0, 0, 0, 0.35);
+    padding: 0;
+    cursor: pointer;
+}
+.card-slider-dot.active { background: #F16527; border-color: #F16527; }
+
+.channel-card-media img { width: 100%; display: block; border-bottom: 0.5px solid #000; }
+.channel-card-video { position: relative; aspect-ratio: 16 / 9; border-bottom: 0.5px solid #000; }
+.channel-card-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* 媒体占位符统一一个类，比例跟各分类媒体区一致：默认5:4（笔记），.video-ratio=16:9（视频），.square=1:1（Podcast封面） */
+.channel-card-media-placeholder {
+    aspect-ratio: 5 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    color: #bbb;
+    font-size: 14px;
+    font-weight: 300;
+    border-bottom: 0.5px solid #000;
+}
+.channel-card-media-placeholder.video-ratio { aspect-ratio: 16 / 9; }
+.channel-card-media-placeholder.square { aspect-ratio: 1 / 1; }
+/* Podcast卡片封面=1:1方形（专辑封面），图片超比例居中裁切 */
+.channel-card-media.square img { aspect-ratio: 1 / 1; object-fit: cover; }
+
+/* 卡片分格结构（三个分类共用，0.5px细线画格）：媒体区（笔记5:4/视频16:9/Podcast封面1:1）→
+   标题独占一行 → 一行两列（左No.00X/右分享按钮）→ 底部大格全文。
+   标题行和期数行字号字重行高padding完全相同，高度1:1自然成立 */
+.channel-card-title-row { padding: 16px 24px; font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; border-bottom: 0.5px solid #000; }
+.channel-card-meta-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 0.5px solid #000; }
+/* 瀑布流里视频/Podcast卡片没有全文格，meta行成了最后一个元素，
+   行自身的border-bottom会和卡片外框叠在同一条边上变粗，去掉 */
+.channel-card-meta-row:last-child { border-bottom: none; }
+.channel-card-issue { padding: 16px 24px; font-family: 'Courier Prime', monospace; font-size: 16px; font-weight: 400; line-height: 1.4; color: #000; border-right: 0.5px solid #000; }
+/* 右格：分享按钮组（X/WhatsApp/Instagram/原生分享），右对齐 */
+.channel-card-meta-spare {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+.card-share-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #000;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.card-share-btn:hover { color: #F16527; }
+.card-share-btn svg { width: 22px; height: 22px; display: block; }
+
+/* 复制链接后的底部提示条 */
+.share-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 10px 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 100;
+}
+.share-toast.show { opacity: 1; }
+
+/* 全文格：瀑布流里只有教学笔记有；独立页三个分类都有 */
+.channel-card-body { padding: 24px; font-size: 16px; font-weight: 200; line-height: 1.8; color: #000; }
+.channel-card-body p { margin-bottom: 1em; }
+.channel-card-body p:last-child { margin-bottom: 0; }
+.channel-card-body img { max-width: 100%; }
+
+@media (max-width: 768px) {
+    .channel-card-title-row { padding: 12px 20px; }
+    .channel-card-issue, .channel-card-meta-spare { padding: 12px 20px; }
+    .channel-card-body { padding: 20px; }
+}

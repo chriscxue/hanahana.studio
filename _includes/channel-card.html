@@ -1,0 +1,66 @@
+{% comment %}
+Channel 卡片：Channel.html 三个分类的瀑布流 + channel-item.html 独立页共用这一份 markup。
+样式在 assets/css/card.css，交互（slider/分享）在 assets/js/card.js。
+
+参数：
+  item      必填，channel collection 里的一条（瀑布流传 item，独立页传 page）
+  body      可选，全文 HTML；独立页传渲染后的 content，瀑布流不传则取 item.content
+  show_body 可选，"true" 时显示底部全文格。瀑布流只有教学笔记传 true
+            （不废话艺术/Podcast 的文字稿只放独立页，见 SEO 策略）
+
+媒体区按 item.category 分流：notes=5:4 图片slider / art=16:9 YouTube / podcast=1:1 方形封面
+{% endcomment %}
+
+{% assign item = include.item %}
+{% assign issue_num = item.issue | default: item.order %}
+
+<article class="channel-card">
+    {% if item.category == 'art' %}
+        {% if item.youtube %}
+        <div class="channel-card-video"><iframe src="https://www.youtube-nocookie.com/embed/{{ item.youtube }}" title="{{ item.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        {% else %}
+        <div class="channel-card-media-placeholder video-ratio">视频待发布</div>
+        {% endif %}
+    {% elsif item.category == 'podcast' %}
+        {% if item.cover %}
+        <div class="channel-card-media square"><img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy"></div>
+        {% else %}
+        <div class="channel-card-media-placeholder square">封面待添加</div>
+        {% endif %}
+    {% else %}
+        {% if item.images and item.images.size > 0 %}
+        <div class="card-slider" data-slider>
+            <div class="card-slider-track" data-slider-track>
+                {% for img in item.images %}
+                <img src="{{ img | relative_url }}" alt="{{ item.title }}" loading="lazy">
+                {% endfor %}
+            </div>
+            {% if item.images.size > 1 %}
+            <button class="card-slider-arrow prev" type="button" data-slider-prev aria-label="上一张"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="card-slider-arrow next" type="button" data-slider-next aria-label="下一张"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="card-slider-dots">
+                {% for img in item.images %}
+                <button class="card-slider-dot{% if forloop.first %} active{% endif %}" type="button" data-slider-dot="{{ forloop.index0 }}" aria-label="第{{ forloop.index }}张"></button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="channel-card-media-placeholder">图片待添加</div>
+        {% endif %}
+    {% endif %}
+
+    <h3 class="channel-card-title-row">{{ item.title }}</h3>
+
+    <div class="channel-card-meta-row">
+        <div class="channel-card-issue">No.{{ issue_num | prepend: "00" | slice: -3, 3 }}</div>
+        <div class="channel-card-meta-spare">
+            {% assign share_url = item.url | absolute_url %}
+            {% include card-share.html url=share_url title=item.title %}
+        </div>
+    </div>
+
+    {% if include.show_body == 'true' %}
+    <div class="channel-card-body">{{ include.body | default: item.content }}</div>
+    {% endif %}
+</article>

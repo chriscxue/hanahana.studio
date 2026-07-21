@@ -15,6 +15,13 @@ defaults:
       path: "baidu_verify_codeva-lauZPimBDT.html"
     values:
       sitemap: false
+  # Channel 文章默认不进sitemap（占位稿/未完成稿不该被收录）。
+  # 内容写好、标题定稿后，在那篇 md 的 front matter 里写 sitemap: true 才会进sitemap被收录。
+  # 英语口语分类是永久不做SEO的，不要给它写 sitemap: true。
+  - scope:
+      type: channel
+    values:
+      sitemap: false
 
 plugins:
   - jekyll-seo-tag
