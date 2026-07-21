@@ -114,8 +114,9 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         }
         /* 卡片本体样式在 assets/css/card.css（与独立页共用），这里只留瀑布流容器 */
 
-        /* JS紧凑瀑布流：卡片横序轮流分配进各列（1→列1、2→列2……5→回列1），每列内部往上贴紧，
-           消除grid整行对齐时"同行最高卡决定行高"产生的大空隙。无JS时退回grid布局。
+        /* JS紧凑瀑布流：卡片按原始顺序逐个放进当时最矮的那一列，每列内部往上贴紧，
+           既消除grid整行对齐的大空隙，也把各列高度拉平（详见下方JS处的说明）。
+           无JS时退回grid布局（横序、整行对齐）。
            列数由JS临时退回grid读取轨道数获得，CSS断点仍是列数的唯一权威 */
         .channel-cards.masonry { display: flex; align-items: flex-start; }
         .channel-cards.masonry .channel-cards-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
@@ -166,7 +167,7 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
 
         initial=首屏显示几篇，batch=之后每点一次"加载更多"追加几篇
         {% endcomment %}
-        {% assign initial = 20 %}
+        {% assign initial = 10 %}
         {% assign batch = 10 %}
         {% assign notes_items = site.channel | where: "category", "notes" | sort: "order" %}
         {% comment %} 有"加载更多"按钮时，底边线交给按钮那一格画，避免两条线叠在一起 {% endcomment %}
@@ -285,7 +286,13 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             location.reload();
         });
 
-        /* 紧凑瀑布流分配：横序轮流进列（k % 列数），列内贴紧堆叠。
+        /* 紧凑瀑布流分配：按原始顺序遍历卡片，每张放进当前最矮的那一列，列内贴紧堆叠。
+           教学笔记的卡片没有图、高度全由文章长短决定，篇幅差异大，早先的"横序轮流进列"
+           （k % 列数）会让各列高度差累积到约2700px，底部严重参差；改成最矮列优先后降到约1500px。
+           代价是阅读顺序不再是严格的"横着数1234"，这是取舍后的选择。
+
+           增量放置：已经放进列里的卡片不再移动（重排会让页面跳动），"加载更多"揭示的新卡片
+           接着按当时的列高继续填。只有列数变化（resize跨断点）才整体重排。
            列数测法=临时摘掉masonry类退回grid、数gridTemplateColumns轨道（CSS断点是唯一权威）；
            display:none的容器测不出真实轨道（返回未解析的repeat()写法），跳过等showCategory再触发 */
         (function () {
@@ -298,21 +305,37 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
                 }
                 container.classList.remove('masonry');
                 var tracks = getComputedStyle(container).gridTemplateColumns.split(' ').length;
+                container.classList.add('masonry');
+
                 if (tracks !== container.__cols) {
                     container.__cols = tracks;
                     container.innerHTML = '';
-                    var cols = [];
+                    container.__colEls = [];
                     for (var i = 0; i < tracks; i++) {
                         var col = document.createElement('div');
                         col.className = 'channel-cards-col';
                         container.appendChild(col);
-                        cols.push(col);
+                        container.__colEls.push(col);
                     }
-                    container.__cards.forEach(function (card, k) {
-                        cols[k % tracks].appendChild(card);
+                    /* 卡片先全部挂回容器本身：还没揭示的那些必须留在DOM里，
+                       否则"加载更多"按 querySelectorAll 找不到它们。
+                       它们是 display:none，在flex容器里不占位，不影响列的排布 */
+                    container.__cards.forEach(function (card) {
+                        container.appendChild(card);
+                        card.__placed = false;
                     });
                 }
-                container.classList.add('masonry');
+
+                var cols = container.__colEls;
+                container.__cards.forEach(function (card) {
+                    if (card.__placed || card.classList.contains('is-hidden')) return;
+                    var shortest = 0;
+                    for (var i = 1; i < cols.length; i++) {
+                        if (cols[i].offsetHeight < cols[shortest].offsetHeight) shortest = i;
+                    }
+                    cols[shortest].appendChild(card);
+                    card.__placed = true;
+                });
             }
 
             window.__channelMasonry = function () {
