@@ -85,9 +85,94 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         .channel-cards.masonry { display: flex; align-items: flex-start; }
         .channel-cards.masonry .channel-cards-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
 
+        /* 英语6000小时：上面圆点目录，下面点读正文。三块都限制在1000px居中（一行英文太长读着累）。
+           圆点颜色=五个难度层级（与口语进阶跟读页一致），由 english.js 按 index.json 写入 */
+        .english-wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 48px 40px 80px; }
+        .english-dots {
+            display: grid;
+            grid-template-columns: repeat(24, 32px);
+            justify-content: space-between;
+            row-gap: 12px;
+            margin-bottom: 48px;
+        }
+        .english-dot {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            color: #000;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .english-dot:hover { transform: scale(1.12); }
+        /* 当前篇：白色间隙+黑圈，与底色分开 */
+        .english-dot.is-current { box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000; }
+
+        .english-reader { border: 0.5px solid #000; }
+        .english-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            background: #000;
+            color: #fff;
+        }
+        .english-play {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            padding: 16px 40px;
+            background: none;
+            border: none;
+            color: #fff;
+            font: inherit;
+            font-size: 16px;
+            font-weight: 200;
+            cursor: pointer;
+        }
+        .english-play:hover { background: #222; }
+        .english-play-icon {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 10px solid #fff;
+        }
+        .english-play-icon.is-pause {
+            width: 10px;
+            height: 12px;
+            border: none;
+            border-left: 3px solid #fff;
+            border-right: 3px solid #fff;
+        }
+        .english-title {
+            padding: 16px 40px 16px 0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 16px;
+            text-align: right;
+        }
+        .english-article {
+            min-height: 320px;
+            padding: 40px 48px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.8;
+        }
+        .english-article p { margin-bottom: 1.8em; }
+        .english-article p:last-child { margin-bottom: 0; }
+        .english-sentence { cursor: pointer; transition: background-color 0.1s; }
+        .english-sentence:hover { background-color: #000; color: #fff; }
+
         @media (max-width: 1200px) {
             /* 窄屏降到2列后与4格导航的对齐关系不复存在，padding退回常规值 */
             .channel-cards { grid-template-columns: repeat(2, 1fr); padding: 40px; }
+            /* 一行24个点要约950px宽，窄于1200时放不下，改一行12个 */
+            .english-dots { grid-template-columns: repeat(12, 32px); }
         }
 
         @media (max-width: 768px) {
@@ -98,6 +183,13 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             .channel-nav-item:nth-child(-n+2) { border-bottom: 0.5px solid #000; }
             .channel-cards { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
             .channel-cards.masonry .channel-cards-col { gap: 20px; }
+            /* 390px屏放不下一行12个32px的点，改一行8个 */
+            .english-wrap { padding: 32px 20px 60px; }
+            .english-dots { grid-template-columns: repeat(8, 32px); margin-bottom: 32px; }
+            .english-bar { flex-direction: column; align-items: stretch; gap: 0; }
+            .english-play { padding: 14px 20px; }
+            .english-title { padding: 0 20px 14px; text-align: left; }
+            .english-article { padding: 24px 20px; font-size: 18px; }
         }
     </style>
 </head>
@@ -112,10 +204,8 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         <div class="channel-nav-item active" onclick="showCategory('cat-papers')">艺术教学笔记</div>
         <div class="channel-nav-item" onclick="showCategory('cat-youtube')">不废话艺术</div>
         <div class="channel-nav-item" onclick="showCategory('cat-podcast')">Podcast</div>
-        <!-- 第四格空位：导航是4列网格，卡片区的4列对齐、以及移动端2×2方阵的边框规则
-             都建立在"4格"这个前提上，少一格桌面端要重算对齐、移动端右下会挂断头线。
-             所以这格保留但不放内容，pointer-events:none 防止hover变橙让人以为能点 -->
-        <div class="channel-nav-item is-empty"></div>
+        <!-- 导航保持4格：卡片区的4列对齐、以及移动端2×2方阵的边框规则都建立在"4格"这个前提上 -->
+        <div class="channel-nav-item" onclick="showCategory('cat-english')">英语6000小时</div>
     </div>
 
     <!-- 教学笔记：瀑布流卡片，全文直接铺在卡片上（同一md文件同时生成独立页供SEO收录，
@@ -171,6 +261,23 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         </div>
     </div>
 
+    <!-- 英语6000小时：不做SEO。正文不写进HTML，点击后从 assets/english/ 按需加载，
+         该目录已在 robots.txt 禁止抓取。数据由口语进阶文件夹的 _sync_to_site.py 生成 -->
+    <div id="cat-english" class="channel-category">
+        <div class="english-wrap">
+            <div class="english-dots"></div>
+            <div class="english-reader">
+                <div class="english-bar">
+                    <button type="button" class="english-play">
+                        <span class="english-play-icon"></span><span class="english-play-label">播放全文</span>
+                    </button>
+                    <div class="english-title"></div>
+                </div>
+                <div class="english-article"></div>
+            </div>
+        </div>
+    </div>
+
     {% include footer.html %}
 
     <script>
@@ -181,6 +288,8 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
             document.getElementById(id).classList.add('active');
             // 隐藏分类里的卡片区测不出列数，切到可见时再做瀑布流分配
             if (window.__channelMasonry) window.__channelMasonry();
+            // 英语6000小时：切进来才加载数据，切走停音频
+            if (window.__englishOnCategory) window.__englishOnCategory(id);
         }
 
         /* 紧凑瀑布流分配：按原始顺序遍历卡片，每张放进当前最矮的那一列，列内贴紧堆叠。
@@ -250,5 +359,6 @@ description: "HANAHANA STUDIO内容频道：艺术教学笔记、不废话艺术
         /* 卡片slider和分享按钮的交互在 assets/js/card.js（与独立页共用） */
     </script>
     <script src="{{ '/assets/js/card.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/english.js' | relative_url }}"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# 英语6000小时的正文和音频不收录（Channel 页点击后才加载的数据）
+Disallow: /assets/english/
 
 Sitemap: https://hanahana.studio/sitemap.xml
