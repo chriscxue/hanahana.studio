@@ -85,6 +85,17 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
             color: #fff;
         }
 
+        .sidebar-match {
+            display: block;
+            margin-top: 4px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .content-panel td.archive-program-match {
+            background-color: #ffe4d6;
+        }
+
         /* Content Area */
         .archive-content {
             padding: 64px;
@@ -161,7 +172,7 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
     <div class="archive-layout">
         <aside class="archive-sidebar">
             <input type="text" class="sidebar-search" id="archive-search-input" placeholder="搜索知识库...（如：插画 / Illustration）" autocomplete="off">
-            <div class="sidebar-no-results" id="sidebar-no-results" style="display:none;">未找到匹配院校</div>
+            <div class="sidebar-no-results" id="sidebar-no-results" role="status" style="display:none;">未找到匹配院校</div>
             <div class="sidebar-item" onclick="showContent('topic-1')">Yale University</div>
 <div class="sidebar-item" onclick="showContent('topic-2')">Columbia University</div>
 <div class="sidebar-item" onclick="showContent('topic-3')">Cornell University</div>
@@ -18519,45 +18530,83 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
                 return m ? m[1] : null;
             }
 
-            function resetSidebar() {
-                document.querySelectorAll('.sidebar-item').forEach(function (item) {
-                    item.classList.remove('hidden');
+            function clearMatches() {
+                document.querySelectorAll('.sidebar-match').forEach(item => item.remove());
+                document.querySelectorAll('.archive-program-match').forEach(cell => {
+                    cell.classList.remove('archive-program-match');
                 });
-                noResultsEl.style.display = 'none';
             }
 
-            function applyResults(topicIds) {
-                var idSet = new Set(topicIds);
-                var anyVisible = false;
-                document.querySelectorAll('.sidebar-item').forEach(function (item) {
-                    if (idSet.has(getTopicId(item))) {
-                        item.classList.remove('hidden');
-                        anyVisible = true;
-                    } else {
-                        item.classList.add('hidden');
+            function programKey(level, major, degree) {
+                return JSON.stringify([level, major.trim().replace(/\s+/g, ' ').toLowerCase(),
+                    degree.trim().replace(/\s+/g, ' ').toLowerCase()]);
+            }
+
+            function highlightMatches(panel, matches) {
+                var keys = new Set(matches.map(match => programKey(match.level, match.major, match.degree)));
+                panel.querySelectorAll('table').forEach(table => {
+                    var headers = Array.from(table.querySelectorAll('th'), th => th.textContent.trim());
+                    if (!headers.includes('本科专业') && !headers.includes('研究生专业')) return;
+                    for (var row of table.rows) {
+                        if (row.cells.length < 6 || row.querySelector('th')) continue;
+                        for (var [level, column] of [['undergrad', 0], ['grad', 4]]) {
+                            var name = row.cells[column].textContent.trim().replace(/（[^）]*）\s*$/, '');
+                            var degree = row.cells[column + 1].textContent;
+                            if (keys.has(programKey(level, name, degree))) {
+                                row.cells[column].classList.add('archive-program-match');
+                                row.cells[column + 1].classList.add('archive-program-match');
+                            }
+                        }
                     }
                 });
-                noResultsEl.style.display = anyVisible ? 'none' : 'block';
             }
 
-            function runSearch(query) {
-                var mySeq = ++searchSeq;
+            function showMatches(item, topicId, matches) {
+                var byMajor = new Map();
+                for (var match of matches) {
+                    if (!byMajor.has(match.major)) byMajor.set(match.major, new Set());
+                    if (match.degree) byMajor.get(match.major).add(match.degree);
+                }
+                for (var [major, degrees] of byMajor) {
+                    var summary = document.createElement('span');
+                    summary.className = 'sidebar-match';
+                    summary.textContent = degrees.size ? major + ' · ' + Array.from(degrees).join(' / ') : major;
+                    item.appendChild(summary);
+                }
+                var panel = document.getElementById(topicId);
+                if (panel) highlightMatches(panel, matches);
+            }
+
+            function applyResults(results) {
+                clearMatches();
+                var byTopic = new Map((results || []).map(result => [result.topicId, result]));
+                var visible = Array.from(document.querySelectorAll('.sidebar-item')).filter(item => {
+                    var topicId = getTopicId(item);
+                    var result = byTopic.get(topicId);
+                    item.classList.toggle('hidden', Boolean(results && !result));
+                    if (result?.matches?.length) showMatches(item, topicId, result.matches);
+                    return !item.classList.contains('hidden');
+                });
+                noResultsEl.textContent = visible.length ? visible.length + ' 所匹配院校' : '未找到匹配院校';
+                noResultsEl.style.display = results ? 'block' : 'none';
+                var selected = visible.find(item => item.classList.contains('active')) || visible[0];
+                if (selected) selected.click();
+                else document.querySelector('.content-panel.active')?.classList.remove('active');
+            }
+
+            function runSearch(query, mySeq) {
                 if (!query) {
-                    resetSidebar();
+                    applyResults(null);
                     return;
                 }
                 fetch(API_BASE + '/archive/search?q=' + encodeURIComponent(query))
-                    .then(function (res) { return res.json(); })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('Archive search failed');
+                        return res.json();
+                    })
                     .then(function (data) {
                         if (mySeq !== searchSeq) return; // 已有更新的查询，丢弃旧响应
-                        var results = data.results || [];
-                        applyResults(results.map(function (r) { return r.topicId; }));
-                        if (results.length === 1) {
-                            var match = Array.from(document.querySelectorAll('.sidebar-item')).find(function (item) {
-                                return getTopicId(item) === results[0].topicId;
-                            });
-                            if (match) match.click();
-                        }
+                        applyResults(data.results || []);
                     })
                     .catch(function () { /* network error: leave sidebar as-is */ });
             }
@@ -18565,7 +18614,9 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
             searchInput.addEventListener('input', function () {
                 clearTimeout(debounceTimer);
                 var query = searchInput.value.trim();
-                debounceTimer = setTimeout(function () { runSearch(query); }, 250);
+                var mySeq = ++searchSeq;
+                if (!query) runSearch(query, mySeq);
+                else debounceTimer = setTimeout(function () { runSearch(query, mySeq); }, 250);
             });
         })();
     </script>
