@@ -18550,7 +18550,14 @@ description: "收录美国66所艺术院校的招生要求、专业设置与录�
                     .then(function (res) { return res.json(); })
                     .then(function (data) {
                         if (mySeq !== searchSeq) return; // 已有更新的查询，丢弃旧响应
-                        applyResults((data.results || []).map(function (r) { return r.topicId; }));
+                        var results = data.results || [];
+                        applyResults(results.map(function (r) { return r.topicId; }));
+                        if (results.length === 1) {
+                            var match = Array.from(document.querySelectorAll('.sidebar-item')).find(function (item) {
+                                return getTopicId(item) === results[0].topicId;
+                            });
+                            if (match) match.click();
+                        }
                     })
                     .catch(function () { /* network error: leave sidebar as-is */ });
             }
